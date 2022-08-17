@@ -33,14 +33,8 @@ jobs:
           git config --global user.name action-bot
           cd ./out
           git init
+          git branch -m blog
           git add .
           git commit -m "Deploy by Actions"
           git remote add origin git@github.com:lemonied/lemonied.github.io.git
-      - name: Push
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: blog
-          force_with_lease: true
-          directory: ./out
-          
+          git push -u origin blog:blog -f

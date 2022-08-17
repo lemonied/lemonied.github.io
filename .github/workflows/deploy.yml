@@ -32,7 +32,6 @@ jobs:
           git config --global user.email 447334358@qq.com
           git config --global user.name action-bot
           cd ./out
-          touch .nojekyll
           git init
           git branch -m blog
           git add .

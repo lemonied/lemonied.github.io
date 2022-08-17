@@ -1,4 +1,4 @@
-name: 'Deploy lemonied.github.io'
+name: 'Deployment lemonied.github.io'
 
 # **What it does**: Renders the content of every page and check all internal links.
 # **Why we have it**: To make sure all links connect correctly.
@@ -26,8 +26,11 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
       - run: |
-          npm install && npm run build && npm run export
-      - name: Setup Git Config
+          SITE_URL=https://www.lemonied.cn
+          npm install
+          npm run build
+          npm run export
+      - name: Push To Branch Blog
         run: |
           git config --global user.email 447334358@qq.com
           git config --global user.name action-bot

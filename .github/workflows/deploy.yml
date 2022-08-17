@@ -1,0 +1,44 @@
+name: 'Deploy lemonied.github.io'
+
+# **What it does**: Renders the content of every page and check all internal links.
+# **Why we have it**: To make sure all links connect correctly.
+# **Who does it impact**: Docs content.
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  deployment:
+    runs-on: ubuntu-latest
+    strategy: 
+      matrix:
+        node-version: 16
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+      - run: |
+          npm install && npm run build && npm run export
+      - name: Setup Git Config
+        run: |
+          git config --global user.email 447334358@qq.com
+          git config --global user.name ChenJiYuan
+          cd ./out
+          git init
+          git add .
+          git commit -m "Deploy by Actions"
+      - name: Push
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: blog
+          force_with_lease: true
+          

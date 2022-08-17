@@ -36,5 +36,5 @@ jobs:
           git branch -m blog
           git add .
           git commit -m "Deploy by Actions"
-          git remote add origin git@github.com:lemonied/lemonied.github.io.git
-          git push -u origin blog:blog -f
+          git remote add origin https://${{secrets.TOKEN}}@github.com/lemonied/lemonied.github.io.git
+          git push -u -f origin blog:blog

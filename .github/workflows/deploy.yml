@@ -12,6 +12,9 @@ on:
     branches:
       - master
 
+env:
+  SITE_URL: https://www.lemonied.cn
+
 jobs:
   deployment:
     runs-on: ubuntu-latest
@@ -26,7 +29,6 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
       - run: |
-          SITE_URL=https://www.lemonied.cn
           npm install
           npm run build
           npm run export

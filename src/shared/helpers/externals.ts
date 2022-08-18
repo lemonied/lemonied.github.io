@@ -10,7 +10,7 @@ const javascripts = [
   },
   {
     development: '//unpkg.com/react-transition-group@4.4.5/dist/react-transition-group.js',
-    production: '//unpkg.com/browse/react-transition-group@4.4.5/dist/react-transition-group.min.js',
+    production: '//unpkg.com/react-transition-group@4.4.5/dist/react-transition-group.min.js',
   },
 ];
 

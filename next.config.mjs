@@ -36,7 +36,6 @@ const withMDX = mdx({
       gfm,
     ],
     rehypePlugins: [],
-    // If you use `MDXProvider`, uncomment the following line.
     providerImportSource: '@mdx-js/react',
   },
 });

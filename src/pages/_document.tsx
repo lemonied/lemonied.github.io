@@ -1,6 +1,5 @@
 import Document, {
   DocumentContext,
-  DocumentInitialProps,
   Head,
   Html,
   Main,
@@ -13,16 +12,13 @@ import {
 import Script from 'next/script';
 
 class MyDocument extends Document {
-  static async getInitialProps(
-    ctx: DocumentContext
-  ): Promise<DocumentInitialProps> {
+  static async getInitialProps(ctx: DocumentContext) {
     const initialProps = await Document.getInitialProps(ctx);
-
-    return initialProps;
+    return { ...initialProps };
   }
   render() {
     return (
-      <Html>
+      <Html lang={'zh-cn'}>
         <Head>
           {
             externalStyles.map(v => (

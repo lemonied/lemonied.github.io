@@ -78,6 +78,15 @@ export const Modal = forwardRef<ModalInstance, ModalProps>((props, ref) => {
     instance.hide().then(afterClose);
   }, [afterClose, instance]);
 
+  useEffect(() => {
+    if (show) {
+      document.body.classList.add(styles['disable-scroll']);
+    } else {
+      document.body.classList.remove(styles['disable-scroll']);
+    }
+    return () => document.body.classList.remove(styles['disable-scroll']);
+  }, [show]);
+
   useImperativeHandle(ref, () => {
     return instance;
   });

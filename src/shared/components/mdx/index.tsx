@@ -1,8 +1,8 @@
-import { FC, ReactNode } from 'react';
+import { FC, ReactNode, useMemo } from 'react';
 import styled from 'styled-components';
 import { MDXProvider } from '@mdx-js/react';
 import { Code } from './Code';
-
+import { useRouter } from 'next/router';
 
 const components = {
   pre: (props: any) => props.children,
@@ -27,6 +27,18 @@ interface MDXWrapperProps {
 const MDXWrapper: FC<MDXWrapperProps> = (props) => {
 
   const { children } = props;
+
+  const router = useRouter();
+
+  const notMDX = useMemo(() => {
+    return !/^\/article/.test(router.pathname);
+  }, [router.pathname]);
+
+  if (notMDX) {
+    return (
+      <>{ children }</>
+    );
+  }
 
   return (
     <Wrapper className='markdown-body'>

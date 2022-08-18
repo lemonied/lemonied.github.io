@@ -21,7 +21,7 @@ interface CollapseProps {
 }
 const Collapse: FC<CollapseProps> = (props) => {
 
-  const { children, title, open = true } = props;
+  const { children, title, open = false } = props;
 
   return (
     <Wrapper open={open}>

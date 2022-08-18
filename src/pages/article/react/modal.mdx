@@ -1,22 +1,39 @@
 import { ModalExample } from '@shared/components/modal/example';
+import { Collapse } from '@shared/components/collapse';
 import Head from 'next/head';
-
-<Head>
-  <title>Modal 弹窗组件</title>
-</Head>
 
 export const meta = {
   title: 'Modal 弹窗组件',
 };
 
-# {meta.title}
+<Head>
+  <title>{ meta.title }</title>
+</Head>
+
+# { meta.title }
 
 ## 组件实现
-```tsx file=../../../shared/components/modal/index.tsx
-```
 
-## 示例
-```tsx file=../../../shared/components/modal/example.tsx
-```
+<Collapse
+  title={'源代码'}
+>
 
+  ```tsx file=../../../shared/components/modal/index.tsx
+  ```
+
+</Collapse>
+
+## 效果
 <ModalExample />
+
+## 示例代码
+
+<Collapse
+  title={'源代码'}
+>
+
+  ```tsx file=../../../shared/components/modal/example.tsx
+  ```
+
+</Collapse>
+

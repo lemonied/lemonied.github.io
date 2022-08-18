@@ -31,9 +31,12 @@ const withMDX = mdx({
   extension: /\.mdx?$/,
   options: {
     remarkPlugins: [
+      // https://github.com/rhysd/remark-emoji
       emoji,
-      codeImport,
+      // https://github.com/remarkjs/remark-gfm
       gfm,
+      // https://github.com/kevin940726/remark-code-import
+      [codeImport, { preserveTrailingNewline: false }],
     ],
     rehypePlugins: [],
     providerImportSource: '@mdx-js/react',

@@ -1,3 +1,8 @@
+import mdx from '@next/mdx';
+import gfm from 'remark-gfm';
+import { codeImport } from 'remark-code-import';
+import emoji from 'remark-emoji';
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   basePath: '',
@@ -6,6 +11,7 @@ const nextConfig = {
   compiler: {
     styledComponents: true,
   },
+  pageExtensions: ['tsx', 'mdx'],
   webpack: (
     config,
     { buildId, dev, isServer, defaultLoaders, nextRuntime, webpack },
@@ -14,20 +20,25 @@ const nextConfig = {
       config.externals = {
         'react': 'React',
         'react-dom': 'ReactDOM',
+        'react-transition-group': 'ReactTransitionGroup',
       };
     }
     return config;
   },
 };
 
-const withMDX = require('@next/mdx')({
+const withMDX = mdx({
   extension: /\.mdx?$/,
   options: {
-    remarkPlugins: [],
+    remarkPlugins: [
+      emoji,
+      codeImport,
+      gfm,
+    ],
     rehypePlugins: [],
     // If you use `MDXProvider`, uncomment the following line.
-    // providerImportSource: "@mdx-js/react",
+    providerImportSource: '@mdx-js/react',
   },
 });
 
-module.exports = withMDX(nextConfig);
+export default withMDX(nextConfig);

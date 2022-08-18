@@ -1,0 +1,81 @@
+.lemon-modal-enter {
+  opacity: 0;
+}
+.lemon-modal-enter-active {
+  opacity: 1;
+  .lemon-modal{
+    animation: lemon-modal-eject linear .3s;
+  }
+}
+.lemon-modal-exit {
+  opacity: 1;
+  .lemon-modal{
+    transform: scale(1);
+  }
+}
+.lemon-modal-exit-active {
+  opacity: 0;
+  .lemon-modal{
+    transform: scale(0);
+  }
+}
+.lemon-modal-exit-done{
+  opacity: 0;
+}
+.lemon-modal-enter-active, .lemon-modal-exit-active{
+  transition: opacity .3s ease;
+  .lemon-modal{
+    transition: transform .3s ease;
+  }
+}
+@keyframes lemon-modal-eject {
+  0%{
+    transform: scale(0);
+  }
+  60%{
+    transform: scale(1.1);
+  }
+  100%{
+    transform: scale(1);
+  }
+}
+.lemon-modal-wrapper{
+  position: fixed;
+  overflow-y: auto;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, .5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.lemon-modal{
+  border-radius: 8px;
+  width: 500px;
+  max-width: 80%;
+  background: #fff;
+}
+.lemon-modal-header{
+  padding: 20px 20px 10px 20px;
+  display: flex;
+  align-items: center;
+  .header-content{
+    flex: 1;
+    width: calc(100% - 24px);
+  }
+  .close{
+    font-size: 20px;
+    &:hover{
+      cursor: pointer;
+      opacity: .9;
+    }
+  }
+}
+.lemon-modal-content{
+  padding: 15px;
+}
+.lemon-modal-footer{
+  padding: 0 15px 15px 15px;
+}

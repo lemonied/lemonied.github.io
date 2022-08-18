@@ -1,4 +1,3 @@
-import { externalScripts } from '@shared/helpers/externals';
 import Document, {
   DocumentContext,
   DocumentInitialProps,
@@ -7,6 +6,10 @@ import Document, {
   Main,
   NextScript,
 } from 'next/document';
+import {
+  externalScripts,
+  externalStyles,
+} from '@shared/helpers/externals';
 import Script from 'next/script';
 
 class MyDocument extends Document {
@@ -21,6 +24,11 @@ class MyDocument extends Document {
     return (
       <Html>
         <Head>
+          {
+            externalStyles.map(v => (
+              <link key={v} rel="stylesheet" href={v} />
+            ))
+          }
           {
             externalScripts.map(v => (
               <Script key={v} src={v} strategy='beforeInteractive' />

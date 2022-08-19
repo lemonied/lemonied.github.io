@@ -1,4 +1,4 @@
-import { FC, ReactNode, useMemo } from 'react';
+import { FC, ReactElement, useMemo } from 'react';
 import styled from 'styled-components';
 import { MDXProvider } from '@mdx-js/react';
 import { Code } from './Code';
@@ -22,7 +22,7 @@ const Wrapper = styled.div`
 `;
 
 interface MDXWrapperProps {
-  children?: ReactNode;
+  children: ReactElement;
 }
 const MDXWrapper: FC<MDXWrapperProps> = (props) => {
 
@@ -35,9 +35,7 @@ const MDXWrapper: FC<MDXWrapperProps> = (props) => {
   }, [router.pathname]);
 
   if (notMDX) {
-    return (
-      <>{ children }</>
-    );
+    return children;
   }
 
   return (

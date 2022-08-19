@@ -13,7 +13,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         <meta httpEquiv="x-ua-compatible" content="ie=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, maximum-scale=1" />
       </Head>
-      <MDXWrapper {...pageProps}>
+      <MDXWrapper>
         <Component {...pageProps} />
       </MDXWrapper>
     </>

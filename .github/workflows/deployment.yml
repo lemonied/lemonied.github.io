@@ -1,8 +1,7 @@
-name: 'Deployment lemonied.github.io'
+# actions document: https://docs.github.com/en/actions/using-jobs/using-jobs-in-a-workflow
+# official actions: https://github.com/actions
 
-# **What it does**: Renders the content of every page and check all internal links.
-# **Why we have it**: To make sure all links connect correctly.
-# **Who does it impact**: Docs content.
+name: 'Deployment lemonied.github.io'
 
 on:
   push:

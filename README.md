@@ -9,11 +9,11 @@ yarn
 
 ## Develop
 ```bash
-npm run pkg:dev
+npm run pkgs:dev
 npm run dev
 # or
 yarn dev
-yarn pkg:dev
+yarn pkgs:dev
 ```
 
 ## Environment

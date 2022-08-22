@@ -12,6 +12,14 @@ const javascripts = [
     development: '//unpkg.com/react-transition-group@4.4.5/dist/react-transition-group.js',
     production: '//unpkg.com/react-transition-group@4.4.5/dist/react-transition-group.min.js',
   },
+  {
+    development: '//unpkg.com/moment@2.29.4/moment.js',
+    production: '//unpkg.com/moment@2.29.4/min/moment.min.js',
+  },
+  {
+    development: '//unpkg.com/moment@2.29.4/locale/zh-cn.js',
+    production: '//unpkg.com/moment@2.29.4/dist/locale/zh-cn.js',
+  },
 ];
 
 const links = [

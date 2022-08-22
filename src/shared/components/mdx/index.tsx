@@ -3,8 +3,12 @@ import styled from 'styled-components';
 import { MDXProvider } from '@mdx-js/react';
 import { Code } from './Code';
 import { useRouter } from 'next/router';
+import Head from 'next/head';
+import { MDXComponents } from 'mdx/types';
+import moment from 'moment';
+import { FrontMatter } from '@shared/models/mdx';
 
-const components = {
+const components: MDXComponents = {
   pre: (props: any) => props.children,
   code: Code as any,
 };
@@ -21,12 +25,20 @@ const Wrapper = styled.div`
   --color-accent-emphasis: #0969da;
 `;
 
+const ArticleWrapper = styled.article`
+  padding: 20px;
+`;
+
 interface MDXWrapperProps {
   children: ReactElement;
+  frontMatter: FrontMatter;
 }
 const MDXWrapper: FC<MDXWrapperProps> = (props) => {
 
-  const { children } = props;
+  const {
+    children,
+    frontMatter,
+  } = props;
 
   const router = useRouter();
 
@@ -39,9 +51,21 @@ const MDXWrapper: FC<MDXWrapperProps> = (props) => {
   }
 
   return (
-    <Wrapper className='markdown-body'>
-      <MDXProvider components={components}>{ children }</MDXProvider>
-    </Wrapper>
+    <>
+      <Head>
+        <title>{ frontMatter.title || '' }</title>
+      </Head>
+      <ArticleWrapper>
+        <h1>{ frontMatter.title }</h1>
+        <p>
+          <span>更新时间：{ moment(frontMatter.updated).format('YYYY-MM-DD HH:mm:ss') }</span>
+          <span>标签：{ frontMatter.tag.join(',') }</span>
+        </p>
+        <Wrapper className='markdown-body'>
+          <MDXProvider components={components}>{ children }</MDXProvider>
+        </Wrapper>
+      </ArticleWrapper>
+    </>
   );
 };
 

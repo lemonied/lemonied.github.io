@@ -1,7 +1,9 @@
 import '../styles/globals.scss';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
-import { MDXWrapper } from '@shared/components/mdx';
+import moment from 'moment';
+
+moment.locale('zh-cn');
 
 function MyApp({ Component, pageProps }: AppProps) {
 
@@ -13,9 +15,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         <meta httpEquiv="x-ua-compatible" content="ie=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, maximum-scale=1" />
       </Head>
-      <MDXWrapper>
-        <Component {...pageProps} />
-      </MDXWrapper>
+      <Component {...pageProps} />
     </>
   );
 }

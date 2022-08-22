@@ -18,6 +18,9 @@
     "paths": {
       "@shared/*": [
         "src/shared/*"
+      ],
+      "@posts/*": [
+        "src/posts/*"
       ]
     }
   },

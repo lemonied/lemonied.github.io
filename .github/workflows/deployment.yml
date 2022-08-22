@@ -29,7 +29,9 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
       - run: |
+          sh ./mtime.sh
           npm install
+          npm run pkg:build
           npm run build
           npm run export
       - name: Push To Branch Blog

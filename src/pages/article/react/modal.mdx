@@ -4,7 +4,6 @@ tag: react/typescript
 ---
 
 import { ModalExample } from '@shared/components/modal/example';
-import { Collapse } from '@shared/components/collapse';
 
 # { title }
 
@@ -15,18 +14,22 @@ import { Collapse } from '@shared/components/collapse';
 
 ## 示例代码
 
-<Collapse title={'代码块'}>
-
-  ```tsx file=../../../shared/components/modal/example.tsx
+<details>
+  <summary>Typescript</summary>
+  ```tsx file=src/shared/components/modal/example.tsx
   ```
-
-</Collapse>
+</details>
 
 ## 组件实现
 
-<Collapse title={'源代码'} open>
-
-  ```tsx file=../../../shared/components/modal/index.tsx
+<details>
+  <summary>Typescript</summary>
+  ```tsx file=src/shared/components/modal/index.tsx
   ```
+</details>
 
-</Collapse>
+<details>
+  <summary>CSS</summary>
+  ```tsx file=src/shared/components/modal/modal.module.scss
+  ```
+</details>

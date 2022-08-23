@@ -1,17 +1,11 @@
-import { FC, ReactElement, useMemo } from 'react';
+import { FC, ReactElement } from 'react';
 import styled from 'styled-components';
 import { MDXProvider } from '@mdx-js/react';
-import { Code } from './Code';
-import { useRouter } from 'next/router';
 import Head from 'next/head';
-import { MDXComponents } from 'mdx/types';
 import moment from 'moment';
 import { FrontMatter } from '@shared/models/mdx';
-
-const components: MDXComponents = {
-  pre: (props: any) => props.children,
-  code: Code as any,
-};
+import { components } from './components';
+import { Layout } from '@shared/components/layout';
 
 const Wrapper = styled.div`
   --color-border-default: #C5CEDE;
@@ -23,10 +17,18 @@ const Wrapper = styled.div`
   --color-canvas-default: #ffffff;
   --color-neutral-muted: rgba(175,184,193,0.2);
   --color-accent-emphasis: #0969da;
-`;
-
-const ArticleWrapper = styled.article`
-  padding: 20px;
+  details{
+    margin-top: 0;
+    margin-bottom: 16px;
+    summary{
+      cursor: pointer;
+      display: list-item;
+      &:focus{
+        outline: none;
+        box-shadow: none;
+      }
+    }
+  }
 `;
 
 interface MDXWrapperProps {
@@ -40,31 +42,23 @@ const MDXWrapper: FC<MDXWrapperProps> = (props) => {
     frontMatter,
   } = props;
 
-  const router = useRouter();
-
-  const notMDX = useMemo(() => {
-    return !/^\/article/.test(router.pathname);
-  }, [router.pathname]);
-
-  if (notMDX) {
-    return children;
-  }
-
   return (
     <>
       <Head>
         <title>{ frontMatter.title || '' }</title>
       </Head>
-      <ArticleWrapper>
-        <h1>{ frontMatter.title }</h1>
-        <p>
-          <span>更新时间：{ moment(frontMatter.updated).format('YYYY-MM-DD HH:mm:ss') }</span>
-          <span>标签：{ frontMatter.tag.join(',') }</span>
-        </p>
-        <Wrapper className='markdown-body'>
-          <MDXProvider components={components}>{ children }</MDXProvider>
-        </Wrapper>
-      </ArticleWrapper>
+      <Layout>
+        <article>
+          <h1>{ frontMatter.title }</h1>
+          <p>
+            <span>更新时间：{ moment(frontMatter.updated).format('YYYY-MM-DD HH:mm:ss') }</span>
+            <span>标签：{ frontMatter.tag.join(',') }</span>
+          </p>
+          <Wrapper className='markdown-body'>
+            <MDXProvider components={components}>{ children }</MDXProvider>
+          </Wrapper>
+        </article>
+      </Layout>
     </>
   );
 };

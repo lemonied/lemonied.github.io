@@ -1,14 +1,12 @@
 import type { NextPage } from 'next';
-import Link from 'next/link';
+import { Layout } from '@shared/components/layout';
 
 const Home: NextPage = () => {
   
   return (
-    <div>
-      <p>
-        <Link href={'/article'}>我的笔记</Link>
-      </p>
-    </div>
+    <Layout>
+
+    </Layout>
   );
 };
 

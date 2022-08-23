@@ -1,0 +1,20 @@
+.header{
+  position: relative;
+  z-index: 10;
+  box-shadow: 0 2px 8px #555555;
+  nav{
+    background: var(--background-a);
+    color: var(--color-header-text);
+    padding: 0 20px;
+  }
+  .nav-list{
+    & > a{
+      display: inline-block;
+      line-height: 60px;
+      padding: 0 10px;
+      &:hover{
+        opacity: .85;
+      }
+    }
+  }
+}

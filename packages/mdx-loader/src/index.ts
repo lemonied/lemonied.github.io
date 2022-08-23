@@ -4,6 +4,7 @@ import emoji from 'remark-emoji';
 import gfm from 'remark-gfm';
 import { codeImport } from 'remark-code-import';
 import loader from './loader';
+import { preCodeImport } from './root-import-code';
 
 const mdx = (nextConfig: NextConfig) => {
   const mdxOptions: Options = {
@@ -12,6 +13,7 @@ const mdx = (nextConfig: NextConfig) => {
       emoji,
       // https://github.com/remarkjs/remark-gfm
       gfm,
+      preCodeImport,
       // https://github.com/kevin940726/remark-code-import
       codeImport,
     ],

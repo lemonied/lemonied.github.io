@@ -2,9 +2,10 @@
   opacity: 0;
 }
 .lemon-modal-enter-active {
+  transition: opacity .3s ease;
   opacity: 1;
   .lemon-modal{
-    animation: lemon-modal-eject linear .3s;
+    animation: lemon-modal-eject ease .3s;
   }
 }
 .lemon-modal-exit {
@@ -14,19 +15,15 @@
   }
 }
 .lemon-modal-exit-active {
+  transition: opacity .3s ease;
   opacity: 0;
   .lemon-modal{
     transform: scale(0);
+    transition: transform .3s ease;
   }
 }
 .lemon-modal-exit-done{
   opacity: 0;
-}
-.lemon-modal-enter-active, .lemon-modal-exit-active{
-  transition: opacity .3s ease;
-  .lemon-modal{
-    transition: transform .3s ease;
-  }
 }
 @keyframes lemon-modal-eject {
   0%{

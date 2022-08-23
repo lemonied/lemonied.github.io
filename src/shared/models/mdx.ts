@@ -8,3 +8,8 @@ export interface MDXPage {
   frontMatter: FrontMatter;
   path: string;
 }
+
+export interface TagWithArticles {
+  tag: string;
+  articles: MDXPage[];
+}

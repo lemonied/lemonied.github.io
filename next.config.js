@@ -26,6 +26,7 @@ const nextConfig = {
         'react-dom': 'ReactDOM',
         'react-transition-group': 'ReactTransitionGroup',
         'moment': 'moment',
+        'nprogress': 'NProgress',
       };
     }
     return config;

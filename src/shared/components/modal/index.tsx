@@ -36,6 +36,7 @@ export const Modal = forwardRef<ModalInstance, ModalProps>((props, ref) => {
 
   const { children, header, style, contentStyle, footer, maskStyle, afterClose, maskClosable = true } = props;
 
+  const wrapperRef = useRef<HTMLDivElement>(null);
   const [show, setShow] = useState(false);
   const entered = useRef<Token<string>>();
   const exited = useRef<Token<string>>();
@@ -105,8 +106,14 @@ export const Modal = forwardRef<ModalInstance, ModalProps>((props, ref) => {
       onEntered={onEntered}
       onExited={onExited}
       unmountOnExit
+      nodeRef={wrapperRef}
     >
-      <div className={styles['lemon-modal-wrapper']} style={maskStyle} onClick={() => maskClosable ? handleClose() : null}>
+      <div
+        ref={wrapperRef}
+        className={styles['lemon-modal-wrapper']}
+        style={maskStyle}
+        onClick={() => maskClosable ? handleClose() : null}
+      >
         <div className={styles['lemon-modal']} style={style} onClick={preventClick}>
           {
             header !== null && (

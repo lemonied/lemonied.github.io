@@ -20,12 +20,20 @@ const javascripts = [
     development: '//unpkg.com/moment@2.29.4/locale/zh-cn.js',
     production: '//unpkg.com/moment@2.29.4/dist/locale/zh-cn.js',
   },
+  {
+    development: '//unpkg.com/nprogress@0.2.0/nprogress.js',
+    production: '//unpkg.com/nprogress@0.2.0/nprogress.js',
+  },
 ];
 
 const links = [
   {
     development: '//unpkg.com/@primer/css@20.4.2/dist/markdown.css',
     production: '//unpkg.com/@primer/css@20.4.2/dist/markdown.css',
+  },
+  {
+    development: '//unpkg.com/nprogress@0.2.0/nprogress.css',
+    production: '//unpkg.com/nprogress@0.2.0/nprogress.css',
   },
 ];
 

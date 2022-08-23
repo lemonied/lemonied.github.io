@@ -18,7 +18,7 @@ const javascripts = [
   },
   {
     development: '//unpkg.com/moment@2.29.4/locale/zh-cn.js',
-    production: '//unpkg.com/moment@2.29.4/dist/locale/zh-cn.js',
+    production: '//unpkg.com/moment@2.29.4/locale/zh-cn.js',
   },
   {
     development: '//unpkg.com/nprogress@0.2.0/nprogress.js',

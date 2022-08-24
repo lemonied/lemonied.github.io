@@ -52,6 +52,7 @@
   max-width: 80%;
   background: #fff;
   margin: 0 auto;
+  font-size: 1rem;
 }
 .lemon-modal-header{
   padding: 20px 20px 10px 20px;
@@ -62,7 +63,7 @@
     width: calc(100% - 24px);
   }
   .close{
-    font-size: 20px;
+    font-size: 1.4em;
     &:hover{
       cursor: pointer;
       opacity: .9;

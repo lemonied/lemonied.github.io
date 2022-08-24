@@ -19,11 +19,11 @@ import { Layout } from '@shared/components/layout';
 import { SEO } from '@shared/components/seo';
 
 const Wrapper = styled(ShadowCard)`
+  font-size: 1rem;
   h2{
     margin: 0;
     padding: 10px 20px 0 20px;
-    font-size: 22px;
-    line-height: 30px;
+    font-size: 1.5em;
   }
   ul{
     margin: 0;
@@ -31,8 +31,8 @@ const Wrapper = styled(ShadowCard)`
   }
   li{
     list-style: none;
-    font-size: 14px;
-    line-height: 24px;
+    font-size: 0.85em;
+    line-height: 1.5em;
   }
 `;
 

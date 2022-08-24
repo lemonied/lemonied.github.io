@@ -9,7 +9,6 @@ export const Pre = styled.pre`
 
   & .token-line {
     line-height: 1.5em;
-    height: 1.5em;
   }
 `;
 

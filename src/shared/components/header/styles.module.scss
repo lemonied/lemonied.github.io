@@ -6,11 +6,13 @@
     background: var(--background-a);
     color: var(--color-header-text);
     padding: 0 20px;
+    display: grid;
   }
   .nav-list{
     & > a{
       display: inline-block;
-      line-height: 60px;
+      font-size: 0.85em;
+      line-height: 4;
       padding: 0 10px;
       &:hover{
         opacity: .85;

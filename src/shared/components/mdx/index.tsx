@@ -18,6 +18,9 @@ const Wrapper = styled.div`
   --color-canvas-default: #ffffff;
   --color-neutral-muted: rgba(175,184,193,0.2);
   --color-accent-emphasis: #0969da;
+  &.markdown-body{
+    font-size: 1rem;
+  }
   details{
     margin-top: 0;
     margin-bottom: 16px;

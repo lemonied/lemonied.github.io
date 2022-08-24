@@ -6,7 +6,11 @@ const Home: NextPage = () => {
   
   return (
     <>
-      <SEO title={'Lemonied'} description={'甜心小鸡的个人博客'} />
+      <SEO
+        title={'甜心小鸡 - Such A Sweet Little Chicken'}
+        description={'甜心小鸡的个人博客'}
+        suffix={false}
+      />
       <Layout>
 
       </Layout>

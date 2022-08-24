@@ -1,9 +1,9 @@
 ---
 title: git log 常用命令
-tag: Git
+tag: git
 ---
 
-## 示例
+# 示例
 遍历src/pages下的所有文件, 将每个文件的mtime修改为git log 中最后一次提交的时间
 ```shell
 #!/bin/sh
@@ -15,7 +15,7 @@ touch -d "$(git log -1 --format="%ai" -- $filename)" $filename
 done
 ```
 
-### 应用场景
+## 应用场景
 我们可以在编译期间，获取每个文件的最后提交时间，比如本项目，在执行git actions时，遍历每篇文章的最后提交时间，作为文章的最后更新时间。
 
 <details>
@@ -24,9 +24,9 @@ done
   ```
 </details>
 
-## --format 参数详解
+# --format 参数详解
 
-### 作者
+## 作者
 1. `%an` `%aN` 作者名称
     ```bash
     git log -1 --format="%an" -- filepath
@@ -63,7 +63,7 @@ done
     # output: 2022-08-24 12:33:50 +0800
     ```
 
-### 提交者
+## 提交者
 > %c 和 %a 开头的写法，一个是作者信息，一个是提交者信息，测试的输出结果一致, 不知道有什么区别
 1. `%cn` `%cN` 提交者的名字
     ```bash
@@ -101,7 +101,7 @@ done
     # output: 2022-08-24 12:33:50 +0800
     ```
 
-### Hash相关
+## Hash相关
 
 1. `%H` 提交的hash
     ```bash
@@ -139,7 +139,7 @@ done
     # output: e224982
     ```
 
-### Commit 相关
+## Commit 相关
 1. `%s` 提交信息的标题
     ```bash
     git log -1 --format="%s" -- filepath

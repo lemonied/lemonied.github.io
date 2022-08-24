@@ -34,7 +34,7 @@ const Wrapper = styled.div`
 
 const ArticleWrapper = styled.article`
   & > h1{
-    font-size: 2em;
+    font-size: 2.5em;
     margin: 0;
   }
   & > p {

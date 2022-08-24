@@ -1,11 +1,12 @@
 import { FC, ReactElement } from 'react';
 import styled from 'styled-components';
 import { MDXProvider } from '@mdx-js/react';
-import Head from 'next/head';
 import moment from 'moment';
 import { FrontMatter } from '@shared/models/mdx';
 import { components } from './components';
 import { Layout } from '@shared/components/layout';
+import Link from 'next/link';
+import { SEO } from '@shared/components/seo';
 
 const Wrapper = styled.div`
   --color-border-default: #C5CEDE;
@@ -31,6 +32,22 @@ const Wrapper = styled.div`
   }
 `;
 
+const ArticleWrapper = styled.article`
+  & > h1{
+    font-size: 2em;
+    margin: 0;
+  }
+  & > p {
+    margin: 20px 0 30px 0;
+    & > *:not(:first-child){
+      margin-left: 10px;
+    }
+  }
+  a{
+    color: #1890ff;
+  }
+`;
+
 interface MDXWrapperProps {
   children: ReactElement;
   frontMatter: FrontMatter;
@@ -44,20 +61,31 @@ const MDXWrapper: FC<MDXWrapperProps> = (props) => {
 
   return (
     <>
-      <Head>
-        <title>{ frontMatter.title || '' }</title>
-      </Head>
+      <SEO
+        title={frontMatter.title || ''}
+        description={frontMatter.description || frontMatter.title || ''}
+      />
       <Layout>
-        <article>
+        <ArticleWrapper>
           <h1>{ frontMatter.title }</h1>
           <p>
             <span>更新时间：{ moment(frontMatter.updated).format('YYYY-MM-DD HH:mm:ss') }</span>
-            <span>标签：{ frontMatter.tag.join(',') }</span>
+            <span>
+              <span>标签：</span>
+              { frontMatter.tag.map((tag, k) => {
+                return (
+                  <span key={tag}>
+                    { k !== 0 ? ' | ' : null }
+                    <Link key={tag} href={`/list/${tag}`} >{tag}</Link>
+                  </span>
+                );
+              }) }
+            </span>
           </p>
           <Wrapper className='markdown-body'>
             <MDXProvider components={components}>{ children }</MDXProvider>
           </Wrapper>
-        </article>
+        </ArticleWrapper>
       </Layout>
     </>
   );

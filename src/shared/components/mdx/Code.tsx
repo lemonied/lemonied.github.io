@@ -21,22 +21,32 @@ const Code: FC<CodeProps> = (props) => {
 
   return (
     <Highlight {...defaultProps} code={children} language={lang} theme={theme}>
-      {({ className, style, tokens, getLineProps, getTokenProps }) => (
-        <Pre className={className} style={style}>
-          {tokens.map((line, i) => (
-            <Line key={i} {...getLineProps({ line, key: i })}>
-              <LineNo>{i + 1}</LineNo>
-              <LineContent>
-                {
-                  line.map((token, key) => (
-                    <span {...getTokenProps({ token, key })} key={key} />
-                  ))
-                }
-              </LineContent>
-            </Line>
-          ))}
-        </Pre>
-      )}
+      {({ className, style, tokens, getLineProps, getTokenProps }) => {
+        tokens = tokens.filter((line, key) => {
+          if (key === tokens.length - 1) {
+            return line.some(v => !v.empty);
+          }
+          return true;
+        });
+        return (
+          <Pre className={className} style={style}>
+            {
+              tokens.map((line, i) => (
+                <Line key={i} {...getLineProps({ line, key: i })}>
+                  <LineNo>{i + 1}</LineNo>
+                  <LineContent>
+                    {
+                      line.map((token, key) => (
+                        <span {...getTokenProps({ token, key })} key={key} />
+                      ))
+                    }
+                  </LineContent>
+                </Line>
+              ))
+            }
+          </Pre>
+        );
+      }}
     </Highlight>
   );
 };

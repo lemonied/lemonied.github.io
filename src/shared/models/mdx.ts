@@ -12,4 +12,12 @@ export interface MDXPage {
 export interface TagWithArticles {
   tag: string;
   articles: MDXPage[];
+  total: number;
+}
+
+export interface PageSchema<T> {
+  total: number;
+  size: number;
+  page: number;
+  data: T[];
 }

@@ -3,8 +3,6 @@ title: CSS3 网格布局
 tag: css/web前端
 ---
 
-# {title}
-
 ## 代码示例
 ```scss
 .container{
@@ -21,8 +19,11 @@ tag: css/web前端
 ## grid-template-columns 属性
 ```scss
 .container{
-  // 5列，每一列最小值为250px，最大值20%
-  grid-template-columns: repeat(5, minmax(250px, 1fr));
+  // 5列，每一列宽度为20%
+  grid-template-columns: repeat(5, 1fr);
+  // 等同于
+  grid-template-columns: repeat(5, 20%);
+
   // 2列，第一列为250px，第二列为剩余空间
   grid-template-columns: 250px 1fr;
 }

@@ -14,8 +14,9 @@ import { Grid } from '@shared/components/grid';
 import { ShadowCard } from '@shared/components/card';
 import styled from 'styled-components';
 import Link from 'next/link';
-import { TagWithArticles } from '@shared/models/mdx';
+import { PageSchema, TagWithArticles } from '@shared/models/mdx';
 import { Layout } from '@shared/components/layout';
+import { SEO } from '@shared/components/seo';
 
 const Wrapper = styled(ShadowCard)`
   h2{
@@ -36,43 +37,44 @@ const Wrapper = styled(ShadowCard)`
 `;
 
 interface TagPageProps {
-  tags: TagWithArticles[];
-  size: number;
-  pager: number;
+  tags: PageSchema<TagWithArticles>;
 }
 const TagPage: NextPage<TagPageProps> = (props) => {
 
   const { tags } = props;
 
   return (
-    <Layout>
-      <Grid>
-        {
-          tags.map(v => {
-            return (
-              <Wrapper key={v.tag}>
-                <h2>
-                  <Link href={`/list/${v.tag}`}>{v.tag}</Link>
-                </h2>
-                <ul className={'content'}>
-                  {
-                    v.articles.map(v => {
-                      return (
-                        <li key={v.path}>
-                          <Link href={v.path}>
-                            <a>{ v.frontMatter.title }</a>
-                          </Link>
-                        </li>
-                      );
-                    })
-                  }
-                </ul>
-              </Wrapper>
-            );
-          })
-        }
-      </Grid>
-    </Layout>
+    <>
+      <SEO title={'我的笔记'} description={'笔记分类'} />
+      <Layout>
+        <Grid>
+          {
+            tags.data.map(v => {
+              return (
+                <Wrapper key={v.tag}>
+                  <h2>
+                    <Link href={`/list/${v.tag}`}>{v.tag}</Link>
+                  </h2>
+                  <ul className={'content'}>
+                    {
+                      v.articles.map(v => {
+                        return (
+                          <li key={v.path}>
+                            <Link href={v.path}>
+                              <a>{ v.frontMatter.title }</a>
+                            </Link>
+                          </li>
+                        );
+                      })
+                    }
+                  </ul>
+                </Wrapper>
+              );
+            })
+          }
+        </Grid>
+      </Layout>
+    </>
   );
 };
 
@@ -85,8 +87,6 @@ export const getStaticProps: GetStaticProps<TagPageProps> = (context) => {
   return {
     props: {
       tags: postTagsWithArticles(pager, TAGS_SIZE, ARTICLES_SIZE),
-      size: TAGS_SIZE,
-      pager,
     },
   };
 };

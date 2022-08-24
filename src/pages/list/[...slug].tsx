@@ -4,7 +4,7 @@ import {
   NextPage,
 } from 'next';
 import { getPagesByTag, tags } from '@shared/helpers/mdx';
-import { MDXPage } from '@shared/models/mdx';
+import { MDXPage, PageSchema } from '@shared/models/mdx';
 import Link from 'next/link';
 import { ParsedUrlQuery } from 'querystring';
 import {
@@ -12,32 +12,35 @@ import {
   postArticles,
 } from '@shared/helpers/pager';
 import { Layout } from '@shared/components/layout';
+import { SEO } from '@shared/components/seo';
 
 interface ListPageProps {
-  pages: MDXPage[];
-  size: number;
-  pager: number;
+  pages: PageSchema<MDXPage>;
+  tag: string;
 }
 const ListPage: NextPage<ListPageProps> = (props) => {
 
-  const { pages } = props;
+  const { pages, tag } = props;
 
   return (
-    <Layout>
-      <ul>
-        {
-          pages.map(v => {
-            return (
-              <li key={v.path}>
-                <Link href={v.path}>
-                  <a>{ v.frontMatter.title }</a>
-                </Link>
-              </li>
-            );
-          })
-        }
-      </ul>
-    </Layout>
+    <>
+      <SEO title={tag} description={`笔记分类：${tag}`} />
+      <Layout>
+        <ul>
+          {
+            pages.data.map(v => {
+              return (
+                <li key={v.path}>
+                  <Link href={v.path}>
+                    <a>{ v.frontMatter.title }</a>
+                  </Link>
+                </li>
+              );
+            })
+          }
+        </ul>
+      </Layout>
+    </>
   );
 };
 
@@ -52,8 +55,7 @@ export const getStaticProps: GetStaticProps<ListPageProps> = (context) => {
   return {
     props: {
       pages: postArticles(tag, pager, ARTICLES_SIZE),
-      pager,
-      size: ARTICLES_SIZE,
+      tag,
     },
   };
 };

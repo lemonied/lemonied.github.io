@@ -1,13 +1,11 @@
 import { NextPage } from 'next';
 import { Layout } from '@shared/components/layout';
-import Head from 'next/head';
+import { SEO } from '@shared/components/seo';
 
 const AboutPage: NextPage = () => {
   return (
     <>
-      <Head>
-        <title>关于我们</title>
-      </Head>
+      <SEO title={'关于我们'} description={'本网站的作者信息'} />
       <Layout>
         <div>
           <span>本项目地址：</span>

@@ -32,9 +32,9 @@ jobs:
           cache: 'npm'
       - name: Build
         run: |
-          npm run mtime
           npm install
           npm run pkgs:build
+          npm run mtime
           npm run build
           npm run export
       - name: Push To Branch Blog

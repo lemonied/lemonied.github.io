@@ -17,17 +17,13 @@ const ModalExample: FC = () => {
           <button onClick={() => modalRef.current?.hide()}>关闭</button>
         }
       >
-        <p>Modal 内容</p>
-        <p>Modal 内容</p>
-        <p>Modal 内容</p>
-        <p>Modal 内容</p>
-        <p>Modal 内容</p>
-        <p>Modal 内容</p>
-        <p>Modal 内容</p>
-        <p>Modal 内容</p>
-        <p>Modal 内容</p>
-        <p>Modal 内容</p>
-        <p>Modal 内容</p>
+        {
+          new Array(10).fill(1).map((_, k) => {
+            return (
+              <p key={k}>Modal 内容</p>
+            );
+          })
+        }
       </PortalModal>
     </>
   );

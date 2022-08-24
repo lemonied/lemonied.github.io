@@ -32,7 +32,7 @@ const Wrapper = styled(ShadowCard)`
   li{
     list-style: none;
     font-size: 0.85em;
-    line-height: 1.5em;
+    line-height: 1.8em;
   }
 `;
 

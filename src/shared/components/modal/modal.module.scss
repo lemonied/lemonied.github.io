@@ -38,20 +38,22 @@
 }
 .lemon-modal-wrapper{
   position: fixed;
-  overflow-y: auto;
+  z-index: 999;
+  overflow: auto;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
   background: rgba(0, 0, 0, .5);
-  padding: 20vh 0 20vh 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .lemon-modal{
   border-radius: 8px;
   width: 500px;
   max-width: 80%;
   background: #fff;
-  margin: 0 auto;
   font-size: 1rem;
 }
 .lemon-modal-header{

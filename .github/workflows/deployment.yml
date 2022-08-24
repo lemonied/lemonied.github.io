@@ -32,14 +32,14 @@ jobs:
           cache: 'npm'
       - name: Build
         run: |
-          sh ./mtime.sh
+          npm run mtime
           npm install
           npm run pkgs:build
           npm run build
           npm run export
       - name: Push To Branch Blog
         run: |
-          git config --global user.email 447334358@qq.com
+          git config --global user.email chenjiyuan.super@gmail.com
           git config --global user.name action-bot
           cd ./out
           git init

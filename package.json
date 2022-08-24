@@ -8,6 +8,7 @@
     "postbuild": "next-sitemap",
     "start": "next start",
     "export": "next export",
+    "mtime": "node packages/mtime/dist/index.js",
     "pkgs:dev": "webpack --config packages/webpack.config.js --mode=development --watch",
     "pkgs:build": "webpack --config packages/webpack.config.js --mode=production",
     "lint": "next lint"

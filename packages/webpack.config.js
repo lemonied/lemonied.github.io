@@ -64,4 +64,5 @@ function makeLibrary(library) {
 
 module.exports = [
   makeLibrary('mdx-loader'),
+  makeLibrary('mtime'),
 ];

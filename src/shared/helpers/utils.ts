@@ -25,7 +25,7 @@ export function sleep(millisecond = 1000) {
   });
 }
 
-export class Token<T=any> {
+export class Token<T=unknown> {
   public promise: Promise<T>;
   public resolve!: (value: T | PromiseLike<T>) => void;
   public reject!: (reason?: any) => void;

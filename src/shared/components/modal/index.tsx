@@ -1,5 +1,4 @@
 import React, {
-  CSSProperties,
   forwardRef,
   PropsWithChildren,
   ReactNode,
@@ -11,11 +10,13 @@ import React, {
   MouseEvent,
   useEffect,
 } from 'react';
-import { Token } from '@shared/helpers/utils';
+import { combineClass, Token } from '@shared/helpers/utils';
 import { CSSTransition } from 'react-transition-group';
 import { createPortal } from 'react-dom';
 import styles from './modal.module.scss';
 import { Icon } from '../icons';
+
+const DURATION = 300;
 
 export interface ModalInstance {
   show(): Promise<string>;
@@ -26,17 +27,16 @@ export interface ModalInstance {
 type ModalProps = PropsWithChildren<{
   header?: ReactNode;
   footer?: ReactNode;
-  style?: CSSProperties;
-  contentStyle?: CSSProperties;
-  maskStyle?: CSSProperties;
+  contentClassName?: string;
   afterClose?: () => void;
   maskClosable?: boolean;
 }>;
 export const Modal = forwardRef<ModalInstance, ModalProps>((props, ref) => {
 
-  const { children, header, style, contentStyle, footer, maskStyle, afterClose, maskClosable = true } = props;
+  const { children, header, contentClassName, footer, afterClose, maskClosable = true } = props;
 
   const wrapperRef = useRef<HTMLDivElement>(null);
+  const maskRef = useRef<HTMLDivElement>(null);
   const [show, setShow] = useState(false);
   const entered = useRef<Token<string>>();
   const exited = useRef<Token<string>>();
@@ -93,41 +93,59 @@ export const Modal = forwardRef<ModalInstance, ModalProps>((props, ref) => {
   });
 
   return (
-    <CSSTransition
-      in={show}
-      classNames={{
-        enter: styles['lemon-modal-enter'],
-        enterActive: styles['lemon-modal-enter-active'],
-        exit: styles['lemon-modal-exit'],
-        exitActive: styles['lemon-modal-exit-active'],
-        exitDone: styles['lemon-modal-exit-done'],
-      }}
-      timeout={300}
-      onEntered={onEntered}
-      onExited={onExited}
-      unmountOnExit
-      nodeRef={wrapperRef}
-    >
-      <div
-        ref={wrapperRef}
-        className={styles['lemon-modal-wrapper']}
-        style={maskStyle}
-        onClick={() => maskClosable ? handleClose() : null}
+    <>
+      <CSSTransition
+        in={show}
+        classNames={{
+          enter: styles['lemon-modal-fade-enter'],
+          enterActive: styles['lemon-modal-fade-enter-active'],
+          exit: styles['lemon-modal-fade-exit'],
+          exitActive: styles['lemon-modal-fade-exit-active'],
+          exitDone: styles['lemon-modal-fade-exit-done'],
+        }}
+        timeout={DURATION}
+        onEntered={onEntered}
+        onExited={onExited}
+        unmountOnExit
+        nodeRef={maskRef}
       >
-        <div className={styles['lemon-modal']} style={style} onClick={preventClick}>
-          {
-            header !== null && (
-              <div className={styles['lemon-modal-header']}>
-                <div className={styles['header-content']}>{header}</div>
-                <Icon className={styles['close']} type={'close'} onClick={handleClose} />
-              </div>
-            )
-          }
-          <div className={styles['lemon-modal-content']} style={contentStyle}>{children}</div>
-          <div className={styles['lemon-modal-footer']}>{footer}</div>
+        <div ref={maskRef} className={styles['lemon-modal-mask']} />
+      </CSSTransition>
+      <CSSTransition
+        in={show}
+        classNames={{
+          enter: styles['lemon-modal-enter'],
+          enterActive: styles['lemon-modal-enter-active'],
+          exit: styles['lemon-modal-exit'],
+          exitActive: styles['lemon-modal-exit-active'],
+          exitDone: styles['lemon-modal-exit-done'],
+        }}
+        timeout={DURATION}
+        onEntered={onEntered}
+        onExited={onExited}
+        unmountOnExit
+        nodeRef={wrapperRef}
+      >
+        <div
+          ref={wrapperRef}
+          className={styles['lemon-modal-wrapper']}
+          onClick={() => maskClosable ? handleClose() : null}
+        >
+          <div className={styles['lemon-modal']} onClick={preventClick}>
+            {
+              header !== null && (
+                <div className={styles['lemon-modal-header']}>
+                  <div className={styles['header-content']}>{header}</div>
+                  <Icon className={styles['close']} type={'close'} onClick={handleClose} />
+                </div>
+              )
+            }
+            <div className={combineClass(styles['lemon-modal-content'], contentClassName)}>{children}</div>
+            <div className={styles['lemon-modal-footer']}>{footer}</div>
+          </div>
         </div>
-      </div>
-    </CSSTransition>
+      </CSSTransition>
+    </>
   );
 });
 
@@ -139,7 +157,7 @@ export const PortalModal = forwardRef<ModalInstance, ModalProps>((props, ref) =>
 
   useEffect(() => {
     const dom = document.createElement('div');
-    dom.className = 'lemon-portal-modal-container';
+    dom.className = 'lemon-portal-modal';
     document.body.appendChild(dom);
     setContainer(dom);
     return () => {

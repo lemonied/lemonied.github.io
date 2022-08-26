@@ -1,0 +1,54 @@
+.button{
+  color: var(--color-btn-text);
+  transition: 80ms cubic-bezier(0.33, 1, 0.68, 1);
+  transition-property: color,background-color,box-shadow,border-color;
+  border-radius: 6px;
+  white-space: nowrap;
+  vertical-align: middle;
+  user-select: none;
+  cursor: pointer;
+  padding: 5px 16px;
+  text-align: center;
+  border: none;
+  &:hover{
+    transition-duration: .1s;
+  }
+  &:active{
+    transition: none;
+  }
+}
+.button.default{
+  background-color: var(--color-btn-bg);
+  box-shadow: var(--color-btn-shadow),var(--color-btn-inset-shadow);
+  &:hover{
+    background-color: var(--color-btn-hover-bg);
+  }
+  &:active{
+    background-color: var(--color-btn-active-bg);
+  }
+}
+.button.success{
+  box-shadow: var(--color-success-deprecated-border),var(--color-success-deprecated-bg);
+  background-color: var(--color-success);
+}
+.button.success.outline{
+  border-color: var(--color-success);
+  &:hover{
+    border-color: var(--color-success-hover);
+  }
+  &:active{
+    border-color: var(--color-success-active);
+  }
+}
+.button.outline{
+  border-color: var(--color-btn-border);
+  border-width: 1px;
+  border-style: solid;
+  background-color: var(--color-btn-bg);
+  &:hover{
+    border-color: var(--color-btn-hover-border);
+  }
+  &:active{
+    border-color: var(--color-btn-active-border);
+  }
+}

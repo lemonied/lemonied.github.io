@@ -8,14 +8,14 @@ function toPosixPath(str: string) {
   return str.replace(/\\/g, '/');
 }
 
-const MDX_PATH = toPosixPath(
-  path.resolve(process.cwd(), './src/pages/article'),
-);
+const MDX_PATH = path.resolve(process.cwd(), './src/pages/article');
+
+const MDX_PATH_POSIX = toPosixPath(MDX_PATH);
 
 export const getPages = () => {
   const files = glob.sync(
     toPosixPath(
-      path.resolve(MDX_PATH, '**/*.mdx'),
+      path.resolve(MDX_PATH_POSIX, '**/*.mdx'),
     ),
   );
   return files.map(file => {
@@ -23,11 +23,12 @@ export const getPages = () => {
       fs.readFileSync(file, { encoding: 'utf-8' }),
       file,
     );
-    const pathname = file.replace(MDX_PATH, '')
-      .replace(/(index|)\.mdx$/, '');
+    const pathname = toPosixPath(
+      path.relative(MDX_PATH, path.resolve(file)),
+    ).replace(/(\/index|)\.mdx$/, '');
     return {
       frontMatter: data,
-      path: `/article${pathname}`,
+      path: `/article/${pathname}`,
     } as MDXPage;
   });
 };

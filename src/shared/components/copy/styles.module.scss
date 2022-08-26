@@ -1,0 +1,13 @@
+.copy{
+  padding: 0 !important;
+  height: 40px;
+  width: 40px;
+  font-size: 18px;
+  color: #666666;
+  &.success{
+    color: var(--color-success);
+  }
+}
+.icon{
+  vertical-align: text-bottom;
+}

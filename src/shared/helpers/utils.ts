@@ -39,10 +39,33 @@ export class Token<T=unknown> {
 
 export function debounce<T extends Function>(fn: T, delay: number) {
   let timer: number;
-  return () => {
-    if (typeof timer !== 'undefined') {
-      window.clearTimeout(timer);
-    }
-    timer = window.setTimeout(fn, delay);
+  const cancel = () => {
+    window.clearTimeout(timer);
   };
+  const callback = (...args: any[]) => {
+    cancel();
+    timer = window.setTimeout(() => {
+      fn(...args);
+    }, delay);
+  };
+  return [cancel, callback];
+}
+
+export async function copyText(value: string) {
+  try {
+    await navigator.clipboard.writeText(value);
+  } catch (e) {
+    // eslint-disable-next-line no-console
+    console.error(e);
+    const el = document.createElement('textarea');
+    el.value = value;
+    el.setAttribute('readonly', '');
+    el.style.position = 'absolute';
+    el.style.opacity = '0';
+    el.style.left = '-9999px';
+    document.body.appendChild(el);
+    el.select();
+    document.execCommand('copy');
+    document.body.removeChild(el);
+  }
 }

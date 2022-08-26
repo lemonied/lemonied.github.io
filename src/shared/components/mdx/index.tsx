@@ -8,7 +8,7 @@ import { Layout } from '@shared/components/layout';
 import Link from 'next/link';
 import { SEO } from '@shared/components/seo';
 
-const Wrapper = styled.div`
+const MarkdownBody = styled.div`
   --color-border-default: #C5CEDE;
   --color-canvas-subtle: #F5F7FA;
   --color-danger-fg: #cf222e;
@@ -24,6 +24,11 @@ const Wrapper = styled.div`
   details{
     margin-top: 0;
     margin-bottom: 16px;
+    &[open]{
+      summary{
+        margin-bottom: 10px;
+      }
+    }
     summary{
       cursor: pointer;
       display: list-item;
@@ -85,9 +90,9 @@ const MDXWrapper: FC<MDXWrapperProps> = (props) => {
               }) }
             </span>
           </p>
-          <Wrapper className='markdown-body'>
+          <MarkdownBody className='markdown-body'>
             <MDXProvider components={components}>{ children }</MDXProvider>
-          </Wrapper>
+          </MarkdownBody>
         </ArticleWrapper>
       </Layout>
     </>

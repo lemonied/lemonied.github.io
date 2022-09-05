@@ -1,5 +1,6 @@
 ---
 title: Nginx的基础配置
+description: Nginx的常用配置
 tag: nginx
 ---
 
@@ -15,7 +16,7 @@ events {
 }
 
 http {
-    include       /usr/local/nginx/conf/mime.types; # 文件扩展名与类型映射表
+    include       /etc/nginx/mime.types; # 文件扩展名与类型映射表
     default_type  application/octet-stream; # 默认文件类型
 
     # 设置日志模式
@@ -43,13 +44,29 @@ http {
       listen 80 default_server;
       absolute_redirect off;
       index index.html;
-      root /jumpserver-dashboard/; # 静态文件所在目录
+      root /xxx-dashboard/; # 静态文件所在目录
 
-      location / {
-        try_files $uri /index.html; # 静态资源配置（单页面程序）
+      error_page 404 = @redirect_to_404; # 定义变量404
+      location @redirect_to_404 {
+        return 302 /404.html; # 404页面重定向302到 /404.html
       }
 
-      location /api {
+      location / {
+        try_files $uri $uri/ /index.html; # 静态资源配置（单页面程序）
+      }
+
+      location /subapp {
+        alias /subapp-dashboard/;
+        try_files $uri $uri/ /subapp/index.html; # 静态资源配置（单页面程序）
+      }
+
+      location /subapp2 {
+        alias /subapp2-dashboard/;
+        try_files $uri $uri/ =404; # 非单页面
+      }
+
+      # 某些低版本nginx需要写成 /api, 结尾没有 /
+      location /api/ {
         proxy_pass       http://localhost:5000/; # 将 /api/* 请求转发至 http://localhost:5000/*
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;

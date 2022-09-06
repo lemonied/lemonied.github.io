@@ -19,8 +19,8 @@
       "@shared/*": [
         "src/shared/*"
       ],
-      "@posts/*": [
-        "src/posts/*"
+      "@/*": [
+        "src/*"
       ]
     }
   },

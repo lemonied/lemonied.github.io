@@ -1,0 +1,45 @@
+---
+title: 如何用rxjs做状态管理
+tag: rxjs
+---
+import { CountExample } from '@/example/store/count';
+import { DebounceExample } from '@/example/store/debounce';
+
+# 什么是状态管理
+
+## 如何用Rxjs实现一个状态管理
+### 核心代码
+<details open>
+  <summary>core.ts</summary>
+  ```tsx file=src/shared/stores/core.ts
+  ```
+</details>
+
+### React Hooks `针对React封装的Hook函数`
+<details open>
+  <summary>hook.ts</summary>
+  ```tsx file=src/shared/stores/hook.ts
+  ```
+</details>
+
+## 实战例子
+
+### 1. 简单计数器
+
+`这是一个简单的计数器，增加或减少`
+<CountExample />
+<details>
+  <summary>代码</summary>
+  ```tsx file=src/example/store/count.tsx
+  ```
+</details>
+
+### 2. 防抖
+
+`防抖是前端经常需要用到的技术点，例如搜索框，用户在快速输入文字时，保证不会频繁的调用接口`
+<DebounceExample />
+<details>
+  <summary>代码</summary>
+  ```tsx file=src/example/store/debounce.tsx
+  ```
+</details>

@@ -9,7 +9,7 @@ export const useStore = <T>(defaultState: T | Store<T>) => {
   const [store, setStore] = useState<Store<T>>();
   const defaultRef = useRef(defaultState);
 
-  const [state, setState] = useState(defaultState instanceof Store ? defaultState.getState() : defaultState);
+  const [state, setState] = useState(defaultState instanceof Store ? defaultState.state : defaultState);
 
   useEffect(() => {
     const instance = isStore(defaultRef.current) ? defaultRef.current : new Store(defaultRef.current);
@@ -19,7 +19,7 @@ export const useStore = <T>(defaultState: T | Store<T>) => {
       if (destroyable) {
         instance.destroy();
       } else {
-        instance.clearUpEffects();
+        instance.clear();
       }
     };
   }, []);

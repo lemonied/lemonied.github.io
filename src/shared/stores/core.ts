@@ -1,67 +1,50 @@
-import { finalize, map, startWith, Subject, tap } from 'rxjs';
-import type { Observable, OperatorFunction } from 'rxjs';
+import { map, startWith, Subject } from 'rxjs';
+import type { OperatorFunction } from 'rxjs';
 
 export class Store<T> {
   private original: T;
   private set$ = new Subject<T>();
-  public effects: Subject<T | void>[] = [];
+  private effects: Array<Subject<T> | Subject<void>> = [];
   public change$ = this.set$.asObservable();
   public state$ = this.change$.pipe(source => {
     return source.pipe(
       startWith(this.original),
     );
   });
-  public assign = tap<T>(v => this.set$.next(v));
+  public get state() {
+    return this.original;
+  }
   constructor(defaultState: T) {
     this.original = defaultState;
     this.set$.subscribe((state) => this.original = state);
   }
-  public pipeline(...operators: OperatorFunction<T, T>[]) {
-    const subject = new Subject<T | void>();
-    Store.operatorChains(
-      subject.pipe(
-        map(v => typeof v === 'undefined' ? this.getState() : v),
-        finalize(() => this.clearUpEffects(subject)),
-      ),
-      ...operators,
-    ).pipe(this.assign).subscribe();
+  public pipeline(operator: OperatorFunction<T, T>) {
+    const subject = new Subject<T>();
+    subject.pipe(
+      operator,
+    ).subscribe(this.set$);
     this.effects.push(subject);
     return subject;
   }
-  public getState() {
-    return this.original;
+  public statement(operator: OperatorFunction<T, T>) {
+    return this.pipeline(source => source.pipe(
+      map(() => this.state),
+      operator,
+    )) as unknown as Subject<void>;
   }
   /** clear up effects */
-  public clearUpEffects(...subjects: Subject<T | void>[]) {
-    if (subjects.length) {
-      while (subjects.length) {
-        const subject = subjects[0];
-        const index = this.effects.indexOf(subject);
-        if (index > -1) {
-          subject.complete();
-          this.effects.splice(index, 1);
-        }
-        subjects.shift();
-      }
-    } else {
-      while (this.effects.length) {
-        const subject = this.effects[0];
-        subject.complete();
-        this.effects.shift();
-      }
+  public clear() {
+    while (this.effects.length) {
+      const subject = this.effects[0];
+      subject.complete();
+      subject.unsubscribe();
+      this.effects.shift();
     }
   }
   /** destroy the instance */
   public destroy() {
-    this.clearUpEffects();
+    this.clear();
     this.set$.complete();
-  }
-  static operatorChains<T>(obs: Observable<T>, ...operators: OperatorFunction<T, T>[]): Observable<T> {
-    const operator = operators[0] as (OperatorFunction<T, T> | undefined);
-    if (operator) {
-      return Store.operatorChains(obs.pipe(operator), ...operators.slice(1));
-    }
-    return obs;
   }
 }
 

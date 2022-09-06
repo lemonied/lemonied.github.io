@@ -14,13 +14,13 @@ export const CountExample: FC = () => {
   const [state, store] = useStore(1);
 
   const increase = useMemo(() => {
-    return store?.pipeline(
+    return store?.statement(
       map(v => v + 1),
     );
   }, [store]);
 
   const reduce = useMemo(() => {
-    return store?.pipeline(
+    return store?.statement(
       map(v => v - 1),
     );
   }, [store]);

@@ -1,12 +1,14 @@
 import { map, merge, of, Subject } from 'rxjs';
 import type { OperatorFunction } from 'rxjs';
 
-type Effect<T> = Subject<T> | Subject<void>;
+interface SubjectLike {
+  complete(): void;
+}
 
 export class Store<T> {
   private original: T;
   private set$ = new Subject<T>();
-  private effects = new Set<Effect<T>>();
+  private effects = new Set<SubjectLike>();
   public change$ = this.set$.asObservable();
   public state$ = merge(
     of(null).pipe(map(() => this.original)),
@@ -19,8 +21,8 @@ export class Store<T> {
     this.original = defaultState;
     this.set$.subscribe((state) => this.original = state);
   }
-  public pipeline(operator: OperatorFunction<T, T>) {
-    const subject = new Subject<T>();
+  public pipeline<I>(operator: OperatorFunction<I, T>) {
+    const subject = new Subject<I>();
     subject.pipe(
       operator,
     ).subscribe(this.set$);
@@ -28,13 +30,13 @@ export class Store<T> {
     return subject;
   }
   public statement(operator: OperatorFunction<T, T>) {
-    return this.pipeline(source => source.pipe(
+    return this.pipeline<void>(source => source.pipe(
       map(() => this.state),
       operator,
-    )) as unknown as Subject<void>;
+    ));
   }
   /** clear up effects */
-  public clear(...subjects: Effect<T>[]) {
+  public clear(...subjects: SubjectLike[]) {
     for (const subject of subjects) {
       subject.complete();
       this.effects.delete(subject);

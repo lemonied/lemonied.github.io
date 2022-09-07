@@ -1,8 +1,7 @@
-import { cloneElement, FC, ReactElement, useMemo, useRef } from 'react';
+import { cloneElement, FC, ReactElement, useRef } from 'react';
 import { CSSTransition, SwitchTransition } from 'react-transition-group';
 import styles from './styles.module.scss';
 import { SwitchTransitionProps } from 'react-transition-group/SwitchTransition';
-import { randomStr } from '@shared/helpers/utils';
 
 interface FadeProps {
   show: boolean;

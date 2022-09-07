@@ -1,5 +1,6 @@
 import { Store } from './core';
 import { useEffect, useRef, useState } from 'react';
+import { OperatorFunction, Subject } from 'rxjs';
 
 export const useStore = <T>(defaultState: T | Store<T>) => {
   const [store, setStore] = useState<Store<T>>();
@@ -15,9 +16,9 @@ export const useStore = <T>(defaultState: T | Store<T>) => {
     const effects = effectsRef.current;
     if (isGlobal) {
       // 全局Store需要记录发生在组件内的pipeline副作用，以便组件销毁时清除
-      const pipeline = instance.pipeline;
+      const pipeline = instance.pipeline.bind(instance);
       instance.pipeline = (operator) => {
-        const subject = pipeline.call(instance, operator);
+        const subject = pipeline(operator);
         effects.add(subject);
         return subject;
       };

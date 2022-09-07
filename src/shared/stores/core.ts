@@ -1,16 +1,17 @@
-import { map, startWith, Subject } from 'rxjs';
+import { map, merge, of, Subject } from 'rxjs';
 import type { OperatorFunction } from 'rxjs';
+
+type Effect<T> = Subject<T> | Subject<void>;
 
 export class Store<T> {
   private original: T;
   private set$ = new Subject<T>();
-  private effects: Array<Subject<T> | Subject<void>> = [];
+  private effects = new Set<Effect<T>>();
   public change$ = this.set$.asObservable();
-  public state$ = this.change$.pipe(source => {
-    return source.pipe(
-      startWith(this.original),
-    );
-  });
+  public state$ = merge(
+    of(null).pipe(map(() => this.original)),
+    this.change$,
+  );
   public get state() {
     return this.original;
   }
@@ -23,7 +24,7 @@ export class Store<T> {
     subject.pipe(
       operator,
     ).subscribe(this.set$);
-    this.effects.push(subject);
+    this.effects.add(subject);
     return subject;
   }
   public statement(operator: OperatorFunction<T, T>) {
@@ -33,17 +34,20 @@ export class Store<T> {
     )) as unknown as Subject<void>;
   }
   /** clear up effects */
-  public clear() {
-    while (this.effects.length) {
-      const subject = this.effects[0];
+  public clear(...subjects: Effect<T>[]) {
+    for (const subject of subjects) {
       subject.complete();
-      subject.unsubscribe();
-      this.effects.shift();
+      this.effects.delete(subject);
     }
+  }
+  /** clear up all effects */
+  public clearAll() {
+    this.effects.forEach(v => v.complete());
+    this.effects.clear();
   }
   /** destroy the instance */
   public destroy() {
-    this.clear();
+    this.clearAll();
     this.set$.complete();
   }
 }

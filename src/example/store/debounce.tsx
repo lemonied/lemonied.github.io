@@ -15,6 +15,7 @@ const inputStore = createStore(''); // 也可以在组件外创建，这样就�
 export const DebounceExample: FC = () => {
 
   const [state, store] = useStore(inputStore);
+  console.log(store);
 
   const search$ = useMemo(() => {
     return store?.pipeline(source => source.pipe(

@@ -1,25 +1,36 @@
 import { Store } from './core';
 import { useEffect, useRef, useState } from 'react';
 
-const isStore = <T>(value: T | Store<T>): value is Store<T> => {
-  return value instanceof Store;
-};
-
 export const useStore = <T>(defaultState: T | Store<T>) => {
   const [store, setStore] = useState<Store<T>>();
   const defaultRef = useRef(defaultState);
+  const effectsRef = useRef<Store<T>['effects']>(new Set());
 
   const [state, setState] = useState(defaultState instanceof Store ? defaultState.state : defaultState);
 
   useEffect(() => {
-    const instance = isStore(defaultRef.current) ? defaultRef.current : new Store(defaultRef.current);
+    const isGlobal = defaultRef.current instanceof Store;
+    const instance = (isGlobal ? defaultRef.current : new Store(defaultRef.current)) as Store<T>;
+
+    const effects = effectsRef.current;
+    if (isGlobal) {
+      // 全局Store需要记录发生在组件内的pipeline副作用，以便组件销毁时清除
+      const pipeline = instance.pipeline;
+      instance.pipeline = (operator) => {
+        const subject = pipeline.call(instance, operator);
+        effects.add(subject);
+        return subject;
+      };
+    }
     setStore(instance);
-    const destroyable = !isStore(defaultRef.current);
     return () => {
-      if (destroyable) {
-        instance.destroy();
+      if (isGlobal) {
+        // 清理组件内产生的副作用
+        instance.clear(...Array.from(effects));
+        effects.clear();
       } else {
-        instance.clear();
+        // 组件内创建的Store需要随着组件销毁而销毁
+        instance.destroy();
       }
     };
   }, []);

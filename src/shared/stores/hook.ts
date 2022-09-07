@@ -1,6 +1,5 @@
 import { Store } from './core';
 import { useEffect, useRef, useState } from 'react';
-import { OperatorFunction, Subject } from 'rxjs';
 
 export const useStore = <T>(defaultState: T | Store<T>) => {
   const [store, setStore] = useState<Store<T>>();

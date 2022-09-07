@@ -1,12 +1,16 @@
 ---
 title: 如何用rxjs做状态管理
+description: 当rxjs遇上react
 tag: rxjs
 ---
 
 import { CountExample } from '@/example/store/count';
 import { DebounceExample } from '@/example/store/debounce';
+import { ListExample } from '@/example/store/list';
 
 # 什么是状态管理
+
+状态管理，我们一般都称之为Store，他有点像一个始终存在并且可以让每个人都可以读取和写入的存储空间
 
 ## 如何用Rxjs实现一个状态管理
 
@@ -45,3 +49,7 @@ import { DebounceExample } from '@/example/store/debounce';
   ```tsx file=src/example/store/debounce.tsx
   ```
 </details>
+
+### 3. 稍微复杂点的例子 TODO
+
+<ListExample />

@@ -16,8 +16,8 @@ const Wrapper = styled.div`
   position: relative;
   .copy-action{
     position: absolute;
-    top: 1em;
-    right: 1em;
+    top: .6em;
+    right: .8em;
   }
 `;
 

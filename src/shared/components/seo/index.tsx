@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useMemo } from 'react';
 import Head from 'next/head';
 
 interface SEOProps {
@@ -8,12 +8,18 @@ interface SEOProps {
 }
 const SEO: FC<SEOProps> = (props) => {
   const { title, description, suffix = true } = props;
+  
+  const fullTitle = useMemo(() => {
+    return `${title}${suffix ? ' - Chicken Man' : ''}`;
+  }, [suffix, title]);
+  
   return (
     <Head>
-      <title>{ `${title}${suffix ? ' - 甜心小鸡的个人空间' : ''}` }</title>
+      <title>{ fullTitle }</title>
       <meta name={'description'} content={description} />
-      <meta name={'og:title'} content={title} />
+      <meta name={'og:title'} content={fullTitle} />
       <meta name={'og:description'} content={description} />
+      <meta name={'og:image'} content={`${process.env.BASE_PATH}favicon.ico`} />
     </Head>
   );
 };

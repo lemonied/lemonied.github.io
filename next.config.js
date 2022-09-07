@@ -27,6 +27,7 @@ const nextConfig = {
         'react-transition-group': 'ReactTransitionGroup',
         'moment': 'moment',
         'nprogress': 'NProgress',
+        'immutable': 'Immutable',
       };
     }
     return config;

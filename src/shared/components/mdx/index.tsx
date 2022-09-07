@@ -38,6 +38,9 @@ const MarkdownBody = styled.div`
       }
     }
   }
+  table{
+    border-collapse: collapse;
+  }
 `;
 
 const ArticleWrapper = styled.article`

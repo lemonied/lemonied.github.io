@@ -1,7 +1,7 @@
 import { Store } from './core';
 import { useEffect, useRef, useState } from 'react';
 
-export const useStore = <T>(defaultState: T | Store<T>) => {
+export const useStore = <T>(defaultState: T | Store<T>): [T, Store<T> | undefined] => {
   const [store, setStore] = useState<Store<T>>();
   const defaultRef = useRef(defaultState);
   const effectsRef = useRef<Store<T>['effects']>(new Set());
@@ -40,5 +40,5 @@ export const useStore = <T>(defaultState: T | Store<T>) => {
     return () => subscription?.unsubscribe();
   }, [store]);
 
-  return [state, store] as [typeof state, typeof store];
+  return [state, store];
 };

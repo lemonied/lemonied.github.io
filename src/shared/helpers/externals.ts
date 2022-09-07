@@ -9,6 +9,10 @@ const javascripts = [
     production: '//unpkg.com/react-dom@18.2.0/umd/react-dom.production.min.js',
   },
   {
+    development: '//unpkg.com/immutable@4.1.0/dist/immutable.js',
+    production: '//unpkg.com/immutable@4.1.0/dist/immutable.min.js',
+  },
+  {
     development: '//unpkg.com/react-transition-group@4.4.5/dist/react-transition-group.js',
     production: '//unpkg.com/react-transition-group@4.4.5/dist/react-transition-group.min.js',
   },

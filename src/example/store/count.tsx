@@ -1,5 +1,4 @@
 import { FC } from 'react';
-import { map } from 'rxjs';
 import styled from 'styled-components';
 import { useAction, useStore } from '@shared/stores';
 

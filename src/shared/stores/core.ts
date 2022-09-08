@@ -1,4 +1,4 @@
-import { BehaviorSubject, distinctUntilChanged, finalize, map, skip, tap } from 'rxjs';
+import { BehaviorSubject, catchError, distinctUntilChanged, map, skip, tap, throwError } from 'rxjs';
 import type { OperatorFunction, MonoTypeOperatorFunction, Observable } from 'rxjs';
 
 export class Store<T> {
@@ -28,7 +28,11 @@ export class Store<T> {
   }
   public finalize<I>(fn: (input: T) => T): MonoTypeOperatorFunction<I> {
     return source => source.pipe(
-      finalize(() => this.set(fn(this.state))),
+      tap(() => this.set(fn(this.state))),
+      catchError(err => {
+        this.set(fn(this.state));
+        return throwError(err);
+      }),
     );
   }
   public set(value: T) {

@@ -9,6 +9,10 @@ const javascripts = [
     production: '//unpkg.com/react-dom@18.2.0/umd/react-dom.production.min.js',
   },
   {
+    development: '//unpkg.com/rxjs@7.5.6/dist/bundles/rxjs.umd.js',
+    production: '//unpkg.com/browse/rxjs@7.5.6/dist/bundles/rxjs.umd.min.js',
+  },
+  {
     development: '//unpkg.com/immutable@4.1.0/dist/immutable.js',
     production: '//unpkg.com/immutable@4.1.0/dist/immutable.min.js',
   },

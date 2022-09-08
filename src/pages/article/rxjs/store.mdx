@@ -28,6 +28,17 @@ import { ListExample } from '@/example/store/list';
   ```
 </details>
 
+#### eslint配置
+```json
+{
+  "rules": {
+    "react-hooks/exhaustive-deps": ["warn", {
+      "additionalHooks": "(useAction)"
+    }]
+  }
+}
+```
+
 ## 实战例子
 
 ### 1. 简单计数器

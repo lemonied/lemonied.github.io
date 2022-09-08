@@ -1,7 +1,7 @@
-import { FC, useMemo } from 'react';
+import { FC } from 'react';
 import { map } from 'rxjs';
 import styled from 'styled-components';
-import { useStore } from '@shared/stores';
+import { useAction, useStore } from '@shared/stores';
 
 const Wrapper = styled.div`
   margin-bottom: 20px;
@@ -13,17 +13,13 @@ const Wrapper = styled.div`
 export const CountExample: FC = () => {
   const [state, store] = useStore(1);
 
-  const increase = useMemo(() => {
-    return store?.statement(
-      map(v => v + 1),
-    );
-  }, [store]);
+  const [increase] = useAction<void>((action) => action.pipe(
+    store.map(() => store.state + 1),
+  ).subscribe(), [store]);
 
-  const reduce = useMemo(() => {
-    return store?.statement(
-      map(v => v - 1),
-    );
-  }, [store]);
+  const [reduce] = useAction<void>((action) => action.pipe(
+    store.map(() => store.state - 1),
+  ).subscribe(), [store]);
 
   return (
     <Wrapper>

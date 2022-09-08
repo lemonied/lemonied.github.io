@@ -28,6 +28,7 @@ const nextConfig = {
         'moment': 'moment',
         'nprogress': 'NProgress',
         'immutable': 'Immutable',
+        'rxjs': 'rxjs',
       };
     }
     return config;

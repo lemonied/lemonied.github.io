@@ -1,44 +1,52 @@
-import { Store } from './core';
-import { useEffect, useRef, useState } from 'react';
+import { type Store, createStore } from './core';
+import { DependencyList, useEffect, useMemo, useRef, useState } from 'react';
+import { Subject, Subscription } from 'rxjs';
 
-export const useStore = <T>(defaultState: T | Store<T>): [T, Store<T> | undefined] => {
-  const [store, setStore] = useState<Store<T>>();
+export const useStore = <T>(defaultState: T): [T, Store<T>] => {
+
   const defaultRef = useRef(defaultState);
-  const effectsRef = useRef<Store<T>['effects']>(new Set());
-
-  const [state, setState] = useState(defaultState instanceof Store ? defaultState.state : defaultState);
+  const storeRef = useRef(useMemo(() => createStore(defaultRef.current), []));
+  const [state, setState] = useState(defaultState);
 
   useEffect(() => {
-    const isGlobal = defaultRef.current instanceof Store;
-    const instance = (isGlobal ? defaultRef.current : new Store(defaultRef.current)) as Store<T>;
+    const instance = storeRef.current;
+    Object.assign(instance, createStore(storeRef.current.state));
+    const subscription = instance.change$.subscribe(res => setState(res));
 
-    const effects = effectsRef.current;
-    if (isGlobal) {
-      // 全局Store需要记录发生在组件内的pipeline副作用，以便组件销毁时清除
-      const pipeline = instance.pipeline.bind(instance);
-      instance.pipeline = (operator) => {
-        const subject = pipeline(operator);
-        effects.add(subject);
-        return subject;
-      };
-    }
-    setStore(instance);
     return () => {
-      if (isGlobal) {
-        // 清理组件内产生的副作用
-        instance.clear(...Array.from(effects));
-        effects.clear();
-      } else {
-        // 组件内创建的Store需要随着组件销毁而销毁
-        instance.destroy();
-      }
+      instance.destroy();
+      subscription.unsubscribe();
     };
   }, []);
 
-  useEffect(() => {
-    const subscription = store?.change$.subscribe(res => setState(res));
-    return () => subscription?.unsubscribe();
-  }, [store]);
+  return [state, storeRef.current];
+};
 
-  return [state, store];
+export const useRxState = <T>(store: Store<T>) => {
+  const [state, setState] = useState(store.state);
+  useEffect(() => {
+    const subscription = store.change$.subscribe(res => setState(res));
+    return () => subscription.unsubscribe();
+  }, [store]);
+  return state;
+};
+
+export const useAction = <T=unknown>(factory: (action: Subject<T>) => Subscription, deps: DependencyList) => {
+
+  const [action, setAction] = useState<Subject<T>>();
+  const [subscription, setSubscription] = useState<Subscription>();
+
+  useEffect(() => {
+    const newAction = new Subject<T>();
+    setAction(newAction);
+    const ss = factory(newAction);
+    setSubscription(ss);
+    return () => {
+      newAction.complete();
+      ss.unsubscribe();
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, deps);
+
+  return [action, subscription] as [typeof action, typeof subscription];
 };

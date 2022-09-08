@@ -80,7 +80,7 @@ const MDXWrapper: FC<MDXWrapperProps> = (props) => {
         <ArticleWrapper>
           <h1>{ frontMatter.title }</h1>
           <p>
-            <span>更新时间：{ moment(frontMatter.updated).format('YYYY-MM-DD HH:mm:ss') }</span>
+            <span>更新时间：{ moment(frontMatter.updated).utcOffset(8).format('YYYY-MM-DD HH:mm:ss') }</span>
             <span>
               <span>标签：</span>
               { frontMatter.tag.map((tag, k) => {

@@ -35,11 +35,18 @@ export class Store<T> {
       }),
     );
   }
-  public capture<I>(fn: (err: any, input: T) => T): OperatorFunction<I, I> {
-    return catchError((err, caught) => {
-      this.set(fn(err, this.state));
-      return caught;
-    });
+  public capture<I>(fn?: (err: any, input: T) => T): OperatorFunction<I, I> {
+    return source => source.pipe(
+      catchError((err, caught) => {
+        fn && this.set(fn(err, this.state));
+        return caught;
+      }),
+      catchError((err, caught) => {
+        // eslint-disable-next-line no-console
+        console.error(err);
+        return caught;
+      }),
+    );
   }
   public set(value: T) {
     this.behavior$.next(value);

@@ -12,13 +12,13 @@ const Wrapper = styled.div`
 export const CountExample: FC = () => {
   const [state, store] = useStore(1);
 
-  const [increase] = useAction((action) => action.pipe(
+  const increase = useAction((action) => action.pipe(
     store.map(() => store.state + 1),
-  ).subscribe(), [store]);
+  ), [store]);
 
-  const [reduce] = useAction((action) => action.pipe(
+  const reduce = useAction((action) => action.pipe(
     store.map(() => store.state - 1),
-  ).subscribe(), [store]);
+  ), [store]);
 
   return (
     <Wrapper>

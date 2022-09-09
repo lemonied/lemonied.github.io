@@ -16,11 +16,11 @@ export const DebounceExample: FC = () => {
 
   const state = useGetter(store);
 
-  const [action] = useAction<string>((action) => action.pipe(
+  const action = useAction<string>((action) => action.pipe(
     debounce(() => timer(500)), // 500毫秒内的按键，只有最后一次会被触发
     switchMap((res) => of(res).pipe(delay(Math.random() * 1000))), // 模拟接口返回延迟，随机 0ms - 1000ms
     store.tap,
-  ).subscribe(), []);
+  ), []);
 
   return (
     <Wrapper>

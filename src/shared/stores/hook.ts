@@ -1,6 +1,6 @@
 import { type Store, createStore } from './core';
 import { DependencyList, useEffect, useMemo, useRef, useState } from 'react';
-import { Subject, Subscription } from 'rxjs';
+import { Observable, Subject, Subscription } from 'rxjs';
 
 export const useStore = <T>(defaultState: T): [T, Store<T>] => {
 
@@ -31,22 +31,27 @@ export const useGetter = <T>(store: Store<T>) => {
   return state;
 };
 
-export const useAction = <T=void>(factory: (action: Subject<T>) => Subscription, deps: DependencyList) => {
+export const useAction = <T=void, O=unknown>(factory: (action: Subject<T>) => Observable<O>, deps: DependencyList) => {
 
   const [action, setAction] = useState<Subject<T>>();
-  const [subscription, setSubscription] = useState<Subscription>();
 
   useEffect(() => {
-    const newAction = new Subject<T>();
-    setAction(newAction);
-    const ss = factory(newAction);
-    setSubscription(ss);
+    let subscription: Subscription | null = null;
+    if (action) {
+      subscription = factory(action).subscribe();
+    }
+    return () => subscription?.unsubscribe();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [action]);
+
+  useEffect(() => {
+    const subject = new Subject<T>();
+    setAction(subject);
     return () => {
-      newAction.complete();
-      ss.unsubscribe();
+      subject.complete();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, deps);
 
-  return [action, subscription] as [typeof action, typeof subscription];
+  return action;
 };

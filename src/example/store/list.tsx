@@ -17,7 +17,7 @@ const ListExample: FC = () => {
 
   const list = useMemo(() => data.get('list') as any[], [data]);
 
-  const [getList] = useAction(action => action.pipe(
+  const getList = useAction<string | void>(action => action.pipe(
     store.map(() => store.state.set('loading', true)),
     switchMap(data => {
       return fromFetch(`https://randomuser.me/api?page=${data.get('page')}&results=10&inc=id,name,email,phone,cell,gender`).pipe(
@@ -28,7 +28,7 @@ const ListExample: FC = () => {
     store.always(data => data.set('loading', false)),
     store.capture((err, data) => data.set('error', true)),
     store.map(data => data.set('error', false)),
-  ).subscribe(), [store]);
+  ), [store]);
 
   useEffect(() => {
     getList?.next();
@@ -44,12 +44,13 @@ const ListExample: FC = () => {
             }
           </span>
         </button>
-        {
-          data.get('error') ? (
-            <span style={{ color: 'red' }}>出错了，点击刷新按钮重新加载</span>
-          ) : null
-        }
+        <button style={{ marginLeft: 10 }}>取消请求todo</button>
       </p>
+      {
+        data.get('error') ? (
+          <p style={{ color: 'red' }}>出错了，点击刷新按钮重新加载</p>
+        ) : null
+      }
       <table>
         <thead>
           <tr>

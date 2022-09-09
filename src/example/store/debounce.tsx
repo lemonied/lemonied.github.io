@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import styled from 'styled-components';
-import { createStore, useRxState, useAction } from '@shared/stores';
+import { createStore, useGetter, useAction } from '@shared/stores';
 import { debounce, delay, of, switchMap, timer } from 'rxjs';
 
 const Wrapper = styled.div`
@@ -14,7 +14,7 @@ const store = createStore(''); // 也可以在组件外创建，这样就可以�
 
 export const DebounceExample: FC = () => {
 
-  const state = useRxState(store);
+  const state = useGetter(store);
 
   const [action] = useAction<string>((action) => action.pipe(
     debounce(() => timer(500)), // 500毫秒内的按键，只有最后一次会被触发

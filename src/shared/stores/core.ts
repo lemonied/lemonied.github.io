@@ -26,19 +26,24 @@ export class Store<T> {
       return ret;
     });
   }
-  public finalize<I>(fn: (input: T) => T): MonoTypeOperatorFunction<I> {
+  public always<I>(fn: (input: T) => T): OperatorFunction<I, T> {
     return source => source.pipe(
-      tap(() => this.set(fn(this.state))),
-      catchError(err => {
+      this.map(() => fn(this.state)),
+      catchError((err) => {
         this.set(fn(this.state));
-        return throwError(err);
+        return throwError(() => err);
       }),
     );
+  }
+  public capture<I>(fn: (err: any, input: T) => T): OperatorFunction<I, I> {
+    return catchError((err, caught) => {
+      this.set(fn(err, this.state));
+      return caught;
+    });
   }
   public set(value: T) {
     this.behavior$.next(value);
   }
-  /** destroy the instance */
   public destroy() {
     this.behavior$.complete();
   }

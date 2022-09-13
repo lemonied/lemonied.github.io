@@ -1,6 +1,5 @@
 import { type Store, createStore } from './core';
-import { DependencyList, useEffect, useMemo, useRef, useState } from 'react';
-import { Observable, Subject, Subscription } from 'rxjs';
+import { useEffect, useMemo, useRef, useState } from 'react';
 
 export const useStore = <T>(defaultState: T): [T, Store<T>] => {
 
@@ -10,9 +9,8 @@ export const useStore = <T>(defaultState: T): [T, Store<T>] => {
 
   useEffect(() => {
     const instance = storeRef.current;
-    Object.assign(instance, createStore(storeRef.current.state));
+    Object.assign(instance, createStore(instance.state));
     const subscription = instance.change$.subscribe(res => setState(res));
-
     return () => {
       instance.destroy();
       subscription.unsubscribe();
@@ -29,29 +27,4 @@ export const useGetter = <T>(store: Store<T>) => {
     return () => subscription.unsubscribe();
   }, [store]);
   return state;
-};
-
-export const useAction = <T=void, O=unknown>(factory: (action: Subject<T>) => Observable<O>, deps: DependencyList) => {
-
-  const [action, setAction] = useState<Subject<T>>();
-
-  useEffect(() => {
-    let subscription: Subscription | null = null;
-    if (action) {
-      subscription = factory(action).subscribe();
-    }
-    return () => subscription?.unsubscribe();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [action]);
-
-  useEffect(() => {
-    const subject = new Subject<T>();
-    setAction(subject);
-    return () => {
-      subject.complete();
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, deps);
-
-  return action;
 };

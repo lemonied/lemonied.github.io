@@ -21,10 +21,15 @@ import { ListExample } from '@/example/store/list';
   ```
 </details>
 
-### React Hooks `针对React封装的Hook函数`
+### React Hooks
 <details open>
   <summary>hook.ts</summary>
   ```tsx file=src/shared/stores/hook.ts
+  ```
+</details>
+<details open>
+  <summary>hooks/observable.ts</summary>
+  ```tsx file=src/shared/hooks/observable.ts
   ```
 </details>
 
@@ -33,7 +38,7 @@ import { ListExample } from '@/example/store/list';
 {
   "rules": {
     "react-hooks/exhaustive-deps": ["warn", {
-      "additionalHooks": "(useAction)"
+      "additionalHooks": "(useSubject)"
     }]
   }
 }

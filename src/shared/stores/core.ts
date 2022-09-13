@@ -36,20 +36,19 @@ export class Store<T> {
     );
   }
   public capture<I>(fn?: (err: any, input: T) => T): OperatorFunction<I, I> {
-    return source => source.pipe(
-      catchError((err, caught) => {
+    return catchError((err, caught) => {
+      try {
         fn && this.set(fn(err, this.state));
-        return caught;
-      }),
-      catchError((err, caught) => {
+      } catch (e) {
         // eslint-disable-next-line no-console
-        console.error(err);
-        return caught;
-      }),
-    );
+        console.error(e);
+      }
+      return caught;
+    });
   }
   public set(value: T) {
     this.behavior$.next(value);
+    return this.state;
   }
   public destroy() {
     this.behavior$.complete();

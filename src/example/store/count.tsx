@@ -1,6 +1,7 @@
 import { FC } from 'react';
 import styled from 'styled-components';
-import { useAction, useStore } from '@shared/stores';
+import { useStore } from '@shared/stores';
+import { useSubject } from '@shared/hooks/observable';
 
 const Wrapper = styled.div`
   margin-bottom: 20px;
@@ -12,11 +13,11 @@ const Wrapper = styled.div`
 export const CountExample: FC = () => {
   const [state, store] = useStore(1);
 
-  const increase = useAction((action) => action.pipe(
+  const increase = useSubject((action) => action.pipe(
     store.map(() => store.state + 1),
   ), [store]);
 
-  const reduce = useAction((action) => action.pipe(
+  const reduce = useSubject((action) => action.pipe(
     store.map(() => store.state - 1),
   ), [store]);
 

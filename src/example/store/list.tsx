@@ -1,8 +1,9 @@
 import { FC, useEffect, useMemo } from 'react';
 import { Map } from 'immutable';
 import { fromFetch } from 'rxjs/fetch';
-import { switchMap } from 'rxjs';
-import { useAction, useStore } from '@shared/stores';
+import { concatMap, of, switchMap } from 'rxjs';
+import { useStore } from '@shared/stores';
+import { useSubject } from '@shared/hooks/observable';
 
 const ListExample: FC = () => {
 
@@ -16,18 +17,32 @@ const ListExample: FC = () => {
   );
 
   const list = useMemo(() => data.get('list') as any[], [data]);
+  const page = useMemo(() => data.get('page') as number, [data]);
 
-  const getList = useAction<string | void>(action => action.pipe(
-    store.map(() => store.state.set('loading', true)),
+  const getList = useSubject<string | void>(action => action.pipe(
     switchMap(data => {
-      return fromFetch(`https://randomuser.me/api?page=${data.get('page')}&results=10&inc=id,name,email,phone,cell,gender`).pipe(
-        switchMap(res => res.json()),
-        store.map(res => data.set('list', res.results)),
+      if (data === 'cancel') {
+        return of(store.state);
+      }
+      return of(store.state).pipe(
+        store.map(state => state.withMutations(m => {
+          m.set('loading', true);
+          m.set('error', false);
+        })),
+        concatMap(state => fromFetch(`https://randomuser.me/api?page=${page}&results=10&inc=id,name,email,phone,cell,gender`).pipe(
+          switchMap(res => res.json()),
+          store.map(res => state.set('list', res.results)),
+        )),
       );
     }),
     store.always(data => data.set('loading', false)),
     store.capture((err, data) => data.set('error', true)),
-    store.map(data => data.set('error', false)),
+  ), [page, store]);
+  const previousPage = useSubject(action => action.pipe(
+    store.map(() => store.state.set('page', (store.state.get('page') as number) - 1)),
+  ), [store]);
+  const nextPage = useSubject(action => action.pipe(
+    store.map(() => store.state.set('page', (store.state.get('page') as number) + 1)),
   ), [store]);
 
   useEffect(() => {
@@ -44,7 +59,12 @@ const ListExample: FC = () => {
             }
           </span>
         </button>
-        <button style={{ marginLeft: 10 }}>取消请求todo</button>
+        <button style={{ marginLeft: 10 }} onClick={() => getList?.next('cancel')}>取消请求</button>
+      </p>
+      <p>
+        <button onClick={() => previousPage?.next()}>上一页</button>
+        <span>{ data.get('page') }</span>
+        <button onClick={() => nextPage?.next()}>下一页</button>
       </p>
       {
         data.get('error') ? (

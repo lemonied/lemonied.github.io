@@ -1,7 +1,8 @@
 import { FC } from 'react';
 import styled from 'styled-components';
-import { createStore, useGetter, useAction } from '@shared/stores';
+import { createStore, useGetter } from '@shared/stores';
 import { debounce, delay, of, switchMap, timer } from 'rxjs';
+import { useSubject } from '@shared/hooks/observable';
 
 const Wrapper = styled.div`
   margin-bottom: 20px;
@@ -16,7 +17,7 @@ export const DebounceExample: FC = () => {
 
   const state = useGetter(store);
 
-  const action = useAction<string>((action) => action.pipe(
+  const action = useSubject<string>((action) => action.pipe(
     debounce(() => timer(500)), // 500毫秒内的按键，只有最后一次会被触发
     switchMap((res) => of(res).pipe(delay(Math.random() * 1000))), // 模拟接口返回延迟，随机 0ms - 1000ms
     store.tap,

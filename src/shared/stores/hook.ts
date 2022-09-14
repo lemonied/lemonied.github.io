@@ -1,10 +1,10 @@
 import { type Store, createStore } from './core';
 import { useEffect, useMemo, useRef, useState } from 'react';
 
-export const useStore = <T>(defaultState: T): [T, Store<T>] => {
+export const useStore = <T>(defaultState: () => T): [T, Store<T>] => {
 
-  const defaultRef = useRef(defaultState);
-  const storeRef = useRef(useMemo(() => createStore(defaultRef.current), []));
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const storeRef = useRef(useMemo(() => createStore(defaultState()), []));
   const [state, setState] = useState(defaultState);
 
   useEffect(() => {

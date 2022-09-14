@@ -8,5 +8,5 @@ export const useDebounce = <T extends Function>(fn: T, delay = 500) => {
     return debounce((...args: any[]) => {
       ref.current?.(...args);
     }, delay);
-  }, [delay]) as [() => void, T];
+  }, [delay]) as [T, () => void];
 };

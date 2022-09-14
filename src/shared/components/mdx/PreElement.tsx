@@ -45,7 +45,7 @@ const PreElement: FC<PreElementProps> = (props) => {
   const onMouseLeave = useCallback((e: MouseEvent<HTMLDivElement>) => {
     setShow(false);
   }, []);
-  const [cancel, onMouseDown] = useDebounce((e: MouseEvent<HTMLDivElement>) => {
+  const [onMouseDown, cancel] = useDebounce((e: MouseEvent<HTMLDivElement>) => {
     setShow(false);
   }, 500);
   const onMouseUp = useCallback((e: MouseEvent<HTMLDivElement>) => {

@@ -7,14 +7,12 @@ import { useSubject } from '@shared/hooks/observable';
 
 const ListExample: FC = () => {
 
-  const [data, store] = useStore(
-    Map({
-      loading: false,
-      error: false,
-      page: 1,
-      list: [] as any[],
-    }),
-  );
+  const [data, store] = useStore(() => Map({
+    loading: false,
+    error: false,
+    page: 1,
+    list: [] as any[],
+  }));
 
   const list = useMemo(() => data.get('list') as any[], [data]);
   const page = useMemo(() => data.get('page') as number, [data]);

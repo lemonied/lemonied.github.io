@@ -11,7 +11,7 @@ const Wrapper = styled.div`
 `;
 
 export const CountExample: FC = () => {
-  const [state, store] = useStore(1);
+  const [state, store] = useStore(() => 1);
 
   const increase = useSubject((action) => action.pipe(
     store.map(() => store.state + 1),

@@ -25,7 +25,7 @@ export function sleep(millisecond = 1000) {
   });
 }
 
-export class Token<T=unknown> {
+export class Token<T=void> {
   public promise: Promise<T>;
   public resolve!: (value: T | PromiseLike<T>) => void;
   public reject!: (reason?: any) => void;
@@ -48,7 +48,7 @@ export function debounce<T extends Function>(fn: T, delay: number) {
       fn(...args);
     }, delay);
   };
-  return [cancel, callback];
+  return [callback, cancel];
 }
 
 export async function copyText(value: string) {

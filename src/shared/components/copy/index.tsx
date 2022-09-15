@@ -1,7 +1,7 @@
 import { forwardRef, useCallback, useEffect, useRef, useState } from 'react';
 import styles from './styles.module.scss';
 import { Icon } from '@shared/components/icons';
-import { combineClass, copyText } from '@shared/helpers/utils';
+import { copyText, combineClass } from '@shared/utils';
 import { Button, ButtonProps } from '@shared/components/button';
 import { FadeSwitch } from '@shared/components/fade';
 

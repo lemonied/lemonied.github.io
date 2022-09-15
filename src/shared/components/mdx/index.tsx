@@ -55,7 +55,13 @@ const ArticleWrapper = styled.article`
     }
   }
   a{
-    color: #1890ff;
+    color: var(--color-link);
+    &:hover{
+      color: var(--color-link-hover);
+    }
+    &:active{
+      color: var(--color-link-active);
+    }
   }
 `;
 

@@ -1,5 +1,5 @@
 import { useMemo, useRef } from 'react';
-import { debounce } from '@shared/helpers/utils';
+import { debounce } from '@shared/utils';
 
 export const useDebounce = <T extends Function>(fn: T, delay = 500) => {
   const ref = useRef<T>();

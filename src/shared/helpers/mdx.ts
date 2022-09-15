@@ -12,6 +12,7 @@ const MDX_PATH = path.resolve(process.cwd(), './src/pages/article');
 
 const MDX_PATH_POSIX = toPosixPath(MDX_PATH);
 
+/** Get all articles ant reverse by last update time */
 export const getPages = () => {
   const files = glob.sync(
     toPosixPath(
@@ -30,11 +31,14 @@ export const getPages = () => {
       frontMatter: data,
       path: `/article/${pathname}`,
     } as MDXPage;
+  }).sort((a, b) => {
+    return new Date(b.frontMatter.updated) > new Date(a.frontMatter.updated) ? 1 : -1;
   });
 };
 
 export const mdxPages = getPages();
 
+/** Get all tags */
 function getAllTags() {
   const tags = new Set<string>();
   for (const page of mdxPages) {
@@ -45,6 +49,7 @@ function getAllTags() {
 
 export const tags = getAllTags();
 
+/** Get all pages by tag */
 export function getPagesByTag(tag: string) {
   return mdxPages.filter(v => v.frontMatter.tag.includes(tag));
 }

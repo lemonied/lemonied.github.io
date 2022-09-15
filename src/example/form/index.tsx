@@ -1,6 +1,6 @@
 import { FC, useCallback, useRef } from 'react';
 import { Form, FormInstance } from '@shared/components/form';
-import { sleep } from '@shared/helpers/utils';
+import { sleep } from '@shared/utils';
 import { map, timer } from 'rxjs';
 
 const { Item } = Form;
@@ -31,7 +31,7 @@ export const FormExample: FC = () => {
         defaultValue={'default'}
         rules={[
           { required: true, message: '必填项' },
-          (value) => /\d+/.test(value) ? null : '只能输入数字',
+          (value) => /^\d+$/.test(value) ? null : '只能输入数字',
         ]}
       >
         <input />
@@ -50,6 +50,7 @@ export const FormExample: FC = () => {
       <p>
         <button onClick={onSubmit}>提交</button>
         <button onClick={() => formRef.current?.reset()}>重置</button>
+        <button onClick={() => formRef.current?.clearValidity()}>清除错误验证</button>
       </p>
     </Form>
   );

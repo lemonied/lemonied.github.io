@@ -3,7 +3,7 @@ import {
   DOMAttributes,
 } from 'react';
 import styles from './styles.module.scss';
-import { combineClass } from '@shared/helpers/utils';
+import { combineClass } from '@shared/utils';
 
 export interface ButtonProps extends DOMAttributes<HTMLButtonElement> {
   className?: string;

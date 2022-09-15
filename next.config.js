@@ -33,6 +33,9 @@ const nextConfig = {
     }
     return config;
   },
+  images: {
+    unoptimized: true,
+  },
 };
 
 module.exports = mdx(nextConfig);

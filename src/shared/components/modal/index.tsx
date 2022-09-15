@@ -10,7 +10,7 @@ import React, {
   MouseEvent,
   useEffect,
 } from 'react';
-import { combineClass, Token } from '@shared/helpers/utils';
+import { Token, combineClass } from '@shared/utils';
 import { CSSTransition } from 'react-transition-group';
 import { createPortal } from 'react-dom';
 import styles from './modal.module.scss';

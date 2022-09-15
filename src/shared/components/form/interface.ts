@@ -1,11 +1,9 @@
 import type { Observable } from 'rxjs';
 
 export interface FormControlled<T> {
-  value?: T
+  value?: T;
   onChange?(e: T): void;
 }
-
-export type FormValues = Record<string, any>;
 
 interface RuleRequired {
   required?: boolean;

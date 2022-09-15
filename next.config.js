@@ -11,7 +11,7 @@ const nextConfig = {
   },
   basePath: BASE_PATH.replace(/\/$/, ''),
   reactStrictMode: process.env.NODE_ENV === 'development',
-  swcMinify: true,
+  swcMinify: false, // swcMinify will cause some problems, Reason not found
   compiler: {
     styledComponents: true,
   },

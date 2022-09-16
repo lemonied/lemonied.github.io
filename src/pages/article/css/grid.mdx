@@ -3,7 +3,9 @@ title: CSS3 网格布局
 tag: css/web前端
 ---
 
-## 代码示例
+import { GridExample } from '@/example/grid';
+
+# 基本用法
 ```scss
 .container{
   display: grid;
@@ -15,16 +17,18 @@ tag: css/web前端
   grid-row-gap: 2rem;
 }
 ```
+MDN文档： [https://developer.mozilla.org/en-US/docs/Web/CSS/grid](https://developer.mozilla.org/en-US/docs/Web/CSS/grid)
 
-## grid-template-columns 属性
-```scss
-.container{
-  // 5列，每一列宽度为20%
-  grid-template-columns: repeat(5, 1fr);
-  // 等同于
-  grid-template-columns: repeat(5, 20%);
-
-  // 2列，第一列为250px，第二列为剩余空间
-  grid-template-columns: 250px 1fr;
-}
+# 示例
+> 拖拽修改浏览器视口宽度查看效果
+```scss file=src/example/grid/demo1.module.scss
 ```
+<GridExample />
+
+```scss file=src/example/grid/demo2.module.scss
+```
+<GridExample styl={1} />
+
+```scss file=src/example/grid/demo3.module.scss
+```
+<GridExample styl={2} />

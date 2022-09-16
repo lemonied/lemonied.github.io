@@ -1,5 +1,5 @@
 import { FC, useRef } from 'react';
-import { ModalInstance, PortalModal } from '.';
+import { ModalInstance, PortalModal } from '@shared/components/modal';
 
 const ModalExample: FC = () => {
 

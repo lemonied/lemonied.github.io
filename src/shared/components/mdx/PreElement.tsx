@@ -10,7 +10,7 @@ import {
 import styled from 'styled-components';
 import { Copy } from '@shared/components/copy';
 import { Fade } from '@shared/components/fade';
-import { useDebounce } from '@shared/hooks/common';
+import { useDebounce } from '@shared/utils/debounce';
 
 const Wrapper = styled.div`
   position: relative;

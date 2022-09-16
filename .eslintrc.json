@@ -22,7 +22,7 @@
     "comma-spacing": ["error", { "before": false, "after": true }],
     "no-debugger": "warn",
     "react-hooks/exhaustive-deps": ["warn", {
-      "additionalHooks": "(useSubject)"
+      "additionalHooks": "(useSubject|useTrailed)"
     }]
   }
 }

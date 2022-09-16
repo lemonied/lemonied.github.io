@@ -1,4 +1,6 @@
-export function debounce<T extends Function>(fn: T, delay: number) {
+import { useMemo, useRef } from 'react';
+
+export function debounce<T extends (...args: any[]) => any>(fn: T, delay: number) {
   let timer: number;
   const cancel = () => {
     window.clearTimeout(timer);
@@ -11,3 +13,13 @@ export function debounce<T extends Function>(fn: T, delay: number) {
   };
   return [callback, cancel];
 }
+
+export const useDebounce = <T extends (...args: any[]) => any>(fn: T, delay = 500) => {
+  const ref = useRef<T>();
+  ref.current = fn;
+  return useMemo(() => {
+    return debounce((...args: any[]) => {
+      ref.current?.(...args);
+    }, delay);
+  }, [delay]) as [T, () => void];
+};

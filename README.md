@@ -12,8 +12,8 @@ yarn
 npm run pkgs:dev
 npm run dev
 # or
-yarn dev
 yarn pkgs:dev
+yarn dev
 ```
 
 ## Environment

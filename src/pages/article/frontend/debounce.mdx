@@ -1,0 +1,36 @@
+---
+title: debounce 去抖
+tag: web前端
+---
+
+import { DebounceExample } from '@/example/debounce';
+import { TrailedExample } from '@/example/debounce/trailed';
+
+# 常见的防抖实现
+
+```typescript file=src/shared/utils/debounce.ts
+```
+
+## 应用
+
+<DebounceExample />
+
+<details>
+  <summary>代码</summary>
+  ```typescript file=src/example/debounce/index.tsx
+  ```
+</details>
+
+# 其他
+
+```typescript file=src/shared/utils/trailed.ts
+```
+
+## 示例
+<TrailedExample />
+
+<details>
+  <summary>代码</summary>
+  ```typescript file=src/example/debounce/trailed.tsx
+  ```
+</details>

@@ -11,7 +11,8 @@ const nextConfig = {
   },
   basePath: BASE_PATH.replace(/\/$/, ''),
   reactStrictMode: process.env.NODE_ENV === 'development',
-  swcMinify: false, // swcMinify will cause some problems, Reason not found
+  // https://github.com/vercel/next.js/issues/40601
+  swcMinify: true,
   compiler: {
     styledComponents: true,
   },

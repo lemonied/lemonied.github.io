@@ -21,11 +21,11 @@ const Wrapper = styled.div`
   }
 `;
 
-interface PreElementProps {
+interface CodeLayerProps {
   content: string;
   children?: ReactNode;
 }
-const PreElement: FC<PreElementProps> = (props) => {
+const CodeLayer: FC<CodeLayerProps> = (props) => {
 
   const { children, content } = props;
   const selecting = useRef(false);
@@ -76,4 +76,4 @@ const PreElement: FC<PreElementProps> = (props) => {
   );
 };
 
-export { PreElement };
+export { CodeLayer };

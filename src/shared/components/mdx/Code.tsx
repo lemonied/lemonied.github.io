@@ -1,19 +1,19 @@
-import { FC, useMemo } from 'react';
+import { FC, ReactNode, useMemo } from 'react';
 import Highlight, { defaultProps, Language } from 'prism-react-renderer';
 import theme from 'prism-react-renderer/themes/github';
 import styled from 'styled-components';
-import { PreElement } from '@shared/components/mdx/PreElement';
+import { CodeLayer } from '@shared/components/mdx/CodeLayer';
 
 interface CodeProps {
   className?: string;
-  children?: string;
+  children?: ReactNode;
 }
 const Code: FC<CodeProps> = (props) => {
 
-  const { children = '', className = '' } = props;
+  const { children, className = '' } = props;
 
   const inline = useMemo(() => {
-    return !/\n$/.test(children) && !className;
+    return typeof children !== 'string' || (!/\n$/.test(children) && !className);
   }, [children, className]);
   
   const lang = useMemo(() => {
@@ -21,7 +21,7 @@ const Code: FC<CodeProps> = (props) => {
   }, [className]);
 
   const content = useMemo(() => {
-    return children.trim();
+    return typeof children === 'string' ? children.trim() : '';
   }, [children]);
 
   if (inline) {
@@ -31,7 +31,7 @@ const Code: FC<CodeProps> = (props) => {
   }
 
   return (
-    <PreElement content={content}>
+    <CodeLayer content={content}>
       <Highlight {...defaultProps} code={content} language={lang} theme={theme}>
         {
           ({ className, style, tokens, getLineProps, getTokenProps }) => {
@@ -56,7 +56,7 @@ const Code: FC<CodeProps> = (props) => {
           }
         }
       </Highlight>
-    </PreElement>
+    </CodeLayer>
   );
 };
 

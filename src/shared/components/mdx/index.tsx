@@ -89,14 +89,16 @@ const MDXWrapper: FC<MDXWrapperProps> = (props) => {
             <span>更新时间：{ moment(frontMatter.updated).utcOffset(8).format('YYYY-MM-DD HH:mm:ss') }</span>
             <span>
               <span>标签：</span>
-              { frontMatter.tag.map((tag, k) => {
-                return (
-                  <span key={tag}>
-                    { k !== 0 ? ' | ' : null }
-                    <Link key={tag} href={`/list/${tag}`} >{tag}</Link>
-                  </span>
-                );
-              }) }
+              {
+                frontMatter.tag.map((tag, k) => {
+                  return (
+                    <span key={tag}>
+                      { k !== 0 ? ' | ' : null }
+                      <Link key={tag} href={`/list/${tag}`} >{tag}</Link>
+                    </span>
+                  );
+                })
+              }
             </span>
           </p>
           <MarkdownBody className='markdown-body'>

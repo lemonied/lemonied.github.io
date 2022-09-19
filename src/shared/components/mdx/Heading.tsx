@@ -1,0 +1,51 @@
+import { FC, ReactNode, useMemo } from 'react';
+import styled from 'styled-components';
+import { Icon } from '@shared/components/icons';
+import { randomStr } from '@shared/utils';
+
+interface HeadingProps {
+  className?: string;
+  children?: ReactNode;
+  level?: number;
+}
+const Headings: FC<HeadingProps> = (props) => {
+
+  const { children, level = 1, className } = props;
+
+  const Tag = useMemo(() => `h${level}`, [level]) as keyof JSX.IntrinsicElements;
+  
+  const anchor = useMemo(() => {
+    return typeof children === 'string' ? encodeURIComponent(children) : randomStr(typeof children);
+  }, [children]);
+
+  return (
+    <Tag className={className} id={anchor}>
+      <a href={`#${anchor}`}>
+        <Icon className={'anchor'} type={'anchor'} />
+      </a>
+      { children }
+    </Tag>
+  );
+};
+
+const Heading = styled(Headings)`
+  position: relative;
+  a{
+    position: absolute;
+    top: 50%;
+    right: 100%;
+    transform: translate(-5px, -50%);
+    opacity: 0;
+    transition: opacity .2s ease;
+  }
+  .anchor{
+    color: #333333;
+  }
+  &:hover{
+    a{
+      opacity: 1;
+    }
+  }
+`;
+
+export { Heading };

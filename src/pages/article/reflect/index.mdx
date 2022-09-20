@@ -1,0 +1,47 @@
+---
+title: Reflect Metadata
+tag: typescript/reflect
+---
+
+# 什么是Reflect metadata
+
+1. 其他 C#、Java、Pythone 语言已经有的高级功能，我 JS 也应该要有（诸如C＃ 和 Java 之类的语言支持将元数据添加到类型的属性或注释，以及用于读取元数据的反射API，而目前 JS 缺少这种能力）
+
+2. 许多用例（组合/依赖注入，运行时类型断言，反射/镜像，测试）都希望能够以一致的方式向类中添加其他元数据。
+
+3. 为了使各种工具和库能够推理出元数据，需要一种标准一致的方法；
+
+4. 元数据不仅可以用在对象上，也可以通过相关捕获器用在 Proxy 上
+
+5. 对开发人员来说，定义新的元数据生成装饰器应该简洁易用；
+
+## TS配置
+```json
+{
+  "compilerOptions": {
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
+  }
+}
+```
+
+## 安装reflect-metadata
+```bash
+npm install reflect-metadata
+```
+
+# 示例
+## 依赖注入 DI
+```typescript file=src/example/reflect/reflect.ts
+```
+
+import { ReflectExample, ControllerExample } from '@/example/reflect';
+
+<ReflectExample />
+
+## Controller 控制器
+
+```typescript file=src/example/reflect/controller.ts
+```
+
+<ControllerExample />

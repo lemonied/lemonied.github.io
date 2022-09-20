@@ -1,26 +1,22 @@
 import { FC, ReactNode, useMemo } from 'react';
 import styled from 'styled-components';
 import { Icon } from '@shared/components/icons';
-import { randomStr } from '@shared/utils';
 
 interface HeadingProps {
+  id?: string;
   className?: string;
   children?: ReactNode;
   level?: number;
 }
 const Headings: FC<HeadingProps> = (props) => {
 
-  const { children, level = 1, className } = props;
+  const { children, level = 1, className, id } = props;
 
   const Tag = useMemo(() => `h${level}`, [level]) as keyof JSX.IntrinsicElements;
-  
-  const anchor = useMemo(() => {
-    return typeof children === 'string' ? encodeURIComponent(children) : randomStr(typeof children);
-  }, [children]);
 
   return (
-    <Tag className={className} id={anchor}>
-      <a href={`#${anchor}`}>
+    <Tag className={className} id={id}>
+      <a href={`#${id}`}>
         <Icon className={'anchor'} type={'anchor'} />
       </a>
       { children }

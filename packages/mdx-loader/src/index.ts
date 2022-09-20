@@ -3,6 +3,7 @@ import type { Options } from '@mdx-js/loader';
 import emoji from 'remark-emoji';
 import gfm from 'remark-gfm';
 import { codeImport } from 'remark-code-import';
+import rehypeSlug from 'rehype-slug';
 import loader from './loader';
 import { preCodeImport } from './root-import-code';
 
@@ -17,7 +18,10 @@ const mdx = (nextConfig: NextConfig) => {
       // https://github.com/kevin940726/remark-code-import
       codeImport,
     ],
-    rehypePlugins: [],
+    rehypePlugins: [
+      // https://github.com/rehypejs/rehype-slug
+      rehypeSlug,
+    ],
     providerImportSource: '@mdx-js/react',
   };
   const mdxConfig: NextConfig = {

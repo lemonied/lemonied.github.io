@@ -1,0 +1,14 @@
+---
+title: Docker 运行 mysql
+tag: docker/mysql
+---
+
+# 下载镜像
+```bash
+docker pull mysql:latest
+```
+
+# 启动镜像
+```bash
+$ docker run -d --name mysql-test -p 3306:3306 -e MYSQL_ROOT_PASSWORD=123456 mysql
+```

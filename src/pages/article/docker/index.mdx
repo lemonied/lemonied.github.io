@@ -1,0 +1,37 @@
+---
+title: Docker 常用命令
+tag: docker
+---
+
+# 制作镜像
+```bash
+docker build -f ./deploy/Dockerfile --progress plain -t image/name .
+```
+
+# 启动容器
+```bash
+docker run -p 9008:80 -d image/name
+```
+
+# 进入镜像
+```bash
+docker exec -it 容器id bash
+```
+
+# 查看日志
+```bash
+docker logs 容器id -f --tail 100
+```
+
+# 释放无用资源
+```bash
+docker system prune -f
+```
+
+# 网络
+```bash
+docker network ls # 查看所有网络
+
+# 查看某个网络详情（如果出现网络不通的情况，可以查看容器所在子网网段是否被占用）
+docker network inspect network-id
+```

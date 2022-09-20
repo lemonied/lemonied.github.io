@@ -1,0 +1,37 @@
+---
+title: Docker Compose
+tag: docker
+---
+
+# 示例
+```yaml
+version: "3.9"
+services:
+  nginx:
+    image: nginx:1.22-alpine
+    container_name: nginx
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - static:/var/www/static:ro
+    ports:
+      - "80:80"
+    restart: always
+volumes:
+  static:
+networks:
+  # default代表所有服务的默认网络
+  default:
+    # 网络名称
+    name: network-name
+    # 网络模式，默认为bridge（所有模式：bridge、host、overlay、macvlan以及none）
+    driver: bridge
+    # 网络管理
+    ipam:
+      driver: default
+      config:
+        # 指定子网网段
+        - subnet: 172.58.0.0/16
+```
+
+# 参考文档
+[https://docs.docker.com/compose/gettingstarted/](https://docs.docker.com/compose/gettingstarted/)

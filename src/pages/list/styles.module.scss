@@ -1,6 +1,8 @@
 @import "src/styles/mixins";
 
 .list{
+  padding: 0;
+  margin: 0;
   *{
     transition: all .2s ease;
   }

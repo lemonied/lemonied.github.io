@@ -1,9 +1,9 @@
 import { getPagesByTag, tags } from './mdx';
 import { MDXPage, PageSchema, TagWithArticles } from '@shared/models/mdx';
 
-export const ARTICLES_SIZE = 20;
+export const ARTICLES_SIZE = 10;
 export const TAGS_SIZE = 20;
-const WITH_ARTICLES_SIZE = 5;
+export const WITH_ARTICLES_SIZE = 5;
 
 export const postArticles = (tag: string, page = 1, size = ARTICLES_SIZE): PageSchema<MDXPage> => {
   const articles = getPagesByTag(tag);

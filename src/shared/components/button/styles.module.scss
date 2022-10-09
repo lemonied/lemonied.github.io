@@ -4,11 +4,11 @@
   transition-property: color,background-color,box-shadow,border-color;
   border-radius: 6px;
   white-space: nowrap;
-  line-height: 1em;
   vertical-align: middle;
   user-select: none;
   cursor: pointer;
-  padding: 5px 16px;
+  line-height: 1.5;
+  padding: 0 10px;
   text-align: center;
   border: none;
   &:hover{
@@ -41,11 +41,39 @@
     border-color: var(--color-success-active);
   }
 }
+.button.primary{
+  box-shadow: 0 2px #0000000b;
+  background-color: var(--color-primary);
+  color: #fff;
+  &:hover{
+    background-color: var(--color-primary-hover);
+    color: #fff;
+  }
+  &:active{
+    background-color: var(--color-primary-active);
+    color: #fff;
+  }
+}
+.button.primary.outline{
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+  &:hover{
+    background-color: var(--color-primary-hover);
+    border-color: var(--color-primary-hover);
+    color: #fff;
+  }
+  &:active{
+    background-color: var(--color-primary-active);
+    border-color: var(--color-primary-active);
+    color: #fff;
+  }
+}
 .button.outline{
   border-color: var(--color-btn-border);
   border-width: 1px;
   border-style: solid;
   background-color: var(--color-btn-bg);
+  color: #333;
   &:hover{
     border-color: var(--color-btn-hover-border);
   }

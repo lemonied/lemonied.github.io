@@ -1,0 +1,14 @@
+.pagination{
+  display: flex;
+  align-items: center;
+  .btn{
+    line-height: 2.8em;
+    min-width: 2.8em;
+    box-sizing: border-box;
+  }
+  .item{
+    &:not(:first-child){
+      margin-left: 8px;
+    }
+  }
+}

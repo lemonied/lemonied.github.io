@@ -1,12 +1,13 @@
 import { FC, ReactElement } from 'react';
 import styled from 'styled-components';
 import { MDXProvider } from '@mdx-js/react';
-import moment from 'moment';
 import { FrontMatter } from '@shared/models/mdx';
 import { components } from './components';
 import { Layout } from '@shared/components/layout';
 import Link from 'next/link';
 import { SEO } from '@shared/components/seo';
+import { moment8 } from '@shared/utils';
+import styles from './styles.module.scss';
 
 const MarkdownBody = styled.div`
   --color-border-default: #C5CEDE;
@@ -82,11 +83,11 @@ const MDXWrapper: FC<MDXWrapperProps> = (props) => {
         title={frontMatter.title || ''}
         description={frontMatter.description || frontMatter.title || ''}
       />
-      <Layout>
+      <Layout mainClassName={styles['article-main']}>
         <ArticleWrapper>
           <h1>{ frontMatter.title }</h1>
           <p>
-            <span>更新时间：{ moment(frontMatter.updated).utcOffset(8).format('YYYY-MM-DD HH:mm:ss') }</span>
+            <span>更新时间：{ moment8(frontMatter.updated).format('YYYY-MM-DD HH:mm:ss') }</span>
             <span>
               <span>标签：</span>
               {

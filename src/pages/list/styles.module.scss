@@ -1,0 +1,45 @@
+@import "src/styles/mixins";
+
+.list{
+  *{
+    transition: all .2s ease;
+  }
+  a{
+    &:hover{
+      opacity: .8;
+    }
+  }
+  & > li{
+    list-style: none;
+    &:not(:first-child){
+      margin-top: 10px;
+    }
+  }
+  .item{
+    padding: 20px;
+    .title{
+      display: flex;
+      justify-content: space-between;
+      .link{
+        margin: 0;
+        font-size: 1.2em;
+        font-weight: bold;
+        @include no-wrap;
+      }
+      .time{
+        color: var(--color-description);
+        font-size: .9rem;
+        white-space: nowrap;
+      }
+    }
+    .desc{
+      margin: 10px 0 0 0;
+      color: #666;
+      font-size: .9rem;
+      line-height: 1.5;
+    }
+  }
+}
+.pagination{
+  margin-top: 20px;
+}

@@ -12,3 +12,30 @@ docker pull mysql:latest
 ```bash
 $ docker run -d --name mysql -p 3307:3306 -e MYSQL_ROOT_PASSWORD=123456 mysql
 ```
+
+# 命令行
+
+## 连接数据库
+```bash
+mysql -P 3307 -h 127.0.0.1 -u root -p
+```
+
+## 查看所有数据库
+```bash
+show databases;
+```
+
+## 使用数据库
+```bash
+use xxx;
+```
+
+## 显示所有表
+```bash
+show tables;
+```
+
+## 查看表结构
+```bash
+show columns from xxx;
+```

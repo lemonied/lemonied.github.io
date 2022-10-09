@@ -8,7 +8,7 @@ import { combineClass } from '@shared/utils';
 export interface ButtonProps extends DOMAttributes<HTMLButtonElement> {
   className?: string;
   outline?: boolean;
-  type?: 'default' | 'success';
+  type?: 'default' | 'success' | 'primary';
 }
 const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
 

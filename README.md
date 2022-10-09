@@ -3,7 +3,7 @@
 ## Install
 ```bash
 npm install
-#or
+# or
 yarn
 ```
 

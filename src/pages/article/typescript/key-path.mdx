@@ -1,0 +1,33 @@
+---
+title: typescript中的keyPath提示
+description: ts中对象的深层keyPath提示
+tag: web前端/typescript
+---
+
+```typescript
+type DotPrefix<T extends string> = T extends '' ? '' : `.${T}`;
+
+type KeyPaths<T> = (
+    T extends object ?
+      { [K in Exclude<keyof T, symbol>]: `${K}${DotPrefix<KeyPaths<T[K]>> | ''}` }[Exclude<keyof T, symbol>] :
+      ''
+  ) extends infer D ?
+    Extract<D, string> :
+    never;
+
+const obj = {
+  a: 1,
+  b: {
+    c: true,
+    d: {
+      e: 'string',
+    },
+  },
+};
+function getValue(keyPath: KeyPaths<typeof obj>) {
+
+}
+getValue('b.d.e');
+getValue('b.d');
+getValue('a');
+```

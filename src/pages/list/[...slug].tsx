@@ -13,6 +13,11 @@ import {
 } from '@shared/helpers/pager';
 import { Layout } from '@shared/components/layout';
 import { SEO } from '@shared/components/seo';
+import { ShadowCard } from '@shared/components/card';
+import styles from './styles.module.scss';
+import { moment8 } from '@shared/utils';
+import { Pagination } from '@shared/components/pagination';
+import { useCallback } from 'react';
 
 interface ListPageProps {
   pages: PageSchema<MDXPage>;
@@ -26,19 +31,42 @@ const ListPage: NextPage<ListPageProps> = (props) => {
     <>
       <SEO title={tag} description={`笔记分类：${tag}`} />
       <Layout>
-        <ul>
+        <ol className={styles['list']}>
           {
             pages.data.map(v => {
               return (
                 <li key={v.path}>
-                  <Link href={v.path}>
-                    <a>{ v.frontMatter.title }</a>
-                  </Link>
+                  <ShadowCard className={styles['item']}>
+                    <div className={styles['title']}>
+                      <h2 className={styles['link']}>
+                        <Link href={v.path}>
+                          <a>{ v.frontMatter.title }</a>
+                        </Link>
+                      </h2>
+                      <div className={styles['time']}>{ moment8(v.frontMatter.updated).format('YYYY-MM-DD') }</div>
+                    </div>
+                    {
+                      v.frontMatter.description ?
+                        <p className={styles['desc']}>{ v.frontMatter.description }</p> :
+                        null
+                    }
+                  </ShadowCard>
                 </li>
               );
             })
           }
-        </ul>
+        </ol>
+        <Pagination
+          className={styles['pagination']}
+          page={pages.page}
+          total={pages.total}
+          size={pages.size}
+          wrapper={(button, page) => (
+            <Link href={`/list/${tag}${page > 1 ? `/${page}` : ''}`} >
+              <a>{ button }</a>
+            </Link>
+          )}
+        />
       </Layout>
     </>
   );
@@ -71,10 +99,11 @@ export const getStaticPaths: GetStaticPaths = async () => {
           previousValue.push({
             params: { slug: [tag] },
           });
+        } else {
+          previousValue.push({
+            params: { slug: [tag, `${i + 1}`] },
+          });
         }
-        previousValue.push({
-          params: { slug: [tag, `${i + 1}`] },
-        });
       }
       return previousValue;
     }, [] as Array<{ params: ParsedUrlQuery }>),

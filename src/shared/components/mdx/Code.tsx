@@ -38,18 +38,26 @@ const Code: FC<CodeProps> = (props) => {
             return (
               <Pre className={className} style={style}>
                 {
-                  tokens.map((line, i) => (
-                    <Line key={i} {...getLineProps({ line, key: i })}>
-                      <LineNo>{i + 1}</LineNo>
-                      <LineContent>
-                        {
-                          line.map((token, key) => (
-                            <span {...getTokenProps({ token, key })} key={key} />
-                          ))
-                        }
-                      </LineContent>
-                    </Line>
-                  ))
+                  tokens.length === 1 ?
+                    <LineContent>
+                      {
+                        tokens[0].map((token, key) => (
+                          <span {...getTokenProps({ token, key })} key={key} />
+                        ))
+                      }
+                    </LineContent> :
+                    tokens.map((line, i) => (
+                      <Line key={i} {...getLineProps({ line, key: i })}>
+                        <LineNo>{i + 1}</LineNo>
+                        <LineContent>
+                          {
+                            line.map((token, key) => (
+                              <span {...getTokenProps({ token, key })} key={key} />
+                            ))
+                          }
+                        </LineContent>
+                      </Line>
+                    ))
                 }
               </Pre>
             );

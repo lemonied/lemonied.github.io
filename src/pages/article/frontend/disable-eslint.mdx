@@ -1,0 +1,39 @@
+---
+title: 如何临时禁用eslint
+description: 指定某几行代码禁用eslint规则
+tag: eslint/web前端
+---
+
+## 禁用本文件的所有eslint规则
+```js
+/* eslint-disable */
+console.log('JavaScript debug log');
+console.log('eslint is disabled now');
+```
+
+## 禁用后启用
+```js
+/* eslint-disable */
+console.log('JavaScript debug log');
+console.log('eslint is disabled now');
+/* eslint-enable */
+console.log('eslint is enable now');
+```
+
+## 禁用指定规则
+```js
+/* eslint-disable no-console, no-control-regex*/
+console.log('JavaScript debug log');
+console.log('eslint is disabled now');
+```
+
+## 禁用本行
+```js
+console.log('eslint is disabled for the current line'); // eslint-disable-line
+```
+
+## 禁用下一行
+```js
+// eslint-disable-next-line no-console
+console.log('eslint is disabled for the current line');
+```

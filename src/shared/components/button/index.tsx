@@ -9,10 +9,11 @@ export interface ButtonProps extends DOMAttributes<HTMLButtonElement> {
   className?: string;
   outline?: boolean;
   type?: 'default' | 'success' | 'primary';
+  disabled?: boolean;
 }
 const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
 
-  const { className, outline = false, type = 'default', ...extra } = props;
+  const { className, outline = false, type = 'default', disabled, ...extra } = props;
 
   return (
     <button
@@ -24,6 +25,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
           styles[type],
         )
       }
+      disabled={disabled}
       ref={ref}
       { ...extra }
     />

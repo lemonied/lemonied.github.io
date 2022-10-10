@@ -6,6 +6,8 @@ import { SEO } from '@shared/components/seo';
 import { Layout } from '@shared/components/layout';
 import { Grid } from '@shared/components/grid';
 import Link from 'next/link';
+import { Pagination } from '@shared/components/pagination';
+import styles from './styles.module.scss';
 
 const Wrapper = styled(ShadowCard)`
   font-size: 1rem;
@@ -69,6 +71,17 @@ export const TagPage: FC<TagPageProps> = (props) => {
             })
           }
         </Grid>
+        <Pagination
+          className={styles['pagination']}
+          page={tags.page}
+          total={tags.total}
+          size={tags.size}
+          wrapper={(button, page) => (
+            <Link href={`/tag${page > 1 ? `/${page}` : ''}`} >
+              <a>{ button }</a>
+            </Link>
+          )}
+        />
       </Layout>
     </>
   );

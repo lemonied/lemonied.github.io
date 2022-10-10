@@ -41,6 +41,9 @@ const MarkdownBody = styled.div`
   }
   table{
     border-collapse: collapse;
+    tr{
+      border-top: none;
+    }
   }
 `;
 

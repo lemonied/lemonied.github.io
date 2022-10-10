@@ -6,6 +6,11 @@
     min-width: 2.8em;
     box-sizing: border-box;
   }
+  .btn-icon{
+    height: 2.8em;
+    width: 2.8em;
+    line-height: unset;
+  }
   .item{
     &:not(:first-child){
       margin-left: 8px;

@@ -70,7 +70,7 @@ const Field: FieldComponent = (props) => {
 
   const reset = useCallback(() => {
     const { context, defaultValue, name } = refs.current;
-    const value = context?.values.get(name);
+    const value = context?.values.get(name) ?? nullVal;
     const next = toFormValue(defaultValue) ?? nullVal;
     clearValidity();
     if (value !== next) {

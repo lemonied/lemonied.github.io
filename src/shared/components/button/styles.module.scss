@@ -18,6 +18,9 @@
     transition: none;
   }
 }
+.button[disabled]{
+  cursor: not-allowed;
+}
 .button.default{
   background-color: var(--color-btn-bg);
   box-shadow: var(--color-btn-shadow),var(--color-btn-inset-shadow);
@@ -28,6 +31,17 @@
     background-color: var(--color-btn-active-bg);
   }
 }
+.button.default[disabled]{
+  background-color: var(--color-btn-disabled);
+  box-shadow: unset;
+  &:hover{
+    background-color: var(--color-btn-disabled);
+  }
+  &:active{
+    background-color: var(--color-btn-disabled);
+  }
+}
+
 .button.success{
   box-shadow: var(--color-success-deprecated-border),var(--color-success-deprecated-bg);
   background-color: var(--color-success);

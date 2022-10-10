@@ -56,27 +56,42 @@ class Sudoku {
       }
     }
   }
+  private round() {
+    if (this.column > Sudoku.square - 1) {
+      this.row += 1;
+      this.column = 0;
+      return true;
+    }
+    if (this.column < 0) {
+      this.row -= 1;
+      this.column = Sudoku.square - 1;
+      return true;
+    }
+    this.fill();
+    this.column = this.direction === 'forward' ? this.column + 1 : this.column - 1;
+    return false;
+  }
   public async async(cb?: (boards: (number | null)[][]) => void, millisecond = 0) {
     this.reset();
     while (this.row < Sudoku.square && this.row >= 0) {
-      if (this.column > Sudoku.square - 1) {
-        this.row += 1;
-        this.column = 0;
-        continue;
-      }
-      if (this.column < 0) {
-        this.row -= 1;
-        this.column = Sudoku.square - 1;
-        continue;
-      }
-      this.fill();
+      if (this.round()) continue;
       await sleep(millisecond);
-      this.column = this.direction === 'forward' ? this.column + 1 : this.column - 1;
       cb?.(this.boards);
     }
     if (this.row < 0) {
       throw new Error('无解');
     }
+    return this.boards;
+  }
+  public sync() {
+    this.reset();
+    while (this.row < Sudoku.square && this.row >= 0) {
+      this.round();
+    }
+    if (this.row < 0) {
+      throw new Error('无解');
+    }
+    return this.boards;
   }
 }
 

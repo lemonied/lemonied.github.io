@@ -11,9 +11,6 @@ import styles from './styles.module.scss';
 
 const Wrapper = styled(ShadowCard)`
   font-size: 1rem;
-  *{
-    transition: all .2s ease;
-  }
   a{
     &:hover{
       opacity: .8;

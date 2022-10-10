@@ -4,7 +4,7 @@
   padding: 0;
   margin: 0;
   *{
-    transition: all .2s ease;
+    transition: opacity .2s ease;
   }
   a{
     &:hover{

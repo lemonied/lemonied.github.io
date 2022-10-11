@@ -2,14 +2,8 @@
   display: flex;
   align-items: center;
   .btn{
-    line-height: 2.8em;
-    min-width: 2.8em;
-    box-sizing: border-box;
-  }
-  .btn-icon{
-    height: 2.8em;
-    width: 2.8em;
-    line-height: unset;
+    min-width: 36px;
+    padding: 0 10px;
   }
   .item{
     &:not(:first-child){

@@ -8,6 +8,7 @@ import Link from 'next/link';
 import { SEO } from '@shared/components/seo';
 import { moment8 } from '@shared/utils';
 import styles from './styles.module.scss';
+import { Button } from '@shared/components/button';
 
 const MarkdownBody = styled.div`
   --color-border-default: #C5CEDE;
@@ -53,7 +54,8 @@ const ArticleWrapper = styled.article`
     margin: 0;
   }
   & > p {
-    margin: 20px 0 30px 0;
+    line-height: 1.2em;
+    margin: 10px 0 20px 0;
     & > *:not(:first-child){
       margin-left: 10px;
     }
@@ -96,10 +98,9 @@ const MDXWrapper: FC<MDXWrapperProps> = (props) => {
               {
                 frontMatter.tag.map((tag, k) => {
                   return (
-                    <span key={tag}>
-                      { k !== 0 ? ' | ' : null }
-                      <Link key={tag} href={`/list/${tag}`} >{tag}</Link>
-                    </span>
+                    <Link key={tag} href={`/list/${tag}`} >
+                      <Button>{ tag }</Button>
+                    </Link>
                   );
                 })
               }

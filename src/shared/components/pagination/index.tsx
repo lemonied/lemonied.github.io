@@ -1,8 +1,8 @@
 import { FC, ReactElement, ReactNode, useCallback, useMemo } from 'react';
 import styles from './styles.module.scss';
 import { combineClass } from '@shared/utils';
-import { Button } from '@shared/components/button';
 import { Icon } from '@shared/components/icons';
+import { Button } from '@shared/components/button';
 
 interface PaginationProps {
   className?: string;
@@ -36,8 +36,9 @@ const Pagination: FC<PaginationProps> = (props) => {
     const n = Math.max(1, page - 1);
     const child = (
       <Button
-        className={styles['btn-icon']}
+        className={styles['btn']}
         disabled={page === 1}
+        type={'outline'}
         onClick={() => handleChange(n, size)}
       >
         <Icon type={'left'} />
@@ -50,9 +51,10 @@ const Pagination: FC<PaginationProps> = (props) => {
     const n = Math.min(pages.length, page + 1);
     const child = (
       <Button
-        className={styles['btn-icon']}
+        className={styles['btn']}
         disabled={page === pages.length}
         onClick={() => handleChange(n, size)}
+        type={'outline'}
       >
         <Icon type={'right'} />
       </Button>
@@ -73,9 +75,9 @@ const Pagination: FC<PaginationProps> = (props) => {
         available.map(v => {
           const child = (
             <Button
-              type={page === v ? 'primary' : 'default'}
               className={styles['btn']}
               onClick={() => handleChange(v, size)}
+              type={v !== page ? 'outline' : 'primary'}
             >{ v }</Button>
           );
           return (

@@ -1,34 +1,62 @@
-import {
-  forwardRef,
-  DOMAttributes,
-} from 'react';
-import styles from './styles.module.scss';
+import { forwardRef, ReactNode, useEffect, useImperativeHandle, useRef, MouseEventHandler } from 'react';
 import { combineClass } from '@shared/utils';
+import { MDCRipple } from '@material/ripple';
 
-export interface ButtonProps extends DOMAttributes<HTMLButtonElement> {
+export interface ButtonProps {
   className?: string;
-  outline?: boolean;
-  type?: 'default' | 'success' | 'primary';
+  type?: 'outline' | 'primary' | 'text';
   disabled?: boolean;
+  children?: ReactNode;
+  onClick?: MouseEventHandler<HTMLButtonElement>;
+  leading?: ReactNode;
+  trailing?: ReactNode;
 }
 const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
 
-  const { className, outline = false, type = 'default', disabled, ...extra } = props;
+  const { className, type = 'text', disabled, children, onClick, leading, trailing } = props;
+
+  const buttonRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    const buttonRipple = new MDCRipple(buttonRef.current!);
+    return () => buttonRipple.destroy();
+  }, []);
+
+  useImperativeHandle(ref, () => buttonRef.current!);
 
   return (
     <button
       className={
         combineClass(
-          styles['button'],
+          'mdc-button',
+          'mdc-button--touch',
+          {
+            'mdc-button--outlined': type === 'outline',
+            'mdc-button--raised': type === 'primary',
+            'mdc-button--icon-trailing': !!trailing,
+            'mdc-button--icon-leading': !!leading,
+          },
           className,
-          { [styles['outline']]: outline },
-          styles[type],
         )
       }
       disabled={disabled}
-      ref={ref}
-      { ...extra }
-    />
+      ref={buttonRef}
+      onClick={onClick}
+    >
+      <span className={'mdc-button__ripple'}></span>
+      {
+        leading ?
+          <span className={'mdc-button__icon'}>{ leading }</span> :
+          null
+      }
+      <span className={'mdc-button__touch'}></span>
+      <span className={'mdc-button__label'}>{ children }</span>
+      {
+        trailing ?
+          <span className={'mdc-button__icon'}>{ trailing }</span> :
+          null
+      }
+    </button>
   );
 });
 

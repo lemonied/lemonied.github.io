@@ -2,15 +2,15 @@ import { forwardRef, useCallback, useEffect, useRef, useState } from 'react';
 import styles from './styles.module.scss';
 import { Icon } from '@shared/components/icons';
 import { copyText, combineClass } from '@shared/utils';
-import { Button, ButtonProps } from '@shared/components/button';
 import { FadeSwitch } from '@shared/components/fade';
 
-interface CopyProps extends ButtonProps {
+interface CopyProps {
   content: string;
+  className?: string;
 }
 const Copy = forwardRef<HTMLButtonElement, CopyProps>((props, ref) => {
 
-  const { className, content, ...extra } = props;
+  const { className, content } = props;
   const [success, setSuccess] = useState(false);
   const timer = useRef<number>();
 
@@ -30,13 +30,10 @@ const Copy = forwardRef<HTMLButtonElement, CopyProps>((props, ref) => {
   }, [content]);
 
   return (
-    <Button
+    <button
       onClick={onCopy}
       className={combineClass(styles['copy'], className, { [styles['success']]: success })}
-      type={success ? 'success' : 'default'}
-      outline
       ref={ref}
-      { ...extra }
     >
       <FadeSwitch
         uniqueKey={success ? 'success' : 'check'}
@@ -47,7 +44,7 @@ const Copy = forwardRef<HTMLButtonElement, CopyProps>((props, ref) => {
             <Icon className={styles['icon']} type={'copy'} />
         }
       </FadeSwitch>
-    </Button>
+    </button>
   );
 });
 

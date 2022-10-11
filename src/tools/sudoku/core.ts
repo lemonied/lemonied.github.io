@@ -10,6 +10,7 @@ class Sudoku {
   private column = 0;
   private original = Sudoku.generateEmptyBoards();
   private direction: 'forward' | 'back' = 'forward';
+  private abortController?: AbortController;
 
   public boards = Sudoku.generateEmptyBoards();
 
@@ -71,11 +72,15 @@ class Sudoku {
     this.column = this.direction === 'forward' ? this.column + 1 : this.column - 1;
     return false;
   }
+  public destroy() {
+    this.abortController?.abort();
+  }
   public async async(cb?: (boards: (number | null)[][]) => void, millisecond = 0) {
+    this.abortController = new AbortController();
     this.reset();
     while (this.row < Sudoku.square && this.row >= 0) {
       if (this.round()) continue;
-      await sleep(millisecond);
+      await sleep(millisecond, this.abortController.signal);
       cb?.(this.boards);
     }
     if (this.row < 0) {

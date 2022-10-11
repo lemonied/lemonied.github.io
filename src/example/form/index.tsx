@@ -2,6 +2,7 @@ import { FC, useCallback, useRef } from 'react';
 import { Form, FormInstance } from '@shared/components/form';
 import { sleep } from '@shared/utils';
 import { map, timer } from 'rxjs';
+import { Button } from '@shared/components/button';
 
 const { Item } = Form;
 
@@ -48,9 +49,9 @@ export const FormExample: FC = () => {
         <input />
       </Item>
       <p>
-        <button onClick={onSubmit}>提交</button>
-        <button onClick={() => formRef.current?.reset()}>重置</button>
-        <button onClick={() => formRef.current?.clearValidity()}>清除错误验证</button>
+        <Button onClick={onSubmit}>提交</Button>
+        <Button onClick={() => formRef.current?.reset()}>重置</Button>
+        <Button onClick={() => formRef.current?.clearValidity()}>清除错误验证</Button>
       </p>
     </Form>
   );

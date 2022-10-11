@@ -1,11 +1,18 @@
 .copy{
-  padding: 0 !important;
+  padding: 0;
   height: 35px;
   width: 35px;
   font-size: 16px;
   color: #666666;
+  border-radius: 6px;
+  white-space: nowrap;
+  cursor: pointer;
+  border-color: rgba(27,31,36,0.15);
+  border-width: 1px;
+  border-style: solid;
   &.success{
     color: var(--color-success);
+    border-color: var(--color-success);
   }
 }
 .icon{

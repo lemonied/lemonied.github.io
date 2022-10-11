@@ -1,8 +1,8 @@
-import { FC, useCallback, useMemo, useState } from 'react';
+import { FC, useCallback, useEffect, useMemo, useState } from 'react';
 import { ShadowCard } from '@shared/components/card';
 import { Sudoku } from './core';
-import { Button } from '@shared/components/button';
 import styled from 'styled-components';
+import { Button } from '@shared/components/button';
 
 const Wrapper = styled(ShadowCard)`
   padding: 20px;
@@ -40,7 +40,13 @@ const SudokuDashboard: FC = () => {
   const sync = useCallback(() => {
     sudoku.async(res => {
       setBoards([...res]);
+    }).catch(() => {
+      // abort
     });
+  }, [sudoku]);
+
+  useEffect(() => {
+    return () => sudoku.destroy();
   }, [sudoku]);
 
   return (

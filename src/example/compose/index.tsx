@@ -1,5 +1,4 @@
 import { FC, useCallback } from 'react';
-import { Button } from '@shared/components/button';
 import { compose } from '@shared/utils';
 
 /* eslint-disable no-console */
@@ -29,6 +28,6 @@ export const ComposeExample: FC = () => {
   }, []);
 
   return (
-    <Button onClick={test}>点击执行</Button>
+    <button onClick={test}>点击执行</button>
   );
 };

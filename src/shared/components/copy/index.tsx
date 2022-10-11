@@ -1,10 +1,10 @@
-import { forwardRef, useCallback, useEffect, useRef, useState } from 'react';
+import { DOMAttributes, forwardRef, useCallback, useEffect, useRef, useState } from 'react';
 import styles from './styles.module.scss';
 import { Icon } from '@shared/components/icons';
 import { copyText, combineClass } from '@shared/utils';
 import { FadeSwitch } from '@shared/components/fade';
 
-interface CopyProps {
+interface CopyProps extends DOMAttributes<HTMLButtonElement>{
   content: string;
   className?: string;
 }

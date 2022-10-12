@@ -17,7 +17,6 @@ import { ShadowCard } from '@shared/components/card';
 import styles from './styles.module.scss';
 import { moment8 } from '@shared/utils';
 import { Pagination } from '@shared/components/pagination';
-import { useCallback } from 'react';
 
 interface ListPageProps {
   pages: PageSchema<MDXPage>;
@@ -92,16 +91,16 @@ export const getStaticPaths: GetStaticPaths = async () => {
   const list = Array.from(tags);
   return {
     paths: list.reduce((previousValue, tag, currentIndex, array) => {
-      const tagPages = getPagesByTag(tag);
+      const tagPages = getPagesByTag(tag.value);
       const maxPage = Math.ceil(tagPages.length / ARTICLES_SIZE);
       for (let i = 0; i < maxPage; i += 1) {
         if (i === 0) {
           previousValue.push({
-            params: { slug: [tag] },
+            params: { slug: [tag.value] },
           });
         } else {
           previousValue.push({
-            params: { slug: [tag, `${i + 1}`] },
+            params: { slug: [tag.value, `${i + 1}`] },
           });
         }
       }

@@ -2,7 +2,14 @@ import glob from 'glob';
 import path from 'path';
 import fs from 'fs';
 import { formatMatter } from '@shared/helpers/matter';
-import { MDXPage } from '@shared/models/mdx';
+import { MDXPage, TagInfo } from '@shared/models/mdx';
+import tagsJSON from '@/config/tags.json';
+
+export const defaultPoster = 'https://lemonied-1258997133.cos.ap-nanjing.myqcloud.com/tags/pai.jpg';
+
+function getPoster(tag: keyof typeof tagsJSON) {
+  return tagsJSON[tag]?.poster ?? defaultPoster;
+}
 
 function toPosixPath(str: string) {
   return str.replace(/\\/g, '/');
@@ -44,7 +51,12 @@ function getAllTags() {
   for (const page of mdxPages) {
     page.frontMatter.tag.map(v => v.trim()).filter(Boolean).forEach(v => tags.add(v));
   }
-  return tags;
+  const ret = [] as TagInfo[];
+  ret.push(...Array.from(tags).map(value => ({
+    value,
+    poster: getPoster(value as keyof typeof tagsJSON),
+  })));
+  return ret;
 }
 
 export const tags = getAllTags();

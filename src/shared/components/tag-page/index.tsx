@@ -8,6 +8,8 @@ import { Grid } from '@shared/components/grid';
 import Link from 'next/link';
 import { Pagination } from '@shared/components/pagination';
 import styles from './styles.module.scss';
+import { Button } from '@shared/components/button';
+import { Picture } from '@shared/components/picture';
 
 const Wrapper = styled(ShadowCard)`
   font-size: 1rem;
@@ -16,19 +18,20 @@ const Wrapper = styled(ShadowCard)`
       opacity: .8;
     }
   }
-  h2{
-    margin: 0;
-    padding: 10px 20px 0 20px;
-    font-size: 1.5em;
+  .poster{
+    position: relative;
+    .title{
+      margin: 0;
+      padding: 10px 20px 0 20px;
+      font-size: 1.2em;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
   }
-  ul{
+  .content{
     margin: 0;
     padding: 20px;
-  }
-  li{
-    list-style: none;
-    font-size: 0.85em;
-    line-height: 1.8em;
   }
 `;
 
@@ -46,26 +49,38 @@ export const TagPage: FC<TagPageProps> = (props) => {
           {
             tags.data.map(v => {
               return (
-                <Wrapper key={v.tag}>
-                  <h2>
-                    <Link href={`/list/${v.tag}`}>{v.tag}</Link>
-                  </h2>
-                  <ul className={'content'}>
+                <Wrapper key={ v.tag.value }>
+                  <div className={'poster'}>
+                    <Picture src={v.tag.poster} ratio={0.6} />
+                    <h2 className={'title'}>
+                      <Link href={`/list/${v.tag.value}`}>
+                        <a>
+                          <Button type={'primary'}>{ v.tag.value }</Button>
+                        </a>
+                      </Link>
+                    </h2>
+                  </div>
+                  <div className={'content'}>
                     {
                       v.articles.map(v => {
                         return (
-                          <li key={v.path}>
-                            <Link href={v.path}>
-                              <a>{ v.frontMatter.title }</a>
-                            </Link>
-                          </li>
+                          <Link href={v.path} key={v.path}>
+                            <a>
+                              <Button>{ v.frontMatter.title }</Button>
+                            </a>
+                          </Link>
                         );
                       })
                     }
-                  </ul>
+                  </div>
                 </Wrapper>
               );
             })
+          }
+          {
+            tags.data.length < 4 ?
+              new Array(4 - tags.data.length).fill(null).map((_, k) => (<div key={k} />)) :
+              null
           }
         </Grid>
         <Pagination

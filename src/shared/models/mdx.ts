@@ -9,8 +9,13 @@ export interface MDXPage {
   path: string;
 }
 
+export interface TagInfo {
+  value: string;
+  poster: string;
+}
+
 export interface TagWithArticles {
-  tag: string;
+  tag: TagInfo;
   articles: MDXPage[];
   total: number;
 }

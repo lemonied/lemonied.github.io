@@ -7,13 +7,14 @@ export interface ButtonProps {
   type?: 'outline' | 'primary' | 'text';
   disabled?: boolean;
   children?: ReactNode;
+  block?: boolean;
   onClick?: MouseEventHandler<HTMLButtonElement>;
   leading?: ReactNode;
   trailing?: ReactNode;
 }
 const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
 
-  const { className, type = 'text', disabled, children, onClick, leading, trailing } = props;
+  const { className, type = 'text', disabled, children, onClick, leading, trailing, block = false } = props;
 
   const buttonRef = useRef<HTMLButtonElement>(null);
 
@@ -35,6 +36,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
             'mdc-button--raised': type === 'primary',
             'mdc-button--icon-trailing': !!trailing,
             'mdc-button--icon-leading': !!leading,
+            'block': block,
           },
           className,
         )

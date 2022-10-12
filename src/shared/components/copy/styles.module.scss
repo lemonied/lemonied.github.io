@@ -2,6 +2,7 @@
   padding: 0;
   height: 35px;
   width: 35px;
+  line-height: 1;
   font-size: 16px;
   color: #666666;
   border-radius: 6px;
@@ -10,11 +11,12 @@
   border-color: rgba(27,31,36,0.15);
   border-width: 1px;
   border-style: solid;
+  background: unset;
   &.success{
     color: var(--color-success);
     border-color: var(--color-success);
   }
 }
 .icon{
-  vertical-align: text-bottom;
+  vertical-align: middle;
 }

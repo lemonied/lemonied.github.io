@@ -28,7 +28,7 @@ export const getStaticProps: GetStaticProps<TagPageProps> = (context) => {
 export const getStaticPaths: GetStaticPaths = async () => {
 
   const paths: Array<{ params: ParsedUrlQuery }> = [];
-  for (let i = 1; i < Math.ceil(tags.size / TAGS_SIZE); i += 1) {
+  for (let i = 1; i < Math.ceil(tags.length / TAGS_SIZE); i += 1) {
     paths.push({
       params: { slug: `${i + 1}` },
     });

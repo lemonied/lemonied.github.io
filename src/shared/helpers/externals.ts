@@ -32,6 +32,14 @@ const javascripts = [
     development: '//unpkg.com/nprogress@0.2.0/nprogress.js',
     production: '//unpkg.com/nprogress@0.2.0/nprogress.js',
   },
+  {
+    development: '//unpkg.com/jsqr@1.4.0/dist/jsQR.js',
+    production: '//unpkg.com/jsqr@1.4.0/dist/jsQR.js',
+  },
+  {
+    development: '//unpkg.com/qrcode@1.5.1/build/qrcode.js',
+    production: '//unpkg.com/qrcode@1.5.1/build/qrcode.js',
+  },
 ];
 
 const links = [

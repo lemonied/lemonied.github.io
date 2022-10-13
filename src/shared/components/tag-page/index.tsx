@@ -13,6 +13,7 @@ import { Picture } from '@shared/components/picture';
 
 const Wrapper = styled(ShadowCard)`
   font-size: 1rem;
+  overflow: hidden;
   a{
     &:hover{
       opacity: .8;

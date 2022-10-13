@@ -16,20 +16,16 @@ const Headings: FC<HeadingProps> = (props) => {
 
   return (
     <Tag className={className} id={id}>
+      { children }
       <a href={`#${id}`}>
         <Icon className={'anchor'} type={'anchor'} />
       </a>
-      { children }
     </Tag>
   );
 };
 
 const Heading = styled(Headings)`
-  position: relative;
   a{
-    position: absolute;
-    top: 50%;
-    right: 100%;
     transform: translate(-5px, -50%);
     opacity: 0;
     transition: opacity .2s ease;

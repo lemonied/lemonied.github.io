@@ -26,15 +26,18 @@ const Headings: FC<HeadingProps> = (props) => {
 
 const Heading = styled(Headings)`
   a{
-    transform: translate(-5px, -50%);
     opacity: 0;
     transition: opacity .2s ease;
+    svg{
+      transition: opacity .2s ease;
+      opacity: 0;
+    }
   }
   .anchor{
     color: #333333;
   }
   &:hover{
-    a{
+    a, a > svg{
       opacity: 1;
     }
   }

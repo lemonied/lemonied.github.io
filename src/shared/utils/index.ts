@@ -7,3 +7,4 @@ export * from './random-str';
 export * from './combine-class';
 export * from './moment';
 export * from './compose';
+export * from './image';

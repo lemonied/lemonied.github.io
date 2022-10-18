@@ -1,9 +1,10 @@
-import { FC, useCallback, useRef } from 'react';
+import { ChangeEvent, FC, useCallback, useEffect, useRef, useState } from 'react';
 import { ShadowCard } from '@shared/components/card';
 import * as QRCode from 'qrcode';
 import { Input, InputInstance } from '@shared/components/input';
 import styled from 'styled-components';
 import { Button } from '@shared/components/button';
+import { ImageReader } from '@shared/utils';
 
 const Wrapper = styled(ShadowCard)`
   padding: 20px;
@@ -66,13 +67,30 @@ const QrcodeReader: FC = () => {
 
   const fileRef = useRef<HTMLInputElement>(null);
 
+  const imageReader = useRef<ImageReader>();
+
+  const [result, setResult] = useState<string | null | undefined>('');
+
+  useEffect(() => {
+    imageReader.current = new ImageReader();
+  }, []);
+
+  const handleOnChange = useCallback(async (e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const result = await imageReader.current?.getQRResult(file);
+      setResult(result?.data);
+    }
+  }, []);
+
   return (
     <Wrapper>
       <div>
         <FileWrapper>
-          <input type="file" accept={'image/*'} ref={fileRef} />
+          <input onChange={handleOnChange} type="file" accept={'image/*'} ref={fileRef} />
           <Button onClick={() => fileRef.current?.click()}>选择图片</Button>
         </FileWrapper>
+        <div className={'result'}>{ result }</div>
       </div>
     </Wrapper>
   );

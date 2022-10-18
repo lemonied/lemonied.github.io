@@ -29,7 +29,22 @@ class MyDocument extends Document {
             externalScripts.map(v => (
               <Script key={v} src={v} strategy='beforeInteractive' />
             ))
-          }  
+          }
+          {
+            process.env.NODE_ENV === 'development' ?
+              <Script key={'v-console'} src={'//unpkg.com/vconsole@latest/dist/vconsole.min.js'} strategy={'beforeInteractive'} /> :
+              null
+          }
+          {
+            process.env.NODE_ENV === 'development' ?
+              <Script
+                id={'vConsoleInstance'}
+                key={'v-console-instance'}
+                strategy={'afterInteractive'}
+                dangerouslySetInnerHTML={{ __html: 'var vConsole = new window.VConsole();' }}
+              /> :
+              null
+          }
         </Head>
         <body>
           <Main />

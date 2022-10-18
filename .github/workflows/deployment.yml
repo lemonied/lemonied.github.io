@@ -12,6 +12,7 @@ on:
       - master
 
 env:
+  NEXT_TELEMETRY_DISABLED: 1
   SITE_URL: https://www.lemonied.cn
   BASE_PATH: /
 

@@ -30,8 +30,6 @@ const nextConfig = {
         'nprogress': 'NProgress',
         'immutable': 'Immutable',
         'rxjs': 'rxjs',
-        'qrcode': 'QRCode',
-        'jsqr': 'jsQR',
       };
     }
     return config;

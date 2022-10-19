@@ -9,8 +9,8 @@ const javascripts = [
     production: '//unpkg.com/react-dom@18.2.0/umd/react-dom.production.min.js',
   },
   {
-    development: '//unpkg.com/rxjs@7.5.6/dist/bundles/rxjs.umd.js',
-    production: '//unpkg.com/rxjs@7.5.6/dist/bundles/rxjs.umd.min.js',
+    development: '//unpkg.com/rxjs@7.5.7/dist/bundles/rxjs.umd.js',
+    production: '//unpkg.com/rxjs@7.5.7/dist/bundles/rxjs.umd.min.js',
   },
   {
     development: '//unpkg.com/immutable@4.1.0/dist/immutable.js',
@@ -31,14 +31,6 @@ const javascripts = [
   {
     development: '//unpkg.com/nprogress@0.2.0/nprogress.js',
     production: '//unpkg.com/nprogress@0.2.0/nprogress.js',
-  },
-  {
-    development: '//unpkg.com/jsqr@1.4.0/dist/jsQR.js',
-    production: '//unpkg.com/jsqr@1.4.0/dist/jsQR.js',
-  },
-  {
-    development: '//unpkg.com/qrcode@1.5.1/build/qrcode.js',
-    production: '//unpkg.com/qrcode@1.5.1/build/qrcode.js',
   },
 ];
 

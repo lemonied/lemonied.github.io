@@ -13,7 +13,7 @@ export function preCodeImport() {
           // https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Regular_Expressions#special-negated-look-ahead
           .split(/(?<!\\) /g)
           .map(meta => {
-            if (!meta.startsWith(fileWithRoot) && meta.startsWith(fileSign)){
+            if (!meta.startsWith(fileWithRoot) && meta.startsWith(fileSign)) {
               return `${fileWithRoot}/${meta.substring(fileSign.length)}`;
             }
             return meta;

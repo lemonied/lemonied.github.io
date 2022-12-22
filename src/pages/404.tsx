@@ -8,9 +8,7 @@ const Page404: NextPage = () => {
       <SEO title={'404 - Page Not Found'} description={'404 - Page Not Found'} />
       <h1>404 - Page Not Found</h1>
       <h2>
-        <Link href={'/'}>
-          <a>返回首页</a>
-        </Link>
+        <Link href={'/'}>返回首页</Link>
       </h2>
     </>
   );

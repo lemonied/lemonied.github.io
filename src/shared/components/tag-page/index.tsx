@@ -55,9 +55,7 @@ export const TagPage: FC<TagPageProps> = (props) => {
                     <Picture src={v.tag.poster} ratio={0.6} />
                     <h2 className={'title'}>
                       <Link href={`/list/${v.tag.value}`}>
-                        <a>
-                          <Button type={'primary'}>{ v.tag.value }</Button>
-                        </a>
+                        <Button type={'primary'}>{ v.tag.value }</Button>
                       </Link>
                     </h2>
                   </div>
@@ -66,9 +64,7 @@ export const TagPage: FC<TagPageProps> = (props) => {
                       v.articles.map(v => {
                         return (
                           <Link href={v.path} key={v.path}>
-                            <a>
-                              <Button>{ v.frontMatter.title }</Button>
-                            </a>
+                            <Button>{ v.frontMatter.title }</Button>
                           </Link>
                         );
                       })
@@ -90,9 +86,7 @@ export const TagPage: FC<TagPageProps> = (props) => {
           total={tags.total}
           size={tags.size}
           wrapper={(button, page) => (
-            <Link href={`/tag${page > 1 ? `/${page}` : ''}`} >
-              <a>{ button }</a>
-            </Link>
+            <Link href={`/tag${page > 1 ? `/${page}` : ''}`} >{ button }</Link>
           )}
         />
       </Layout>

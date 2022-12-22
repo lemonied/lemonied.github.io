@@ -1,0 +1,121 @@
+---
+title: Trie（前缀树、字典树、向量树）
+tag: 算法
+---
+
+## 基本概念
+
+一般前缀树的三个基本性质
+
+1. 根节点不包含字符，除根节点外每一个节点都只包含一个字符。
+2. 从根节点到某一节点，路径上经过的字符连接起来，为该节点对应的字符串。
+3. 每个节点的所有子节点包含的字符都不相同。
+
+![前缀树](https://lemonied-1258997133.cos.ap-nanjing.myqcloud.com/static%2Ftrie%2F1.png)
+
+```javascript
+// 简单的前缀树（只能存储字符串）
+class TrieNode {
+  nodes = {};
+  constructor() {
+    this.isEnd = false;
+    this.nodes = {};
+  }
+}
+
+class Trie {
+  nodes = {};
+  constructor() {}
+  insert(str) {
+    let node = this;
+    for (let i = 0; i < str.length; i += 1) {
+      const v = str[i];
+      node.nodes[v] || (node.nodes[v] = new TrieNode());
+      node = node.nodes[v];
+      if (i === str.length - 1) node.isEnd = true;
+    }
+  }
+  search(str) {
+    let node = this;
+    for (let i = 0; i < str.length; i += 1) {
+      const v = str[i];
+      if (!node.nodes[v]) return false;
+      node = node.nodes[v];
+    }
+    return node.isEnd;
+  }
+}
+```
+
+## ImmutableJS
+
+> 持久化数据结构、结构共享
+
+Immutable，顾名思义，即不可变数据结构，所有的数据都是不可变的
+
+## Vector Trie
+
+使用Array表示
+
+```javascript
+var fruits = ['banana', 'grape', 'lemon', 'orange', 'apple'];
+
+var fruits2 = fruits.slice();
+fruits.push('watermelon');
+```
+
+使用向量树：
+
+![向量树](https://lemonied-1258997133.cos.ap-nanjing.myqcloud.com/static%2Ftrie%2F2.webp)
+
+插入节点 watermelon ：
+
+![向量树](https://lemonied-1258997133.cos.ap-nanjing.myqcloud.com/static%2Ftrie%2F3.webp)
+
+## 位分区
+
+```javascript
+const SHIFT = 3;
+const NODE_SIZE = 1 << SHIFT;
+
+class ArrayNode {
+  nodes = [];
+  get(idx) {
+    return this.nodes[idx];
+  }
+}
+
+class List {
+  level = SHIFT;
+  root = new ArrayNode();
+  get(idx) {
+    return find(this.root, this.level, idx);
+  }
+}
+
+/**
+[0, 1, 2, 3, 4, 5, 6, 7]
+root = ArrayNode([0, 1, 2, 3, 4, 5, 6, 7])
+level = 0b1000
+*/
+/**
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+root = ArrayNode([
+  ArrayNode([0, 1, 2, 3, 4, 5, 6, 7]),
+  ArrayNode([8, 9])
+])
+level = 0b1000000
+*/
+// list.get(8) === list.get(0b001001) === 9
+
+function find(root, level, idx) {
+  let node = root;
+  while(level > SHIFT) {
+    level = level >>> SHIFT;
+    node = node.get(idx >>> level);
+    idx = ((1 << level) - 1) & idx;
+  }
+  return node.get(idx);
+}
+
+```

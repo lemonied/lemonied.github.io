@@ -38,9 +38,7 @@ const ListPage: NextPage<ListPageProps> = (props) => {
                   <ShadowCard className={styles['item']}>
                     <div className={styles['title']}>
                       <h2 className={styles['link']}>
-                        <Link href={v.path}>
-                          <a>{ v.frontMatter.title }</a>
-                        </Link>
+                        <Link href={v.path}>{ v.frontMatter.title }</Link>
                       </h2>
                       <div className={styles['time']}>{ moment8(v.frontMatter.updated).format('YYYY-MM-DD') }</div>
                     </div>

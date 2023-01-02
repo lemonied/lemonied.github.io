@@ -1,0 +1,1 @@
+{"pageProps":{"pages":{"total":2,"size":10,"page":1,"data":[{"frontMatter":{"title":"Trie（前缀树、字典树、向量树）","tag":["算法"],"updated":"2022-12-22T19:04:04.000Z"},"path":"/article/algorithm/trie"},{"frontMatter":{"title":"数独","description":"web版数独计算器","tag":["算法","web前端","游戏"],"updated":"2022-10-10T10:32:08.000Z"},"path":"/article/games/sudoku"}]},"tag":"算法"},"__N_SSG":true}

@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://www.lemonied.cn
+
+# Sitemaps
+Sitemap: https://www.lemonied.cn/sitemap.xml

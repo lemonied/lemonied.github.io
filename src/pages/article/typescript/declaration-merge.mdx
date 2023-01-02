@@ -1,0 +1,28 @@
+---
+title: ts接口合并
+description: typescript中合并接口
+tag: web前端/typescript
+---
+
+## 合并接口
+> https://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation
+```typescript
+import { Observable } from 'rxjs';
+declare module "rxjs" {
+  interface Observable {
+    test: () => void;
+  }
+}
+const observable = new Observable();
+observable.test();
+```
+
+## 修改 Window 全局对象
+```typescript
+declare global {
+  interface Window {
+    test: string;
+  }
+}
+window.test // string
+```

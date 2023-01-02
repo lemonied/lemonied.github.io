@@ -1,0 +1,25 @@
+---
+title: 使用rxjs实现队列
+description: 使用rxjs实现队列
+tag: web前端/rxjs
+---
+
+## 固定任务数量
+```typescript file=src/example/queue/queue.ts
+```
+
+import { QueueExample } from '@/example/queue';
+
+<QueueExample />
+
+点击`开始`执行startQueue，打开f12查看打印结果
+
+## 动态任务数量
+```typescript file=src/example/queue/queue-dynamic.ts
+```
+
+import { DynamicQueue } from '@/example/queue/dynamic';
+
+<DynamicQueue />
+
+连续点击`下载`创建多个下载任务，模拟最大并发下载为2的场景

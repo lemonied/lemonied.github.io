@@ -1,0 +1,47 @@
+---
+title: useTransition
+description: React 18 Hooks useTransition
+tag: react/web前端
+---
+
+import { UseTransitionList } from '@/example/use-transition/slow-list';
+
+# 示例一
+
+## 代码
+
+```tsx file=src/example/use-transition/slow-list.tsx
+```
+
+## 效果
+
+<UseTransitionList />
+
+import { SuspenseExample } from '@/example/use-transition/suspense';
+
+# 示例二（与Suspense配合食用）
+
+## 代码
+
+```tsx file=src/example/use-transition/suspense.tsx
+```
+
+## 效果
+
+<SuspenseExample />
+
+<hr/>
+`可以看到，使用startTransition时，Suspense的fallback没有生效，在异步组件加载完成之前，页面UI始终没有变化`
+
+## 应用场景
+
+> 懒加载路由进度条
+
+import { LazyProgress } from '@/example/use-transition/lazy-progress';
+
+<LazyProgress />
+
+## 代码（模拟异步加载的路由场景）
+
+```tsx file=src/example/use-transition/lazy-progress.tsx
+```

@@ -8,3 +8,4 @@ export * from './combine-class';
 export * from './moment';
 export * from './compose';
 export * from './image';
+export * from './nprogress';

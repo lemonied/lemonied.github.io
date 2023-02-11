@@ -10,6 +10,7 @@ import {
   externalStyles,
 } from '@shared/helpers/externals';
 import Script from 'next/script';
+import * as process from 'process';
 
 class MyDocument extends Document {
   static async getInitialProps(ctx: DocumentContext) {
@@ -31,12 +32,12 @@ class MyDocument extends Document {
             ))
           }
           {
-            process.env.NODE_ENV === 'development' ?
+            process.env.NODE_ENV === 'development' && process.env.VCONSOLE ?
               <Script key={'v-console'} src={'//unpkg.com/vconsole@latest/dist/vconsole.min.js'} strategy={'beforeInteractive'} /> :
               null
           }
           {
-            process.env.NODE_ENV === 'development' ?
+            process.env.NODE_ENV === 'development' && process.env.VCONSOLE ?
               <Script
                 id={'vConsoleInstance'}
                 key={'v-console-instance'}

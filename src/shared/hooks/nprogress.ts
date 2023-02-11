@@ -1,9 +1,6 @@
-import NProgress from 'nprogress';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
-NProgress.configure({
-  showSpinner: false,
-});
+import { NProgress } from '@shared/utils';
 
 export const useNProgress = () => {
   const router = useRouter();

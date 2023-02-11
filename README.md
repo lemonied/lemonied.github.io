@@ -16,6 +16,16 @@ yarn pkgs:dev
 yarn dev
 ```
 
+## Lint
+```bash
+# install
+npx husky install
+# uninstall
+npx husky uninstall
+# add lint script
+npx husky add .husky/pre-commit "npm run lint-staged"
+```
+
 ## Environment
 
 ### Example

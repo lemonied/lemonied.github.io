@@ -14,6 +14,10 @@ touch -d "$(git log -1 --format="%ai" -- $filename)" $filename
 
 done
 ```
+```bash
+# 执行以上命令时注意修改git config core.quotepath，否则包含中文名称的路径将会被转移成\xx\xx从而引发报错
+git config --global core.quotepath false
+```
 
 ## 应用场景
 我们可以在编译期间，获取每个文件的最后提交时间，比如本项目，在执行git actions时，遍历每篇文章的最后提交时间，作为文章的最后更新时间。

@@ -18,12 +18,18 @@ yarn dev
 
 ## Lint
 ```bash
+npm run lint
+```
+
+## Git Hooks
+```bash
 # install
 npx husky install
-# uninstall
-npx husky uninstall
 # add lint script
 npx husky add .husky/pre-commit "npm run lint-staged"
+
+# uninstall
+npx husky uninstall
 ```
 
 ## Environment
@@ -41,4 +47,4 @@ npm run pkgs:build && npm run build && npm run export
 # or
 yarn pkgs:build && yarn build && yarn export
 ```
-and then, all static files will be generated to `out` directory
+And then, all static files will be generated to `out` directory

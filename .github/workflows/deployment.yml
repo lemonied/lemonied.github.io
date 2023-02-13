@@ -18,7 +18,7 @@ env:
 
 jobs:
   deployment:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     strategy:
       matrix:
         node-version: [16]
@@ -35,16 +35,15 @@ jobs:
           cache: 'npm'
       - name: Build
         run: |
-          npm install
-          npm run pkgs:build
-          npm run mtime
-          npm run build
-          npm run export
+          yarn install
+          yarn run pkgs:build
+          yarn run mtime
+          yarn run build
+          yarn run export
       - name: Push To Branch Blog
         run: |
           git config --global user.email chenjiyuan.super@gmail.com
           git config --global user.name action-bot
-          git config --global core.quotepath false
           cd ./out
           git init
           git branch -m blog

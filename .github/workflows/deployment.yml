@@ -13,7 +13,7 @@ on:
 
 env:
   NEXT_TELEMETRY_DISABLED: 1
-  SITE_URL: https://www.lemonied.cn
+  SITE_URL: ${{ vars.SITE_URL }}
   BASE_PATH: /
 
 jobs:
@@ -40,14 +40,14 @@ jobs:
           yarn run mtime
           yarn run build
           yarn run export
-      - name: Push To Branch Blog
+      - name: Push To Repository
         run: |
-          git config --global user.email chenjiyuan.super@gmail.com
+          git config --global user.email ${{ vars.USER_EMAIL }}
           git config --global user.name action-bot
           cd ./out
           git init
           git branch -m blog
           git add .
           git commit -m "Deploy by Actions"
-          git remote add origin https://${{secrets.TOKEN}}@github.com/lemonied/lemonied.github.io.git
-          git push -u -f origin blog:blog
+          git remote add origin https://${{secrets.TOKEN}}@github.com/${{ vars.CODE_GITHUB_REPOSITORY }}
+          git push -u -f origin HEAD:${{ vars.CODE_GITHUB_BRANCH }}

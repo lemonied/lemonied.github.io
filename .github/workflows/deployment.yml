@@ -1,7 +1,7 @@
 # actions document: https://docs.github.com/en/actions/using-jobs/using-jobs-in-a-workflow
 # official actions: https://github.com/actions
 
-name: 'Deployment lemonied.github.io'
+name: 'Deployment'
 
 on:
   push:
@@ -19,6 +19,7 @@ env:
 jobs:
   deployment:
     runs-on: ubuntu-20.04
+    environment: github-pages
     strategy:
       matrix:
         node-version: [16]
@@ -49,5 +50,5 @@ jobs:
           git branch -m blog
           git add .
           git commit -m "Deploy by Actions"
-          git remote add origin https://${{secrets.TOKEN}}@github.com/${{ vars.CODE_GITHUB_REPOSITORY }}
+          git remote add origin https://${{ secrets.TOKEN }}@github.com/${{ vars.CODE_GITHUB_REPOSITORY }}
           git push -u -f origin HEAD:${{ vars.CODE_GITHUB_BRANCH }}

@@ -37,15 +37,13 @@ jobs:
       - name: Build
         run: |
           yarn install
-          yarn run pkgs:build
           yarn run mtime
           yarn run build
-          yarn run export
       - name: Push To Repository
         run: |
           git config --global user.email ${{ vars.USER_EMAIL }}
           git config --global user.name action-bot
-          cd ./out
+          cd ./blog/out
           git init
           git branch -m blog
           git add .

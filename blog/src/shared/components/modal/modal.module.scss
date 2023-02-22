@@ -1,0 +1,105 @@
+$duration: 300ms;
+$zIndex: 999;
+
+.lemon-modal-enter {
+}
+.lemon-modal-enter-active {
+}
+.lemon-modal-exit {
+  opacity: 1;
+  .lemon-modal{
+    transform: scale(1);
+  }
+}
+.lemon-modal-exit-active {
+  transition: opacity $duration ease;
+  opacity: 0;
+  .lemon-modal{
+    transform: scale(0);
+    transition: transform $duration ease;
+  }
+}
+@keyframes lemon-modal-eject {
+  0%{
+    transform: scale(0);
+    opacity: 0;
+  }
+  60%{
+    transform: scale(1.1);
+  }
+  100%{
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+.lemon-modal-fade-enter {
+  opacity: 0;
+}
+.lemon-modal-fade-enter-active {
+  opacity: 1;
+  transition: opacity $duration;
+}
+.lemon-modal-fade-exit {
+  opacity: 1;
+}
+.lemon-modal-fade-exit-active {
+  opacity: 0;
+  transition: opacity $duration;
+}
+.lemon-modal-mask{
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: $zIndex;
+  background: rgba(0, 0, 0, .5);
+}
+.lemon-modal-wrapper{
+  position: fixed;
+  z-index: $zIndex;
+  overflow: auto;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  line-height: 100vh;
+  text-align: center;
+}
+.lemon-modal{
+  display: inline-block;
+  vertical-align: middle;
+  line-height: initial;
+  text-align: initial;
+  border-radius: 8px;
+  width: 500px;
+  max-width: 80%;
+  background: #fff;
+  font-size: 1rem;
+  animation: lemon-modal-eject ease $duration;
+}
+.lemon-modal-header{
+  padding: 20px 20px 10px 20px;
+  display: flex;
+  align-items: center;
+  .header-content{
+    flex: 1;
+    width: calc(100% - 24px);
+  }
+  .close{
+    font-size: 1.4em;
+    &:hover{
+      cursor: pointer;
+      opacity: .9;
+    }
+  }
+}
+.lemon-modal-content{
+  padding: 15px;
+}
+.lemon-modal-footer{
+  padding: 0 15px 15px 15px;
+}
+.disable-scroll{
+  overflow: hidden !important;
+}

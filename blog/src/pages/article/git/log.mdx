@@ -1,0 +1,168 @@
+---
+title: git log 常用命令
+tag: git
+---
+
+# 示例
+遍历src/pages下的所有文件, 将每个文件的mtime修改为git log 中最后一次提交的时间
+```shell
+#!/bin/sh
+
+git ls-tree -r --name-only HEAD src/pages | while read filename; do
+
+touch -d "$(git log -1 --format="%ai" -- $filename)" $filename
+
+done
+```
+```bash
+# 执行以上命令时注意修改git config core.quotepath，否则包含中文名称的路径将会被转移成\xx\xx从而引发报错
+git config --global core.quotepath false
+```
+
+## 应用场景
+我们可以在编译期间，获取每个文件的最后提交时间，比如本项目，在执行git actions时，遍历每篇文章的最后提交时间，作为文章的最后更新时间。
+
+[示例代码](https://github.com/lemonied/lemonied.github.io/tree/master/packages/mtime/src/index.ts)
+
+# --format 参数详解
+
+## 作者
+1. `%an` `%aN` 作者名称
+    ```bash
+    git log -1 --format="%an" -- filepath
+    # output: ChenJiYuan
+    ```
+
+2. `%ae` `%aE` 作者邮箱
+    ```bash
+    git log -1 --format="%ae" -- filepath
+    # output: chenjiyuan.super@gmail.com
+    ```
+
+3. `%aD` 提交时间(rfc2882)
+    ```bash
+    git log -1 --format="%aD" -- filepath
+    # output: Wed Aug 24 12:33:50 2022 +0800
+    ```
+
+4. `%ar` 提交时间(相对时间)
+    ```bash
+    git log -1 --format="%ar" -- filepath
+    # output: 3 hours ago
+    ```
+
+5. `%at` 提交时间(timestamp)
+    ```bash
+    git log -1 --format="%at" -- filepath
+    # output: 1661315630
+    ```
+
+6. `%ai` 提交时间(iso8601)
+    ```bash
+    git log -1 --format="%ai" -- filepath
+    # output: 2022-08-24 12:33:50 +0800
+    ```
+
+## 提交者
+> %c 和 %a 开头的写法，一个是作者信息，一个是提交者信息，测试的输出结果一致, 不知道有什么区别
+1. `%cn` `%cN` 提交者的名字
+    ```bash
+    git log -1 --format="%cn" -- filepath
+    # output: ChenJiYuan
+    ```
+
+2. `%ce` `%cE` 提交者的邮箱
+    ```bash
+    git log -1 --format="%ce" -- filepath
+    # output: chenjiyuan.super@gmail.com
+    ```
+
+3. `%cD` 提交时间(rfc2882)
+    ```bash
+    git log -1 --format="%cD" -- filepath
+    # output: Wed Aug 24 12:33:50 2022 +0800
+    ```
+
+4. `%cr` 提交时间(相对时间)
+    ```bash
+    git log -1 --format="%cr" -- filepath
+    # output: 3 hours ago
+    ```
+
+5. `%ct` 提交时间(timestamp)
+    ```bash
+    git log -1 --format="%ct" -- filepath
+    # output: 1661315630
+    ```
+
+6. `%ci` 提交时间(iso8601)
+    ```bash
+    git log -1 --format="%ci" -- filepath
+    # output: 2022-08-24 12:33:50 +0800
+    ```
+
+## Hash相关
+
+1. `%H` 提交的hash
+    ```bash
+    git log -1 --format="%H" -- filepath
+    # output: c6ededc02c13877d62f7a1b1b004ca8db7d1dd1d
+    ```
+
+2. `%h` 提交的hash（缩写，前七位）
+    ```bash
+    git log -1 --format="%h" -- filepath
+    # output: c6ededc
+    ```
+
+3. `%T` 树hash（tree hash）
+    ```bash
+    git log -1 --format="%T" -- filepath
+    # output: 74c55360530c7f38e6f459b5d4d32a5ce7a973ac
+    ```
+
+4. `%t` 树hash（简写）
+    ```bash
+    git log -1 --format="%t" -- filepath
+    # output: 74c5536
+    ```
+
+5. `%P` parent hash
+    ```bash
+    git log -1 --format="%P" -- filepath
+    # output: e224982135575c4cf4c7bbdc9cf70c228444f10c
+    ```
+
+6. `%p` parent hash（简写）
+    ```bash
+    git log -1 --format="%p" -- filepath
+    # output: e224982
+    ```
+
+## Commit 相关
+1. `%s` 提交信息的标题
+    ```bash
+    git log -1 --format="%s" -- filepath
+    # output: Fix some bugs
+    ```
+
+2. `%f` 提交信息的标题（格式化后）
+    ```bash
+    git log -1 --format="%f" -- filepath
+    # output: Fix-some-bugs
+    ```
+
+3. `%b` 提交信息的body
+    ```bash
+    git log -1 --format="%b" -- filepath
+    # output: 1. improve xxxx
+    #         2. fix xxx
+    ```
+
+4. `%d` ref name
+    ```bash
+    git log -1 --format="%d" -- filepath
+    # output: (HEAD -> master, origin/master)
+    ```
+
+5. `%e` encoding（不知道是啥）

@@ -2,12 +2,15 @@ import fs from 'fs';
 import { exec } from 'child_process';
 import glob from 'glob';
 import path from 'path';
+import { toPosixPath } from '@lemonied/utils';
 
-const MDX_PATH = path.resolve(process.cwd(), './src/pages/article/**/*.mdx');
+const MDX_PATH = toPosixPath(
+  path.resolve(process.cwd(), './blog/src/pages/article/**/*.mdx'),
+);
 
 function getLastCommitTime(file: string) {
   return new Promise<Date | null>((resolve, reject) => {
-    exec(`git log -1 --format="%ai" -- ${file}`, (error, stdout, stderr) => {
+    exec(`git log -1 --format="%ai" -- ${file}`, (error, stdout) => {
       if (error) {
         return reject(error);
       }

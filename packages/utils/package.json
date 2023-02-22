@@ -1,0 +1,24 @@
+{
+  "name": "@lemonied/utils",
+  "version": "1.0.0",
+  "description": "utils",
+  "author": "https://github.com/lemonied",
+  "license": "ISC",
+  "main": "index.js",
+  "types": "index.ts",
+  "scripts": {
+    "dev": "tsc -w",
+    "build": "tsc",
+    "lint": "eslint \"**/*.ts\" --max-warnings=0"
+  },
+  "dependencies": {
+    "gray-matter": "4.0.3"
+  },
+  "devDependencies": {
+    "@types/node": "16.18.12",
+    "@typescript-eslint/eslint-plugin": "^5.53.0",
+    "@typescript-eslint/parser": "^5.53.0",
+    "eslint": "^8.34.0",
+    "typescript": "4.9.5"
+  }
+}

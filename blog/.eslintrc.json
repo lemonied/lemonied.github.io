@@ -1,0 +1,11 @@
+{
+  "extends": [
+    "next/core-web-vitals",
+    "../.eslintrc.json"
+  ],
+  "rules": {
+    "react-hooks/exhaustive-deps": ["warn", {
+      "additionalHooks": "(useSubject|useTrailed)"
+    }]
+  }
+}

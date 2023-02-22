@@ -1,8 +1,22 @@
 {
-  "extends": [
-    "next/core-web-vitals"
+  "parser": "@typescript-eslint/parser",
+  "plugins": [
+    "@typescript-eslint/eslint-plugin"
   ],
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended"
+  ],
+  "env": {
+    "node": true,
+    "browser": true
+  },
   "rules": {
+    "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/no-non-null-assertion": "off",
+    "@typescript-eslint/no-empty-interface": "off",
+    "@typescript-eslint/no-var-requires": "off",
+    "@typescript-eslint/no-non-null-asserted-optional-chain": "off",
     "semi": "error",
     "object-curly-spacing": ["error", "always"],
     "no-console": "warn",
@@ -20,9 +34,6 @@
       "afterColon": true
     }],
     "comma-spacing": ["error", { "before": false, "after": true }],
-    "no-debugger": "warn",
-    "react-hooks/exhaustive-deps": ["warn", {
-      "additionalHooks": "(useSubject|useTrailed)"
-    }]
+    "no-debugger": "warn"
   }
 }

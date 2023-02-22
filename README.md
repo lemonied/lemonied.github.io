@@ -2,17 +2,9 @@
 
 ## Install
 ```bash
-npm install
-# or
 yarn
-```
-
-## Pre Dependencies
-```bash
-# 本地开发需要先执行（编译本地依赖包）
-npm run pkgs:build
-# 如果需要开发packages内的功能，则需要执行
-npm run pkgs:dev
+# or
+npx lerna bootstrap
 ```
 
 ## Develop
@@ -22,38 +14,25 @@ npm run dev
 yarn dev
 ```
 
+## 新增依赖
+```bash
+yarn workspace blog add typescript -D
+
+npx lerna add typescript --scope=blog --dev
+```
+
 ## Lint
 ```bash
 npm run lint
 ```
 
-## Git Hooks
-```bash
-# install
-npx husky install
-# add lint script
-npx husky add .husky/pre-commit "npm run lint-staged"
-
-# uninstall
-npx husky uninstall
-```
-
-## Environment
-
-### Example
-file `.env.local` for development
-```bash
-SITE_URL=https://www.lemonied.cn
-BASE_PATH=/
-```
-
 ## Production
 ```bash
-npm run pkgs:build && npm run build && npm run export
+npm run build
 # or
-yarn pkgs:build && yarn build && yarn export
+yarn build
 ```
-And then, all static files will be generated to `out` directory
+And then, all static files will be generated to `blog/out` directory
 
 ## Deployment
 > 以GitHub Pages为例

@@ -5,8 +5,9 @@ import { visit } from 'unist-util-visit';
 export function preCodeImport() {
   const fileSign = 'file=';
   const fileWithRoot = 'file=<rootDir>';
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   return (tree: Root, file: VFile) => {
-    visit(tree, ['code'], (_node, index, parent) => {
+    visit(tree, ['code'], (_node) => {
       const node = _node as Code;
       if (typeof node.meta === 'string') {
         node.meta = node.meta

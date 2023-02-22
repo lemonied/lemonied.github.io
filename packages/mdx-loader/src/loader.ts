@@ -1,5 +1,5 @@
 import mdxLoader from '@mdx-js/loader';
-import { formatMatter } from '@shared/helpers/matter';
+import { formatMatter } from '@lemonied/utils';
 import type { LoaderDefinition } from 'webpack';
 
 function renderFrontMatter(obj: Record<string, string>) {

@@ -22,6 +22,9 @@
       "inputs": ["prod", "^prod"],
       "outputs": ["{projectRoot}/dist"]
     },
+    "lint": {
+      "dependsOn": ["prebuild", "^build"]
+    },
     "test": {
       "inputs": ["default", "^prod", "{workspaceRoot}/jest.config.ts"]
     }

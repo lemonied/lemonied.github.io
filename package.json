@@ -6,7 +6,7 @@
     "mtime": "lerna run build --scope=@lemonied/mtime && npm rebuild && mtime",
     "prebuild": "npm run lint",
     "build": "lerna run build --stream",
-    "postbuild": "lerna run export",
+    "postbuild": "lerna run export --scope=lemonied.github.io",
     "lint": "lerna run lint"
   },
   "workspaces": [

@@ -22,6 +22,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         <meta httpEquiv="x-ua-compatible" content="ie=edge" />
         <meta name={'renderer'} content={'webkit'} />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, maximum-scale=1" />
+        <link rel="icon" type="image/x-icon" href={`${process.env.BASE_PATH}favicon.ico`} />
       </Head>
       <Component {...pageProps} />
     </>

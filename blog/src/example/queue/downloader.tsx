@@ -1,25 +1,22 @@
 import { Button } from '@shared/components/button';
 import { combineClass, randomStr } from '@shared/utils';
 import { FC, useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { mergeScan, Subject, interval, takeUntil, tap, mergeMap, of } from 'rxjs';
+import { Subject, interval, tap, mergeMap, of, concat, takeWhile, Observable, scan } from 'rxjs';
 import styles from './downloader.module.scss';
 
 // 模拟下载过程
-const virtualDownload = (onProgress: (percent: number) => void) => {
-  const subject = new Subject<void>();
-  let percent = 0;
+const virtualDownload = () => {
   const speed = Math.random() * 0.3;
   return interval(1000).pipe(
-    tap(() => {
-      percent = Math.min(1, percent + speed);
-      onProgress(percent);
+    scan((acc) => Math.min(1, acc + speed), 0),
+    mergeMap((percent) => {
       if (percent >= 1) {
-        subject.next();
-        subject.complete();
+        return concat(of(percent), of(null));
       }
+      return of(percent);
     }),
-    takeUntil(subject),
-  );
+    takeWhile(v => typeof v === 'number'),
+  ) as Observable<number>;
 };
 
 interface VirtualFile {
@@ -56,13 +53,15 @@ const Downloader: FC = () => {
         });
         return of(newFile);
       }),
-      mergeScan((acc, value) => {
-        return virtualDownload(percent => {
-          value.percent = percent;
-          value.status = percent < 1 ? 'pending' : 'done';
-          setFiles(prev => [...prev]);
-        });
-      }, 0, 3),
+      mergeMap((value) => {
+        return virtualDownload().pipe(
+          tap((percent) => {
+            value.percent = percent;
+            value.status = percent < 1 ? 'pending' : 'done';
+            setFiles(prev => [...prev]);
+          }),
+        );
+      }, 3), // 3为最大并发数
     ).subscribe();
     return () => {
       subscription.unsubscribe();

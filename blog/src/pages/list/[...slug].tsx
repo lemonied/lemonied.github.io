@@ -59,9 +59,7 @@ const ListPage: NextPage<ListPageProps> = (props) => {
           total={pages.total}
           size={pages.size}
           wrapper={(button, page) => (
-            <Link href={`/list/${tag}${page > 1 ? `/${page}` : ''}`} >
-              <a>{ button }</a>
-            </Link>
+            <Link href={`/list/${tag}${page > 1 ? `/${page}` : ''}`} >{ button }</Link>
           )}
         />
       </Layout>

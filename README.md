@@ -29,6 +29,11 @@ npx lerna add typescript --scope=blog --dev
 
 # Remove
 yarn workspace blog remove typescript
+
+# Check for package updates
+npm install npm-check-updates -g # install for global
+ncu -t minor # Show all new dependencies(only update patch and minor)
+ncu -t minor -u # upgrade package.json
 ```
 
 ## Lint

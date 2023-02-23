@@ -7,18 +7,28 @@ yarn
 npx lerna bootstrap
 ```
 
-## Develop
+## Develop Blog
 ```bash
 npm run dev
 # or
 yarn dev
 ```
 
-## 新增依赖
+## Run Tasks
+> [lerna.js](https://lerna.js.org/docs/features/run-tasks)
 ```bash
-yarn workspace blog add typescript -D
+npx lerna run dev --scope=@lemonied/mtime
+```
 
+## Dependencies
+```bash
+# Add
+yarn workspace blog add typescript -D
+# or
 npx lerna add typescript --scope=blog --dev
+
+# Remove
+yarn workspace blog remove typescript
 ```
 
 ## Lint
@@ -32,7 +42,7 @@ npm run build
 # or
 yarn build
 ```
-And then, all static files will be generated to `blog/out` directory
+And then, all static files of blog will be generated to `blog/out` directory
 
 ## Deployment
 > 以GitHub Pages为例

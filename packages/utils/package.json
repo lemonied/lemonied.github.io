@@ -4,12 +4,12 @@
   "description": "utils",
   "author": "https://github.com/lemonied",
   "license": "ISC",
-  "main": "index.js",
-  "types": "index.ts",
+  "main": "dist/index.js",
   "scripts": {
     "dev": "tsc -w",
     "build": "tsc",
-    "lint": "eslint \"**/*.ts\" --max-warnings=0"
+    "lint": "eslint \"**/*.ts\" --max-warnings=0",
+    "prepare": "npm run build"
   },
   "dependencies": {
     "gray-matter": "4.0.3"

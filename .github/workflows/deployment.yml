@@ -29,14 +29,27 @@ jobs:
         with:
           ref: master
           fetch-depth: 0
+      # https://github.com/actions/cache
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "dir=$(yarn cache dir)" >> $GITHUB_OUTPUT
+      - uses: actions/cache@v3
+        id: yarn-cache
+        with:
+          path: |
+            ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+      # https://github.com/actions/setup-node
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-          cache: 'npm'
+          cache: 'yarn'
       - name: Build
         run: |
-          yarn install
+          yarn install --frozen-lockfile
           yarn run mtime
           yarn run build
       - name: Push To Repository

@@ -19,6 +19,7 @@ const nextConfig = {
   pageExtensions: ['tsx', 'mdx'],
   webpack: (
     config,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     { buildId, dev, isServer, defaultLoaders, nextRuntime, webpack },
   ) => {
     if (!isServer) {

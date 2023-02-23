@@ -1,9 +1,12 @@
 {
-  "name": "root",
+  "name": "lemonied-lerna",
+  "version": "0.1.0",
+  "license": "ISC",
+  "author": "https://github.com/lemonied",
   "private": true,
   "scripts": {
     "dev": "lerna run dev --scope=lemonied.github.io",
-    "mtime": "lerna run build --scope=@lemonied/mtime && npm rebuild && mtime",
+    "mtime": "lerna run build --scope=@lemonied/mtime && npm rebuild @lemonied/mtime && mtime",
     "prebuild": "npm run lint",
     "build": "lerna run build --stream",
     "postbuild": "lerna run export --scope=lemonied.github.io",

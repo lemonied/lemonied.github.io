@@ -29,3 +29,16 @@ function MyApp({ Component, pageProps }: AppProps) {
 }
 
 export default MyApp;
+
+if (process.env.NODE_ENV === 'production') {
+  // eslint-disable-next-line no-console
+  console.log(
+    '%c林哥哥的个人空间',
+    'font-size: 20px;color: red;',
+  );
+  // eslint-disable-next-line no-console
+  console.log(
+    `%c构建于：${moment(Number(process.env.TIMESTAMP)).format('YYYY-MM-DD HH:mm:ss')}`,
+    'color: green;',
+  );
+}

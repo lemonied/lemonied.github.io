@@ -15,7 +15,7 @@ const MDX_PATH = path.resolve(process.cwd(), './src/pages/article');
 
 const MDX_PATH_POSIX = toPosixPath(MDX_PATH);
 
-/** Get all articles ant reverse by last update time */
+/** Get all articles and reverse by last update time */
 export const getPages = () => {
   const files = glob.sync(
     toPosixPath(

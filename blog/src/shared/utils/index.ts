@@ -10,3 +10,4 @@ export * from './compose';
 export * from './image';
 export * from './nprogress';
 export * from './queue';
+export * from './sort';

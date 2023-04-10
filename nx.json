@@ -13,9 +13,8 @@
   },
   "targetDefaults": {
     "dev": {
-      "dependsOn": [
-        "^build"
-      ]
+      "dependsOn": ["^build"],
+      "outputs": []
     },
     "build": {
       "dependsOn": ["prebuild", "^build"],
@@ -23,7 +22,8 @@
       "outputs": ["{projectRoot}/dist"]
     },
     "lint": {
-      "dependsOn": ["prebuild", "^build"]
+      "dependsOn": ["prebuild", "^build"],
+      "outputs": []
     },
     "test": {
       "inputs": ["default", "^prod", "{workspaceRoot}/jest.config.ts"]

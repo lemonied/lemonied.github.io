@@ -7,18 +7,19 @@ import { CodeLayer } from '@shared/components/mdx/CodeLayer';
 interface CodeProps {
   className?: string;
   children?: ReactNode;
+  language?: Language;
 }
 const Code: FC<CodeProps> = (props) => {
 
-  const { children, className = '' } = props;
+  const { children, className = '', language } = props;
 
   const inline = useMemo(() => {
-    return typeof children !== 'string' || (!/\n$/.test(children) && !className);
-  }, [children, className]);
+    return typeof children !== 'string' || (!/\n$/.test(children) && !className && !language);
+  }, [children, className, language]);
   
   const lang = useMemo(() => {
-    return (/^language-(\S+)/.exec(className)?.[1] || 'markup') as Language;
-  }, [className]);
+    return language ?? (/^language-(\S+)/.exec(className)?.[1] || 'markup') as Language;
+  }, [className, language]);
 
   const content = useMemo(() => {
     return typeof children === 'string' ? children.trim() : '';

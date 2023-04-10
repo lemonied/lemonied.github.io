@@ -39,3 +39,18 @@ export function selectionSort(list: number[], rule: SortRule = 'ascend') {
   }
   return list;
 }
+
+// 插入排序
+export function insertionSort(list: number[], rule: SortRule = 'ascend') {
+  for (let i = 0; i < list.length; i += 1) {
+    const value = list[i];
+    let j = i - 1;
+    for (; j > -1 && (rule === 'ascend' ? (list[j] > value) : (list[j] < value)); j -= 1) {
+      // 把 index < i 中大于/小于value的元素向前移一位
+      list[j + 1] = list[j];
+    }
+    // 插入value
+    list[j + 1] = value;
+  }
+  return list;
+}

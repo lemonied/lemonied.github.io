@@ -31,7 +31,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 
 export default MyApp;
 
-if (process.env.NODE_ENV === 'production') {
+if (typeof window !== 'undefined') {
   // eslint-disable-next-line no-console
   console.log(
     '%c林哥哥的个人空间',

@@ -1,6 +1,6 @@
 import fs from 'fs';
 import { exec } from 'child_process';
-import glob from 'glob';
+import * as glob from 'glob';
 import path from 'path';
 import { toPosixPath } from '@lemonied/utils';
 

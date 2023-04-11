@@ -1,6 +1,7 @@
 import { FC } from 'react';
 import styles from './styles.module.scss';
 import Link from 'next/link';
+import { Search } from './search';
 
 const Header: FC = () => {
   return (
@@ -12,6 +13,7 @@ const Header: FC = () => {
           <Link href={'/about'}>关于我们</Link>
         </div>
       </nav>
+      <Search className={styles['search']} />
     </header>
   );
 };

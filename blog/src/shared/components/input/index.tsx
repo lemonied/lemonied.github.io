@@ -1,10 +1,10 @@
 import {
   ChangeEventHandler,
   forwardRef,
-  ReactElement,
   useEffect,
   useImperativeHandle,
   useRef,
+  ReactNode,
 } from 'react';
 import { MDCTextField } from '@material/textfield';
 import { combineClass } from '@shared/utils';
@@ -14,13 +14,15 @@ interface InputProps {
   label?: string;
   outline?: boolean;
   textarea?: boolean;
-  leading?: ReactElement;
-  trailing?: ReactElement;
+  leading?: ReactNode;
+  trailing?: ReactNode;
   className?: string;
   value?: string | number;
   onChange?: ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>;
   disabled?: boolean;
-  maxLength?: number,
+  maxLength?: number;
+  help?: ReactNode;
+  placeholder?: string;
 }
 const Input = forwardRef<InputInstance, InputProps>((props, ref) => {
 
@@ -35,6 +37,8 @@ const Input = forwardRef<InputInstance, InputProps>((props, ref) => {
     onChange,
     value,
     maxLength,
+    help,
+    placeholder,
   } = props;
 
   const domRef = useRef<HTMLLabelElement>(null);
@@ -102,6 +106,7 @@ const Input = forwardRef<InputInstance, InputProps>((props, ref) => {
                 onChange={onChange}
                 value={value}
                 maxLength={maxLength}
+                placeholder={placeholder}
               />
             </span> :
             <input
@@ -110,6 +115,7 @@ const Input = forwardRef<InputInstance, InputProps>((props, ref) => {
               onChange={onChange}
               value={value}
               maxLength={maxLength}
+              placeholder={placeholder}
             />
         }
         {
@@ -125,10 +131,25 @@ const Input = forwardRef<InputInstance, InputProps>((props, ref) => {
             </>
         }
       </label>
-      <div className={'mdc-text-field-helper-line'}>
-        <div className={'mdc-text-field-helper-text'} />
-        <div className={'mdc-text-field-character-counter'} />
-      </div>
+      {
+        help || typeof maxLength === 'number' ?
+          <>
+            <div className={'mdc-text-field-helper-line'}>
+              {
+                help ?
+                  <div className={'mdc-text-field-helper-text'}>{ help }</div> :
+                  null
+              }
+              {
+                typeof maxLength === 'number' ?
+                  <div className={'mdc-text-field-character-counter'} /> :
+                  null
+              }
+            </div>
+          </> :
+          null
+      }
+      
     </div>
   );
 });

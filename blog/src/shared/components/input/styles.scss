@@ -5,7 +5,6 @@
 
 @include textfield.core-styles;
 
-.inline-text-field-container {
-  display: flex;
-  flex-direction: column;
+.mdc-text-field--outlined{
+  height: 40px;
 }

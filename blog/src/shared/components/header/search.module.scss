@@ -1,0 +1,36 @@
+.search-box{
+  position: relative;
+  input{
+    color: #999999 !important;
+    &::placeholder{
+      color: #999999 !important;
+    }
+  }
+}
+.hits{
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 0;
+  width: 100%;
+  border-radius: 8px;
+  background: #fff;
+  padding: 20px;
+}
+.item{
+  display: block;
+  padding: 10px 0;
+  &:not(:first-child){
+    border-top: 1px solid #d9d9d9;
+  }
+  &:hover{
+    color: var(--color-primary);
+  }
+}
+.tit{
+  font-size: 16px;
+  font-weight: bold;
+}
+.con{
+  font-size: 14px;
+  color: #999;
+}

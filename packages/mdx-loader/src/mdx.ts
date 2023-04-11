@@ -1,10 +1,10 @@
-import { preCodeImport } from './root-import-code';
 import type { NextConfig } from 'next';
 import type { Options } from '@mdx-js/loader';
 import emoji from 'remark-emoji';
 import gfm from 'remark-gfm';
 import { codeImport } from 'remark-code-import';
 import rehypeSlug from 'rehype-slug';
+import { preCodeImport } from './root-import-code';
 
 const mdx = (nextConfig: NextConfig) => {
   const mdxOptions: Options = {

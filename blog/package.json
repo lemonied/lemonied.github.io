@@ -17,6 +17,7 @@
     "@material/ripple": "^14.0.0",
     "@material/textfield": "^14.0.0",
     "@mdx-js/react": "2.3.0",
+    "algoliasearch": "^4.17.0",
     "glob": "10.0.0",
     "immutable": "4.3.0",
     "jsqr": "^1.4.0",

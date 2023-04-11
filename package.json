@@ -12,6 +12,9 @@
     "postbuild": "lerna run export --scope=lemonied.github.io",
     "lint": "lerna run lint"
   },
+  "engines": {
+    "node": "^16.8.0"
+  },
   "workspaces": [
     "packages/*",
     "blog"

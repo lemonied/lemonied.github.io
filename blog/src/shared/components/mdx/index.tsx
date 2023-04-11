@@ -90,7 +90,7 @@ const MDXWrapper: FC<MDXWrapperProps> = (props) => {
       />
       <Layout mainClassName={styles['article-main']}>
         <ArticleWrapper>
-          <h1>{ frontMatter.title }</h1>
+          <h1 className='article-title'>{ frontMatter.title }</h1>
           <p>
             <span>更新时间：{ moment8(frontMatter.updated).format('YYYY-MM-DD HH:mm:ss') }</span>
             <span>
@@ -99,7 +99,9 @@ const MDXWrapper: FC<MDXWrapperProps> = (props) => {
                 frontMatter.tag.map((tag) => {
                   return (
                     <Link key={tag} href={`/list/${tag}`} >
-                      <Button>{ tag }</Button>
+                      <Button>
+                        <span className='article-tag'>{ tag }</span>
+                      </Button>
                     </Link>
                   );
                 })

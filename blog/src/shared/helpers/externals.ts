@@ -32,6 +32,10 @@ const javascripts = [
     development: '//unpkg.com/nprogress@0.2.0/nprogress.js',
     production: '//unpkg.com/nprogress@0.2.0/nprogress.js',
   },
+  {
+    development: '//unpkg.com/algoliasearch@4.17.0/dist/algoliasearch.umd.js',
+    production: '//unpkg.com/algoliasearch@4.17.0/dist/algoliasearch.umd.js',
+  },
 ];
 
 const links = [

@@ -15,9 +15,9 @@ env:
   NEXT_TELEMETRY_DISABLED: 1
   SITE_URL: ${{ vars.SITE_URL }}
   BASE_PATH: /
-  APP_KEY: ${{ vars.APP_KEY }}
-  SEARCH_API_KEY: ${{ vars.SEARCH_API_KEY }}
-  INDEX_KEY: ${{ vars.INDEX_KEY }}
+  ALGOLIA_APP_KEY: ${{ vars.ALGOLIA_APP_KEY }}
+  ALGOLIA_SEARCH_API_KEY: ${{ vars.ALGOLIA_SEARCH_API_KEY }}
+  ALGOLIA_INDEX_KEY: ${{ vars.ALGOLIA_INDEX_KEY }}
 
 jobs:
   deployment:

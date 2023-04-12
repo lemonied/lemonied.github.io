@@ -6,8 +6,8 @@ import { Input } from '@shared/components/input';
 import { ShadowCard } from '@shared/components/card';
 import { useDebounce, combineClass } from '@shared/utils';
 
-const client = algoliasearch(process.env.APP_KEY!, process.env.SEARCH_API_KEY!);
-const index = client.initIndex(process.env.INDEX_KEY!);
+const client = algoliasearch(process.env.ALGOLIA_APP_KEY!, process.env.ALGOLIA_SEARCH_API_KEY!);
+const index = client.initIndex(process.env.ALGOLIA_INDEX_KEY!);
 
 interface Hierarchy {
   lvl0: string | null;
@@ -59,6 +59,8 @@ export const Search: FC<SearchProps> = (props) => {
   });
   const [hits, setHits] = useState<HitItem[] | null>(null);
   const [loading, setLoading] = useState(false);
+  const [show, setShow] = useState(false);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const [onSubmit] = useDebounce((e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -83,16 +85,24 @@ export const Search: FC<SearchProps> = (props) => {
   }, 800);
 
   return (
-    <div className={combineClass(styles['search-box'], className)}>
-      <Input onChange={onSubmit} placeholder='搜索...' />
+    <label className={combineClass(styles['search-box'], className)}>
+      <Input
+        onChange={onSubmit}
+        placeholder={'搜索...'}
+        onFocus={() => setShow(true)}
+        onBlur={() => setShow(false)}
+        ref={inputRef}
+      />
       {
-        hits || loading ?
-          <ShadowCard className={styles.hits}>
+        (hits || loading) && show ?
+          <ShadowCard
+            className={styles.hits}
+          >
             {
               hits?.length ?
                 hits.map(v => {
                   const hierarchy = v._highlightResult.hierarchy || {};
-                  const title = hierarchy[Object.keys(hierarchy).reverse()[0] as keyof typeof hierarchy].value;
+                  const title = Object.keys(hierarchy).map(key => hierarchy[key as keyof typeof hierarchy].value).join(' - ');
                   const content = v._snippetResult?.content.value;
                   return (
                     <a href={v.url} rel="noreferrer" key={v.objectID} className={styles['item']}>
@@ -116,6 +126,6 @@ export const Search: FC<SearchProps> = (props) => {
           </ShadowCard> :
           null
       }
-    </div>
+    </label>
   );
 };

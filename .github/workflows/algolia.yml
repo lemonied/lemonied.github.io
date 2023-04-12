@@ -1,0 +1,32 @@
+name: 'Algolia'
+
+on:
+  page_build
+
+env:
+  SITE_URL: ${{ vars.SITE_URL }}
+  ALGOLIA_INDEX_KEY: ${{ vars.ALGOLIA_INDEX_KEY }}
+
+jobs:
+  algolia:
+    runs-on: ubuntu-20.04
+    environment: github-pages
+    strategy:
+      matrix:
+        node-version: [16]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          ref: master
+          fetch-depth: 1
+      - name: Get docsearch config
+        id: algolia_config
+        run: echo "::set-output name=config::$(node blog/algolia.config.js)"
+      - name: Run algolia/docsearch-scraper image
+        run: |
+          docker run \
+          --env APPLICATION_ID=${{ vars.ALGOLIA_APP_KEY }} \
+          --env API_KEY=${{ secrets.ALGOLIA_ADMIN_KEY }} \
+          --env CONFIG=${{ steps.algolia_config.config }} \
+          algolia/docsearch-scraper

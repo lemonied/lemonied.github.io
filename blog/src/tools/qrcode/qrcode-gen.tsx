@@ -41,8 +41,9 @@ const QrcodeGenerator: FC = () => {
           textarea
           label={'文本内容'}
           maxLength={100}
-          ref={inputRef}
+          instance={inputRef}
         />
+        <br/>
         <Button onClick={onSubmit}>生成</Button>
       </div>
       <div className={'canvas-wrapper'}>

@@ -22,7 +22,7 @@ const AboutPage: NextPage = () => {
       <Layout>
         <Wrapper>
           <span>本项目地址：</span>
-          <a href="https://github.com/lemonied/lemonied.github.io" rel={'noreferrer'}>https://github.com/lemonied/lemonied.github.io</a>
+          <a href="https://github.com/lemonied/lemonied.github.io" rel={'noreferrer'} target='_blank'>https://github.com/lemonied/lemonied.github.io</a>
         </Wrapper>
       </Layout>
     </>

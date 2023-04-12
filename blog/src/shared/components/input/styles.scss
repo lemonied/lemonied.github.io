@@ -5,6 +5,9 @@
 
 @include textfield.core-styles;
 
-.mdc-text-field--outlined{
+.inline-text-field-container{
+  display: inline-block;
+}
+.input-not-textarea{
   height: 40px;
 }

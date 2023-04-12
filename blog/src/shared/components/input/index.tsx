@@ -1,10 +1,12 @@
 import {
   ChangeEventHandler,
+  FocusEventHandler,
   forwardRef,
   useEffect,
-  useImperativeHandle,
   useRef,
   ReactNode,
+  RefObject,
+  useImperativeHandle,
 } from 'react';
 import { MDCTextField } from '@material/textfield';
 import { combineClass } from '@shared/utils';
@@ -19,12 +21,15 @@ interface InputProps {
   className?: string;
   value?: string | number;
   onChange?: ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>;
+  onFocus?: FocusEventHandler<HTMLInputElement | HTMLTextAreaElement>;
+  onBlur?: FocusEventHandler<HTMLInputElement | HTMLTextAreaElement>;
   disabled?: boolean;
   maxLength?: number;
   help?: ReactNode;
   placeholder?: string;
+  instance?: RefObject<InputInstance>;
 }
-const Input = forwardRef<InputInstance, InputProps>((props, ref) => {
+const Input = forwardRef<HTMLInputElement | HTMLTextAreaElement, InputProps>((props, ref) => {
 
   const {
     className,
@@ -35,10 +40,13 @@ const Input = forwardRef<InputInstance, InputProps>((props, ref) => {
     label,
     disabled,
     onChange,
+    onFocus,
+    onBlur,
     value,
     maxLength,
     help,
     placeholder,
+    instance,
   } = props;
 
   const domRef = useRef<HTMLLabelElement>(null);
@@ -49,8 +57,8 @@ const Input = forwardRef<InputInstance, InputProps>((props, ref) => {
     return () => textField.destroy();
   }, []);
 
-  useImperativeHandle(ref, () => {
-    return textFieldRef.current!;
+  useImperativeHandle(instance, () => {
+    return textFieldRef.current;
   });
 
   return (
@@ -58,6 +66,7 @@ const Input = forwardRef<InputInstance, InputProps>((props, ref) => {
       <label
         className={
           combineClass('mdc-text-field', {
+            'input-not-textarea': !textarea, 
             'mdc-text-field--filled': !outline,
             'mdc-text-field--outlined': outline,
             'mdc-text-field--no-label	': !label,
@@ -104,18 +113,24 @@ const Input = forwardRef<InputInstance, InputProps>((props, ref) => {
                 className={'mdc-text-field__input'}
                 disabled={disabled}
                 onChange={onChange}
+                onFocus={onFocus}
+                onBlur={onBlur}
                 value={value}
                 maxLength={maxLength}
                 placeholder={placeholder}
+                ref={ref as RefObject<HTMLTextAreaElement>}
               />
             </span> :
             <input
               className={'mdc-text-field__input'}
               disabled={disabled}
               onChange={onChange}
+              onFocus={onFocus}
+              onBlur={onBlur}
               value={value}
               maxLength={maxLength}
               placeholder={placeholder}
+              ref={ref as RefObject<HTMLInputElement>}
             />
         }
         {

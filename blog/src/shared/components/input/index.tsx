@@ -1,6 +1,7 @@
 import {
   ChangeEventHandler,
   FocusEventHandler,
+  MouseEvent,
   forwardRef,
   useEffect,
   useRef,
@@ -23,6 +24,7 @@ interface InputProps {
   onChange?: ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>;
   onFocus?: FocusEventHandler<HTMLInputElement | HTMLTextAreaElement>;
   onBlur?: FocusEventHandler<HTMLInputElement | HTMLTextAreaElement>;
+  onClick?: (e: MouseEvent) => any;
   disabled?: boolean;
   maxLength?: number;
   help?: ReactNode;
@@ -42,6 +44,7 @@ const Input = forwardRef<HTMLInputElement | HTMLTextAreaElement, InputProps>((pr
     onChange,
     onFocus,
     onBlur,
+    onClick,
     value,
     maxLength,
     help,
@@ -115,6 +118,7 @@ const Input = forwardRef<HTMLInputElement | HTMLTextAreaElement, InputProps>((pr
                 onChange={onChange}
                 onFocus={onFocus}
                 onBlur={onBlur}
+                onClick={onClick}
                 value={value}
                 maxLength={maxLength}
                 placeholder={placeholder}
@@ -127,6 +131,7 @@ const Input = forwardRef<HTMLInputElement | HTMLTextAreaElement, InputProps>((pr
               onChange={onChange}
               onFocus={onFocus}
               onBlur={onBlur}
+              onClick={onClick}
               value={value}
               maxLength={maxLength}
               placeholder={placeholder}

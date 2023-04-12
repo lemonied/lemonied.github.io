@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, useRef, useState } from 'react';
+import { ChangeEvent, FC, useCallback, useRef, useState, MouseEvent, useEffect } from 'react';
 import algoliasearch from 'algoliasearch';
 import { from, Subscription, tap, finalize } from 'rxjs';
 import styles from './search.module.scss';
@@ -60,7 +60,6 @@ export const Search: FC<SearchProps> = (props) => {
   const [hits, setHits] = useState<HitItem[] | null>(null);
   const [loading, setLoading] = useState(false);
   const [show, setShow] = useState(false);
-  const inputRef = useRef<HTMLInputElement>(null);
 
   const [onSubmit] = useDebounce((e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -84,19 +83,37 @@ export const Search: FC<SearchProps> = (props) => {
     }
   }, 800);
 
+  const prevent = useCallback((e: MouseEvent) => {
+    e.stopPropagation();
+  }, []);
+
+  const showDialog = useCallback((e: MouseEvent) => {
+    prevent(e);
+    setShow(true);
+  }, [prevent]);
+
+  useEffect(() => {
+    const hideDialog = () => {
+      setShow(false);
+    };
+    document.addEventListener('click', hideDialog);
+    return () => {
+      document.removeEventListener('click', hideDialog);
+    };
+  }, []);
+
   return (
     <label className={combineClass(styles['search-box'], className)}>
       <Input
         onChange={onSubmit}
         placeholder={'搜索...'}
-        onFocus={() => setShow(true)}
-        onBlur={() => setShow(false)}
-        ref={inputRef}
+        onClick={showDialog}
       />
       {
         (hits || loading) && show ?
           <ShadowCard
             className={styles.hits}
+            onClick={prevent}
           >
             {
               hits?.length ?

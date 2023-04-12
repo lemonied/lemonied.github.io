@@ -14,4 +14,9 @@ const algoliaConfig = {
   },
 };
 
-process.stdout.write(JSON.stringify(algoliaConfig));
+// 使用两次JSON.stringify是为了让特殊字符得到正确的转义
+process.stdout.write(
+  JSON.stringify(
+    JSON.stringify(algoliaConfig),
+  ),
+);

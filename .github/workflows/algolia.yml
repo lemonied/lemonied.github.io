@@ -22,11 +22,12 @@ jobs:
           fetch-depth: 1
       - name: Get docsearch config
         id: algolia_config
-        run: echo "::set-output name=config::$(node blog/algolia.config.js)"
+        run: echo "config=$(node blog/algolia.config.js)" >> $GITHUB_OUTPUT
       - name: Run algolia/docsearch-scraper image
         run: |
+          echo ${{ steps.algolia_config.outputs.config }} && \
           docker run \
           --env APPLICATION_ID=${{ vars.ALGOLIA_APP_KEY }} \
           --env API_KEY=${{ secrets.ALGOLIA_ADMIN_KEY }} \
-          --env CONFIG=${{ steps.algolia_config.config }} \
+          --env CONFIG=${{ steps.algolia_config.outputs.config }} \
           algolia/docsearch-scraper

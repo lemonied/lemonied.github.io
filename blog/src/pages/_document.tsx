@@ -10,7 +10,6 @@ import {
   externalStyles,
 } from '@shared/helpers/externals';
 import Script from 'next/script';
-import * as process from 'process';
 
 class MyDocument extends Document {
   static async getInitialProps(ctx: DocumentContext) {

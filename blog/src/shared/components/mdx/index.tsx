@@ -87,6 +87,7 @@ const MDXWrapper: FC<MDXWrapperProps> = (props) => {
       <SEO
         title={frontMatter.title || ''}
         description={frontMatter.description || frontMatter.title || ''}
+        tags={frontMatter.tag}
       />
       <Layout mainClassName={styles['article-main']}>
         <ArticleWrapper>
@@ -100,7 +101,7 @@ const MDXWrapper: FC<MDXWrapperProps> = (props) => {
                   return (
                     <Link key={tag} href={`/list/${tag}`} >
                       <Button>
-                        <span className='article-tag'>{ tag }</span>
+                        <span>{ tag }</span>
                       </Button>
                     </Link>
                   );

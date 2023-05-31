@@ -13,7 +13,7 @@
     "lint": "lerna run lint"
   },
   "engines": {
-    "node": "^16.8.0"
+    "node": ">= 16.8.0"
   },
   "workspaces": [
     "packages/*",

@@ -2,7 +2,7 @@ import { FC, useCallback, useEffect, useMemo, useState } from 'react';
 import { ShadowCard } from '@shared/components/card';
 import { Sudoku } from './core';
 import styled from 'styled-components';
-import { Button } from '@shared/components/button';
+import { Button } from 'antd';
 
 const Wrapper = styled(ShadowCard)`
   padding: 20px;

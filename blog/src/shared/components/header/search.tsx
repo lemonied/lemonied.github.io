@@ -2,7 +2,7 @@ import { ChangeEvent, FC, useCallback, useRef, useState, MouseEvent, useEffect }
 import algoliasearch from 'algoliasearch';
 import { from, Subscription, tap, finalize } from 'rxjs';
 import styles from './search.module.scss';
-import { Input } from '@shared/components/input';
+import { Input } from 'antd';
 import { ShadowCard } from '@shared/components/card';
 import { useDebounce, combineClass } from '@shared/utils';
 

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { ChangeEvent, FC, useCallback, useEffect, useRef, useState } from 'react';
 import { ImageReader } from '@shared/utils';
-import { Button } from '@shared/components/button';
+import { Button } from 'antd';
 import { ShadowCard } from '@shared/components/card';
 import { useRouter } from 'next/router';
 import { Copy } from '@shared/components/copy';

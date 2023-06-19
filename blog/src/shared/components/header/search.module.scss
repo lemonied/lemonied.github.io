@@ -1,11 +1,5 @@
 .search-box{
   position: relative;
-  input{
-    color: #999999 !important;
-    &::placeholder{
-      color: #999999 !important;
-    }
-  }
 }
 .hits{
   position: absolute;

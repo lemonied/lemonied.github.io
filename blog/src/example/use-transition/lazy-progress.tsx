@@ -1,5 +1,5 @@
 import { ComponentType, FC, lazy, LazyExoticComponent, Suspense, useCallback, useState, useTransition } from 'react';
-import { Button } from '@shared/components/button';
+import { Button } from 'antd';
 import { sleep, NProgress } from '@shared/utils';
 
 const AsyncLoad = <T extends ComponentType>(factory: () => Promise<{default: T}>) => {
@@ -46,9 +46,9 @@ const LazyProgress: FC = () => {
   return (
     <div>
       <div>
-        <Button onClick={() => navigate('/page-1')} type={pathname === '/page-1' ? 'primary' : 'outline'}>页面1</Button>
-        <Button onClick={() => navigate('/page-2')} type={pathname === '/page-2' ? 'primary' : 'outline'}>页面2</Button>
-        <Button onClick={() => navigate('/page-3')} type={pathname === '/page-3' ? 'primary' : 'outline'}>页面3</Button>
+        <Button onClick={() => navigate('/page-1')} type={pathname === '/page-1' ? 'primary' : 'text'}>页面1</Button>
+        <Button onClick={() => navigate('/page-2')} type={pathname === '/page-2' ? 'primary' : 'text'}>页面2</Button>
+        <Button onClick={() => navigate('/page-3')} type={pathname === '/page-3' ? 'primary' : 'text'}>页面3</Button>
       </div>
       <hr/>
       <Suspense fallback={<span>loading...</span>}>

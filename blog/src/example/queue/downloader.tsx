@@ -1,4 +1,4 @@
-import { Button } from '@shared/components/button';
+import { Button } from 'antd';
 import { combineClass, randomStr } from '@shared/utils';
 import { FC, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Subject, interval, tap, mergeMap, of, concat, takeWhile, Observable, scan } from 'rxjs';

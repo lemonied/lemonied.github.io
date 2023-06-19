@@ -1,5 +1,5 @@
 import { FC, memo, ReactNode, useRef, useState, useTransition } from 'react';
-import { Button } from '@shared/components/button';
+import { Button } from 'antd';
 
 interface SlowItemProps {
   children?: ReactNode;

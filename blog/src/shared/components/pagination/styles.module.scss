@@ -1,10 +1,6 @@
 .pagination{
   display: flex;
   align-items: center;
-  .btn{
-    min-width: 36px;
-    padding: 0 10px;
-  }
   .item{
     &:not(:first-child){
       margin-left: 8px;

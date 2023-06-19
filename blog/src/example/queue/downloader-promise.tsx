@@ -1,4 +1,4 @@
-import { Button } from '@shared/components/button';
+import { Button } from 'antd';
 import { combineClass, Queue, randomStr } from '@shared/utils';
 import { FC, useCallback, useState, useRef, useMemo } from 'react';
 import styles from './downloader.module.scss';

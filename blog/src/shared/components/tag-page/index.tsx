@@ -8,7 +8,7 @@ import { Grid } from '@shared/components/grid';
 import Link from 'next/link';
 import { Pagination } from '@shared/components/pagination';
 import styles from './styles.module.scss';
-import { Button } from '@shared/components/button';
+import { Button } from 'antd';
 import { Picture } from '@shared/components/picture';
 
 const Wrapper = styled(ShadowCard)`
@@ -64,7 +64,7 @@ export const TagPage: FC<TagPageProps> = (props) => {
                       v.articles.map(v => {
                         return (
                           <Link href={v.path} key={v.path}>
-                            <Button>{ v.frontMatter.title }</Button>
+                            <Button type={'link'}>{ v.frontMatter.title }</Button>
                           </Link>
                         );
                       })

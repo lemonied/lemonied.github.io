@@ -1,9 +1,8 @@
 import styled from 'styled-components';
 import { ShadowCard } from '@shared/components/card';
-import { FC, useCallback, useRef } from 'react';
-import { Input, InputInstance } from '@shared/components/input';
+import { FC, useCallback, useRef, useState } from 'react';
 import * as QRCode from 'qrcode';
-import { Button } from '@shared/components/button';
+import { Button, Input, Typography, Space } from 'antd';
 
 const Wrapper = styled(ShadowCard)`
   padding: 20px;
@@ -21,30 +20,32 @@ const Wrapper = styled(ShadowCard)`
 
 const QrcodeGenerator: FC = () => {
 
-  const inputRef = useRef<InputInstance>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [value, setValue] = useState('');
 
   const onSubmit = useCallback(() => {
-    const value = inputRef.current?.value;
     if (value) {
       QRCode.toCanvas(canvasRef.current!, value, {
         margin: 0,
         width: 300,
       });
     }
-  }, []);
+  }, [value]);
 
   return (
     <Wrapper>
       <div>
-        <Input
-          textarea
-          label={'文本内容'}
-          maxLength={100}
-          instance={inputRef}
-        />
-        <br/>
-        <Button onClick={onSubmit}>生成</Button>
+        <Space direction={'vertical'}>
+          <Typography.Text code>文本内容</Typography.Text>
+          <Input.TextArea
+            maxLength={100}
+            value={value}
+            onChange={e => setValue(e.target.value)}
+            rows={4}
+            style={{ width: 350 }}
+          />
+          <Button onClick={onSubmit}>生成</Button>
+        </Space>
       </div>
       <div className={'canvas-wrapper'}>
         <canvas ref={canvasRef} />

@@ -1,3 +1,4 @@
+import { combineClass } from '@shared/utils';
 import React, { cloneElement, forwardRef } from 'react';
 
 const icons = {

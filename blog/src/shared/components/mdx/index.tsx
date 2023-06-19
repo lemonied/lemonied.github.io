@@ -8,7 +8,7 @@ import Link from 'next/link';
 import { SEO } from '@shared/components/seo';
 import { moment8 } from '@shared/utils';
 import styles from './styles.module.scss';
-import { Button } from '@shared/components/button';
+import { Tag } from 'antd';
 
 const MarkdownBody = styled.div`
   --color-border-default: #C5CEDE;
@@ -100,9 +100,7 @@ const MDXWrapper: FC<MDXWrapperProps> = (props) => {
                 frontMatter.tag.map((tag) => {
                   return (
                     <Link key={tag} href={`/list/${tag}`} >
-                      <Button>
-                        <span>{ tag }</span>
-                      </Button>
+                      <Tag>{ tag }</Tag>
                     </Link>
                   );
                 })

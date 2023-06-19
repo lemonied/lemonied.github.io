@@ -1,8 +1,8 @@
 import { FC, ReactElement, ReactNode, useCallback, useMemo } from 'react';
 import styles from './styles.module.scss';
 import { combineClass } from '@shared/utils';
-import { Icon } from '@shared/components/icons';
-import { Button } from '@shared/components/button';
+import { Button } from 'antd';
+import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 
 interface PaginationProps {
   className?: string;
@@ -38,10 +38,10 @@ const Pagination: FC<PaginationProps> = (props) => {
       <Button
         className={styles['btn']}
         disabled={page === 1}
-        type={'outline'}
+        type={'text'}
         onClick={() => handleChange(n, size)}
       >
-        <Icon type={'left'} />
+        <LeftOutlined />
       </Button>
     );
     return wrapper ? wrapper(child, n) : child;
@@ -51,12 +51,11 @@ const Pagination: FC<PaginationProps> = (props) => {
     const n = Math.min(pages.length, page + 1);
     const child = (
       <Button
-        className={styles['btn']}
         disabled={page === pages.length}
         onClick={() => handleChange(n, size)}
-        type={'outline'}
+        type={'text'}
       >
-        <Icon type={'right'} />
+        <RightOutlined />
       </Button>
     );
     return wrapper ? wrapper(child, n) : child;
@@ -77,7 +76,7 @@ const Pagination: FC<PaginationProps> = (props) => {
             <Button
               className={styles['btn']}
               onClick={() => handleChange(v, size)}
-              type={v !== page ? 'outline' : 'primary'}
+              type={v !== page ? 'text' : 'primary'}
             >{ v }</Button>
           );
           return (

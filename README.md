@@ -23,12 +23,12 @@ npx lerna run dev --scope=@lemonied/mtime
 ## Dependencies
 ```bash
 # Add
-yarn workspace blog add typescript -D
+yarn workspace lemonied.github.io add typescript -D
 # or
 npx lerna add typescript --scope=blog --dev
 
 # Remove
-yarn workspace blog remove typescript
+yarn workspace lemonied.github.io remove typescript
 
 # Check for package updates
 npm install npm-check-updates -g # install for global

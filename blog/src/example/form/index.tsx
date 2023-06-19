@@ -2,7 +2,7 @@ import { FC, useCallback, useRef } from 'react';
 import { Form, FormInstance } from '@shared/components/form';
 import { sleep } from '@shared/utils';
 import { map, timer } from 'rxjs';
-import { Button } from '@shared/components/button';
+import { Button } from 'antd';
 
 const { Item } = Form;
 

@@ -20,23 +20,27 @@ const nextConfig = {
     styledComponents: true,
   },
   pageExtensions: ['tsx', 'mdx'],
+  /**
+   * @param {import('webpack').Configuration} config
+   */
   webpack: (
     config,
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     { buildId, dev, isServer, defaultLoaders, nextRuntime, webpack },
   ) => {
-    if (!isServer) {
-      config.externals = {
-        'react': 'React',
-        'react-dom': 'ReactDOM',
-        'react-transition-group': 'ReactTransitionGroup',
-        'moment': 'moment',
-        'nprogress': 'NProgress',
-        'immutable': 'Immutable',
-        'rxjs': 'rxjs',
-        'algoliasearch': 'algoliasearch',
-      };
+    if (isServer) {
+      return config;
     }
+    config.externals = {
+      'react': 'React',
+      'react-dom': 'ReactDOM',
+      'react-transition-group': 'ReactTransitionGroup',
+      'moment': 'moment',
+      'nprogress': 'NProgress',
+      'immutable': 'Immutable',
+      'rxjs': 'rxjs',
+      'algoliasearch': 'algoliasearch',
+    };
     return config;
   },
   images: {

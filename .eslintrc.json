@@ -34,6 +34,7 @@
       "afterColon": true
     }],
     "comma-spacing": ["error", { "before": false, "after": true }],
-    "no-debugger": "warn"
+    "no-debugger": "warn",
+    "@typescript-eslint/ban-ts-comment": "off"
   }
 }

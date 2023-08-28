@@ -11,3 +11,4 @@ export * from './image';
 export * from './nprogress';
 export * from './queue';
 export * from './sort';
+export * from './alter';

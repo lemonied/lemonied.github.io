@@ -8,6 +8,7 @@ export function alter<T extends object>(state: T, transform?: (draft: T) => void
   const child2parent = new Map<any, any[]>(); // child->[prop, parent] 子->父的Map集合
   const clone = new Map(); // 原值 -> 克隆值的Map集合
   const cloned = new Set(); // 已克隆元素的集合
+  // eslint-disable-next-line prefer-const
   let handler: ProxyHandler<any>;
   function getTarget<C>(original: C): C {
     return clone.get(original) ?? original;

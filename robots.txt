@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://lemonied.github.io
+
+# Sitemaps
+Sitemap: https://lemonied.github.io/sitemap.xml

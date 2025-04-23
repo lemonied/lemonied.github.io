@@ -59,7 +59,7 @@ const DownloaderPromise: FC = () => {
       newFile.status = percent >= 1 ? 'done' : 'pending';
       setFiles(prev => [...prev]);
     });
-    downloadTrigger.current.addTask(promised);
+    downloadTrigger.current.enqueue(promised);
   }, [files.length]);
 
   return (

@@ -3,7 +3,7 @@
 
 const algoliaConfig = {
   index_name: process.env.ALGOLIA_INDEX_KEY ?? 'blog',
-  start_urls: [process.env.SITE_URL ?? 'https://www.lemonied.cn'],
+  start_urls: [process.env.SITE_URL ?? 'https://lemonied.github.io'],
   selectors: {
     lvl0: {
       selector: '.article-title',

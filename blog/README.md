@@ -5,7 +5,7 @@
 ### Example
 file `.env.local` for development
 ```bash
-SITE_URL=https://www.lemonied.cn
+SITE_URL=https://lemonied.github.io
 BASE_PATH=/
 ALGOLIA_APP_KEY=SRJNT7RL7L
 ALGOLIA_SEARCH_API_KEY=dec5aa2f20e5786f271cfa2f8dc1ffe9

@@ -9,7 +9,7 @@ env:
 
 jobs:
   algolia:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     environment: github-pages
     strategy:
       matrix:

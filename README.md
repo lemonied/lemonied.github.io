@@ -57,5 +57,5 @@ And then, all static files of blog will be generated to `blog/out` directory
 4. 接上一步点击`github-pages` -> `Environment variables` -> `Add variable`，依次添加环境变量：
    1. Name:`CODE_GITHUB_REPOSITORY`，Value:`例 lemonied/lemonied.github.io.git`，说明：编译完成后的静态文件需要推送的仓库（github仓库）
    2. Name:`CODE_GITHUB_BRANCH`，Value:`例 blog`，说明：编译完成后的静态文件需要推送的分支
-   3. Name:`SITE_URL`，Value:`例 https://www.lemonied.cn`，说明：网站的url
+   3. Name:`SITE_URL`，Value:`例 https://lemonied.github.io`，说明：网站的url
    4. Name:`USER_EMAIL`，Value:`例 chenjiyuan.super@gmail.com`，说明：邮箱，用于推送时的git配置

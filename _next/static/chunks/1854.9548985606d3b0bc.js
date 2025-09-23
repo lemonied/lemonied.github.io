@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunk_N_E=self.webpackChunk_N_E||[]).push([[1854],{1854:function(u,e,n){n.r(e),n.d(e,{Router2:function(){return t}});var r=n(4246),t=function(){return(0,r.jsx)("div",{children:"这是Router 2"})};e.default=t}}]);

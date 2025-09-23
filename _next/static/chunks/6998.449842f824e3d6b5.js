@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunk_N_E=self.webpackChunk_N_E||[]).push([[6998],{6998:function(n,e,s){s.r(e);var u=s(4246);e.default=function(){return(0,u.jsx)("div",{children:"This is a lazy component"})}}}]);

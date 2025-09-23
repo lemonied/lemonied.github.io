@@ -29,6 +29,28 @@ export class Queue<T=any>{
     }
   }
 
+  public async run(tasks: Task<T>[]) {
+    const data = tasks.map((task) => {
+      let resolved: (result: T) => void;
+      const promise = new Promise<T>((resolve) => {
+        resolved = resolve;
+      });
+      return {
+        task: async () => {
+          const ret = await task();
+          resolved(ret);
+          return ret;
+        },
+        promise,
+      };
+    });
+    this.tasks.push(
+      ...data.map((v) => v.task),
+    );
+    this.runNext();
+    return await Promise.all(data.map((v) => v.promise));
+  }
+
   public setConcurrent(concurrent: number) {
     this.concurrent = concurrent;
     this.runNext();
